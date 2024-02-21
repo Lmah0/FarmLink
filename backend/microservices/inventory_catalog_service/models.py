@@ -29,3 +29,13 @@ class Item(db.Model):
         self.description = description
         self.item_type = ItemType(item_type)
         self.user_id = user_id
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'price': self.price,
+            'description': self.description,
+            'item_type': self.item_type.__str__(),
+            'user_id': self.user_id
+        }
