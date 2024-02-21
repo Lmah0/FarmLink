@@ -34,5 +34,4 @@ class User(db.Model):
         self.password = password
         self.role = role
         self.farmer_pid = None
-        self.creditCardNumber = None
         self.profile_bio = profileBio
