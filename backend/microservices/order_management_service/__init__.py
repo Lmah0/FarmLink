@@ -18,6 +18,8 @@ def create_app():
         load_dotenv()
         app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace('postgres:', 'postgresql:')
 
+    db.init_app(app)
+
     from . import models
 
     @app.route('/db_create', methods=['GET'])
