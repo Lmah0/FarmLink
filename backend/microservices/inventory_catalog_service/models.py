@@ -44,8 +44,7 @@ class Posting(db.Model):
     __tablename__ = 'posting'
     id = db.Column(db.Integer, primary_key=True)
     posting_item = db.relationship('Item', uselist=False, lazy=True)
-    posting_status = db.Column(db.String(15), default='Processing')
-    in_stock = db.Column(db.Integer, nullable=False, default=0)
+    quantity = db.Column(db.Integer, nullable=False, default=0)
     user_id = db.Column(db.Integer, nullable=False)
 
     def __init__(self, user_id):
@@ -55,7 +54,6 @@ class Posting(db.Model):
         return {
             'id': self.id,
             'posting_item': self.posting_item.serialize(),
-            'posting_status': self.posting_status,
-            'in_stock': self.in_stock,
-            'user_id': self.user_id
+            'quantity': self.quantity,
+            'user_id': self.user_id,
         }
