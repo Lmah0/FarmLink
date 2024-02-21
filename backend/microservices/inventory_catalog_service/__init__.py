@@ -49,4 +49,11 @@ def create_app():
             db.session.commit()
             return 'Posting created!'
 
+    @app.route('/db_query/items_by_name/<item_name>', methods=['GET'])
+    def db_query(item_name):
+        items = models.Item.query.filter_by(name=item_name).all()
+        if len(items) == 0:
+            return 'Item not found!'
+        return jsonify([item.serialize() for item in items])
+
     return app
