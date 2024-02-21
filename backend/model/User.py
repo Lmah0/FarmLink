@@ -9,5 +9,4 @@ class User:
         self.__farmerPid = None
         self.__postings = []
         self.__orders = []
-        self.__creditCardNumber = None
         self.__profileBio = profileBio

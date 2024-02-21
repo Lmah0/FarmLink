@@ -46,6 +46,7 @@ class Posting(db.Model):
     posting_item = db.relationship('Item', uselist=False, lazy=True)
     quantity = db.Column(db.Integer, nullable=False, default=0)
     user_id = db.Column(db.Integer, nullable=False)
+    posting_author = db.Column(db.String(100), nullable=False)
 
     def __init__(self, user_id):
         self.user_id = user_id
@@ -56,4 +57,5 @@ class Posting(db.Model):
             'posting_item': self.posting_item.serialize(),
             'quantity': self.quantity,
             'user_id': self.user_id,
+            'posting_author': self.posting_author
         }
