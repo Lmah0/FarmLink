@@ -7,33 +7,31 @@ import os
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
 
-load_dotenv()
-
-ENVIRONMENT = 'production'
-
-app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
-
-if ENVIRONMENT == 'development':
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost/MegaMagaMagi'
-else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace('postgres:', 'postgresql:')
-
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-db = SQLAlchemy(app)
-
-app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
-
-app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
+ENVIRONMENT = 'development'
+db = SQLAlchemy()
 
 
-@app.route('/')
-def hello_world():
-    return 'Hello, World! This is the User Management Service.'
+def create_app():
+    app = Flask(__name__)
+    CORS(app, resources={r"/*": {"origins": "*"}})
+    app.config.from_pyfile('config.py', silent=True)
+    if ENVIRONMENT == 'production':
+        load_dotenv()
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace('postgres:', 'postgresql:')
 
+    db.init_app(app)
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5004)
+    from . import models
+
+    @app.route('/db_create', methods=['GET'])
+    def db_create():
+        with app.app_context():
+            db.create_all()
+
+        return 'Tables Created!'
+
+    @app.route('/')
+    def hello_world():
+        return 'Hello, World! This is the User Management Service.'
+
+    return app
