@@ -31,7 +31,7 @@ def create_app():
         with app.app_context():
             db.create_all()
 
-        return 'Database Created!'
+        return 'Tables Created!'
 
     @app.route('/db_example', methods=['POST', 'GET'])
     def db_example():
@@ -44,16 +44,28 @@ def create_app():
             poster = request.form['poster']
             item_type = int(request.form['item_type'])
 
-            item = models.Item(name=name, price=price, description=description, item_type=item_type, user_id=poster)
+            posting = models.Posting(user_id=poster)
+            db.session.add(posting)
+            # Have to commit posting to assign it an id
+            db.session.commit()
+            item = models.Item(
+                name=name, price=price, description=description, item_type=item_type, posting_id=posting.id)
             db.session.add(item)
             db.session.commit()
             return 'Posting created!'
 
     @app.route('/db_query/items_by_name/<item_name>', methods=['GET'])
-    def db_query(item_name):
+    def db_query_item_by_name(item_name):
         items = models.Item.query.filter_by(name=item_name).all()
         if len(items) == 0:
             return 'Item not found!'
         return jsonify([item.serialize() for item in items])
+
+    @app.route('/db_query/posting_by_id/<id>', methods=['GET'])
+    def db_query_posting_by_id(id):
+        posting = models.Posting.query.filter_by(id=id).first()
+        if posting is None:
+            return 'Posting not found!'
+        return jsonify([posting.serialize()])
 
     return app
