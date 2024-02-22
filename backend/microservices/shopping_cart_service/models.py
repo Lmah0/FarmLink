@@ -1,12 +1,13 @@
 from . import db
 
+
 class ShoppingCart(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user = db.relationship('User', backref='shopping_cart', lazy=True)
-    items = db.relationship('Item', lazy=True)
+    __tablename__ = 'shopping_cart'
+    user_id = db.Column(db.Integer, primary_key=True)
+    item_id = db.Column(db.Integer, primary_key=True)
+    quantity = db.Column(db.Integer, nullable=False, default=1)
 
-
-order_items = db.Table('order_items',
-                       db.Column('order_id', db.Integer, db.ForeignKey('order.id')),
-                       db.Column('item_id', db.Integer)
-                       )
+    def __init__(self, user_id, item_id, quantity):
+        self.user_id = user_id
+        self.item_id = item_id
+        self.quantity = quantity
