@@ -12,7 +12,7 @@ from sqlalchemy import text
 ENVIRONMENT = 'development'
 db = SQLAlchemy()
 
-
+# To run: 'flask --app checkout_service run --debug' in console
 def create_app():
     app = Flask(__name__)
     CORS(app, resources={r"/*": {"origins": "*"}})
