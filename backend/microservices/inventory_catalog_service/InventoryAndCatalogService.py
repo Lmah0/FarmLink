@@ -17,8 +17,9 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
         userId = data['userId']
         quantity = data['quantity']
         postingAuthor = data['postingAuthor']
+        description = data['description']
 
-        newPosting = models.Posting(userId, postingAuthor, quantity)
+        newPosting = models.Posting(userId, postingAuthor, quantity, description)
         
         models.db.session.add(newPosting)
         models.db.session.commit()
@@ -40,7 +41,14 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
 
         return jsonify({'message': 'New posting created!'}), 200
 
+    def getPostings(self):
+        postings = models.Posting.query.all()
+        print(postings)
+        
+        return jsonify([posting.serialize() for posting in postings]), 200
+    
 inventoryAndCatalogService = InventoryAndCatalogService()
 
 main.route('/', methods=['GET'])(inventoryAndCatalogService.testing)
 main.route('/addPosting', methods=['POST'])(inventoryAndCatalogService.addPosting)
+main.route('/getPostings', methods=['GET'])(inventoryAndCatalogService.getPostings)
