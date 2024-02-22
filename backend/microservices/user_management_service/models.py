@@ -1,9 +1,6 @@
 from enum import Enum
-
 import sqlalchemy
-
-from __init__ import db
-from __init__ import app
+from . import db
 
 
 class Role(Enum):
@@ -15,7 +12,7 @@ class Role(Enum):
 
 
 class User(db.Model):
-    __tablename__ = "user"
+    __tablename__ = "maga_user"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
     phone_number = db.Column(db.String(12))
@@ -23,8 +20,6 @@ class User(db.Model):
     password = db.Column(db.String(100))
     role = db.Column(sqlalchemy.types.Enum(Role))
     farmer_pid = db.Column(db.String(20))
-    postings = db.relationship('Posting', backref='user', lazy=True)
-    orders = db.relationship('Order', backref='user', lazy=True)
     profile_bio = db.Column(db.Text)
 
     def __init__(self, name, phoneNumber, emailAddress, password, role, profileBio):
