@@ -5,6 +5,7 @@ import json
 import os
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import text
 
 ENVIRONMENT = 'development'
 db = SQLAlchemy()
@@ -26,12 +27,16 @@ def create_app():
 
     from . import models
 
-    @app.route('/db_create', methods=['GET'])
+    # TODO: Remove method before deploying
+    @app.route('/db_reset', methods=['GET'])
     def db_create():
+        db.session.execute(text("DROP TABLE IF EXISTS posting CASCADE;"))
+        db.session.execute(text("DROP TABLE IF EXISTS item CASCADE;"))
+        db.session.commit()
         with app.app_context():
             db.create_all()
 
-        return 'Tables Created!'
+        return 'Tables Reset!'
 
     @app.route('/db_example', methods=['POST', 'GET'])
     def db_example():
@@ -42,9 +47,10 @@ def create_app():
             price = request.form['price']
             description = request.form['description']
             poster = request.form['poster']
+            poster_id = request.form['poster_id']
             item_type = int(request.form['item_type'])
 
-            posting = models.Posting(user_id=poster)
+            posting = models.Posting(user_id=poster_id, posting_author=poster)
             db.session.add(posting)
             # Have to commit posting to assign it an id
             db.session.commit()
