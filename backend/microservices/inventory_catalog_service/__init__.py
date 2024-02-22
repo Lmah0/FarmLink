@@ -21,11 +21,10 @@ def create_app():
 
     db.init_app(app)
 
-    @app.route('/')
-    def hello_world():
-        return 'Hello, World! This is the Inventory and Catalog Service.'
-
     from . import models
+    from . import InventoryAndCatalogService
+
+    app.register_blueprint(InventoryAndCatalogService.main)
 
     # TODO: Remove method before deploying
     @app.route('/db_reset', methods=['GET'])
