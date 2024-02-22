@@ -5,3 +5,7 @@ class IInventoryAndCatalogService(ABC):
     def testing(self):
         pass
 
+    @abstractmethod
+    def addPosting(self):
+        pass
+
