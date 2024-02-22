@@ -36,8 +36,4 @@ def create_app():
 
         return 'Tables Reset!'
 
-    @app.route('/')
-    def hello_world():
-        return 'Hello, World! This is the Order Management Service.'
-
     return app
