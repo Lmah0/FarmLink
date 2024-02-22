@@ -24,6 +24,9 @@ def create_app():
     db.init_app(app)
 
     from . import models
+    from . import CheckoutService
+
+    app.register_blueprint(CheckoutService.main)
 
     # TODO: Remove method before deploying
     @app.route('/db_reset', methods=['GET'])

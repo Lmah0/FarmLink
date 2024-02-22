@@ -7,7 +7,6 @@ from . import IInventoryAndCatalogService
 
 main = Blueprint('main', __name__)
 
-
 class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalogService):
     def testing(self):
         return 'Hello, World! This is the Inventory and Catalog Service.'
@@ -15,4 +14,3 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
 inventoryAndCatalogService = InventoryAndCatalogService()
 
 main.route('/', methods=['GET'])(inventoryAndCatalogService.testing)
-

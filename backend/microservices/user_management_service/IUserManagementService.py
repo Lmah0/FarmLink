@@ -1,1 +1,7 @@
-# File for the user_management_service interface
+from abc import ABC, abstractmethod
+
+class IUserManagementService(ABC):
+    @abstractmethod
+    def testing(self):
+        pass
+

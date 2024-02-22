@@ -22,6 +22,9 @@ def create_app():
     db.init_app(app)
 
     from . import models
+    from . import UserManagementService
+
+    app.register_blueprint(UserManagementService.main)
 
     # TODO: Remove method before deploying
     @app.route('/db_reset', methods=['GET'])
@@ -32,9 +35,5 @@ def create_app():
             db.create_all()
 
         return 'Tables Reset!'
-
-    @app.route('/')
-    def hello_world():
-        return 'Hello, World! This is the User Management Service.'
 
     return app

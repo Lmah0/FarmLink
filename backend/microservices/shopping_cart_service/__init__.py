@@ -22,6 +22,9 @@ def create_app():
     db.init_app(app)
 
     from . import models
+    from . import ShoppingCartService
+
+    app.register_blueprint(ShoppingCartService.main)
 
     # TODO: Remove method before deploying
     @app.route('/db_reset', methods=['GET'])
