@@ -3,7 +3,7 @@ from flask_cors import CORS
 import requests
 import json
 from flask import Blueprint
-from . import IShoppingCartService
+from . import IShoppingCartService, models
 
 main = Blueprint('main', __name__)
 
@@ -12,16 +12,49 @@ class ShoppingCartService(IShoppingCartService.IShoppingCartService):
         return 'Hello, World! This is the Shopping Cart Service.'
     
     def addToCart(self):
-        pass
+        data = request.json
+        userID = data['userId']  
+        items = data['items']     # Access the list of items
+        for item in items:
+            itemID = item['itemId']   # Access 'item_id' for each item
+            quantity = item['quantity'] # Access 'quantity' for each item
+            
+            # Process each item (e.g., add it to the cart)
+            newShoppingCartItem = models.ShoppingCart(userID, itemID, quantity)
+            models.db.session.add(newShoppingCartItem)
+            models.db.session.commit()
+
+        return jsonify({'message': 'Items added to cart successfully.'})
+
 
     def removeFromCart(self):
-        pass
+        data = request.json
+        userID = data['userId']  
+        items = data['items']     # Access the list of items
+        for item in items:
+            itemID = item['itemId']   # Access 'item_id' for each item
+            quantity = item['quantity'] # Access 'quantity' for each item
+            
+            # Process each item (e.g., remove it from the cart)
+            newShoppingCartItem = models.ShoppingCart(userID, itemID, quantity)
+            models.db.session.remove(newShoppingCartItem)
+            models.db.session.commit()
+
+        return jsonify({'message': 'Items removed from cart successfully.'})
 
     def returnCart(self):
-        pass
+        data = request.json
+        userID = data['userId']  
+        items = models.Posting.query.filter_by(user_id=userID).all() # Access the list of items under the User ID
+        print(items)
+
+        return jsonify([items.serialize() for item in items]), 200        
 
     def flushCart(self):
-        pass
+        data = request.json
+        userID = data['userId']
+        models.ShoppingCart.query.filter_by(user_id=userID).delete() # delete all items in cart for a user
+        return jsonify({'message': 'Cart flushed successfully.'})
 
 shoppingCartService = ShoppingCartService()
 
