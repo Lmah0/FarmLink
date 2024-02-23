@@ -5,3 +5,6 @@ class ICheckoutService(ABC):
     def testing(self):
         pass
 
+    @abstractmethod
+    def addOrder(self):
+        pass
