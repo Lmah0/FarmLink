@@ -32,27 +32,44 @@ class ShoppingCartService(IShoppingCartService.IShoppingCartService):
         userID = data['userId']  
         itemID = data['itemId']  
         quantity = data['quantity']
+            
+        # Retrieve the shopping cart item to delete
+        shoppingCartItem = models.ShoppingCart.query.filter_by(user_id=userID, item_id=itemID, quantity=quantity).first()
         
-        # Process each item (e.g., remove it from the cart)
-        newShoppingCartItem = models.ShoppingCart(userID, itemID, quantity)
-        models.db.session.delete(newShoppingCartItem)
-        models.db.session.commit()
+        if shoppingCartItem is None: # Check if item is in cart
+            return jsonify({'message': 'Item not found in cart.'}), 404
+        else:
+            # Process item (e.g., remove it from the cart)
+            models.db.session.delete(shoppingCartItem)
+            models.db.session.commit()
 
-        return jsonify({'message': 'Items removed from cart successfully.'})
+            return jsonify({'message': 'Items removed from cart successfully.'})
 
     def returnCart(self):
         data = request.json
         userID = data['userId']  
-        items = models.Posting.query.filter_by(user_id=userID).all() # Access the list of items under the User ID
-        print(items)
+        items = models.ShoppingCart.query.filter_by(user_id=userID).all() # Access the list of items under the User ID
+        print(f"The Items are {items}")
 
-        return jsonify([items.serialize() for item in items]), 200        
+        return jsonify([item.serialize() for item in items]), 200        
 
     def flushCart(self):
         data = request.json
         userID = data['userId']
-        models.ShoppingCart.query.filter_by(user_id=userID).delete() # delete all items in cart for a user
-        return jsonify({'message': 'Cart flushed successfully.'})
+
+        shoppingCartItems = models.ShoppingCart.query.filter_by(user_id=userID).all() # Retrieve all items for the specified user ID
+        
+        if not shoppingCartItems:  # Check if there are no items for the specified user ID
+            return jsonify({'message': 'No items found in cart for the specified user ID.'}), 404
+    
+        # Process each item (e.g., remove it from the cart)
+        for item in shoppingCartItems:
+            models.db.session.delete(item)
+    
+        # Commit the changes to the database
+        models.db.session.commit()
+
+        return jsonify({'message': 'All items removed from cart successfully.'}), 200
 
 shoppingCartService = ShoppingCartService()
 
