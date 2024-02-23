@@ -13,7 +13,19 @@ class UserManagementService(IUserManagementService.IUserManagementService):
         return 'Hello, World! This is the User Management Service.'
     
     def register(self):
-        pass
+        data = request.json
+        userId = data["id"]
+        name = data['name']
+        phoneNumber =  data['phone_number']
+        emailAddress = data['email_address']
+        password = data['password']
+        role = data['role']
+        farmerPid = data['farmer_pid']
+        profileBio = data['profile_bio']
+
+
+        
+        return jsonify({'message': 'New user created!'}), 200
 
     def login(self):
         pass
