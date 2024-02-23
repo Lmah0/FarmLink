@@ -18,14 +18,12 @@ class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Float, nullable=False)
-    description = db.Column(db.String(100), nullable=True)
     item_type = db.Column(sqlalchemy.types.Enum(ItemType), nullable=True)
     posting_id = db.Column(db.Integer, db.ForeignKey('posting.id'), nullable=False)
 
-    def __init__(self, name, price, description, item_type, posting_id):
+    def __init__(self, name, price, item_type, posting_id):
         self.name = name
         self.price = price
-        self.description = description
         self.item_type = ItemType(item_type)
         self.posting_id = posting_id
 
@@ -34,7 +32,6 @@ class Item(db.Model):
             'id': self.id,
             'name': self.name,
             'price': self.price,
-            'description': self.description,
             'item_type': self.item_type.__str__(),
             'posting_id': self.posting_id
         }
@@ -47,11 +44,13 @@ class Posting(db.Model):
     quantity = db.Column(db.Integer, nullable=False, default=0)
     user_id = db.Column(db.Integer, nullable=False)
     posting_author = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.String(100), nullable=True)
 
-    def __init__(self, user_id, posting_author, quantity=0):
+    def __init__(self, user_id, posting_author, quantity, description=None, item_type=None, name=None, price=None, posting_id=None):
         self.user_id = user_id
         self.posting_author = posting_author
         self.quantity = quantity
+        self.description = description
 
     def serialize(self):
         return {

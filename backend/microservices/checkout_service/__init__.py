@@ -13,6 +13,8 @@ ENVIRONMENT = 'development'
 db = SQLAlchemy()
 
 # To run: 'flask --app checkout_service run --debug' in console
+# To run on a specific port: 'flask --app checkout_service run --debug --port <SomePortNumberYouChoose>' in console
+
 def create_app():
     app = Flask(__name__)
     CORS(app, resources={r"/*": {"origins": "*"}})
@@ -24,6 +26,9 @@ def create_app():
     db.init_app(app)
 
     from . import models
+    from . import CheckoutService
+
+    app.register_blueprint(CheckoutService.main)
 
     # TODO: Remove method before deploying
     @app.route('/db_reset', methods=['GET'])
@@ -35,8 +40,7 @@ def create_app():
 
         return 'Tables Reset!'
 
-    @app.route('/')
-    def hello_world():
-        return 'Hello, World! This is the Payment Service.'
-
     return app
+
+
+

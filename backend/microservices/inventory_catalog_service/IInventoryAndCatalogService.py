@@ -1,15 +1,14 @@
 from abc import ABC, abstractmethod
 
-class IUserManagementService(ABC):
+class IInventoryAndCatalogService(ABC):
     @abstractmethod
     def testing(self):
         pass
 
     @abstractmethod
-    def register(self):
+    def addPosting(self):
         pass
 
     @abstractmethod
-    def login(self):
+    def getPostings(self):
         pass
-
