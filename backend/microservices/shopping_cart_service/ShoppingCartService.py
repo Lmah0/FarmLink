@@ -14,15 +14,15 @@ class ShoppingCartService(IShoppingCartService.IShoppingCartService):
     def addToCart(self):
         data = request.json
         userID = data['userId']  
-        items = data['items']     # Access the list of items
-        for item in items:
-            itemID = item['itemId']   # Access 'item_id' for each item
-            quantity = item['quantity'] # Access 'quantity' for each item
+        itemID = data['itemId']   
+        quantity = data['quantity'] 
+
+        # Check item is in stock (e.g., if quantity is available)
             
-            # Process each item (e.g., add it to the cart)
-            newShoppingCartItem = models.ShoppingCart(userID, itemID, quantity)
-            models.db.session.add(newShoppingCartItem)
-            models.db.session.commit()
+        # Process item (e.g., add it to the cart)
+        newShoppingCartItem = models.ShoppingCart(userID, itemID, quantity)
+        models.db.session.add(newShoppingCartItem)
+        models.db.session.commit()
 
         return jsonify({'message': 'Items added to cart successfully.'})
 
@@ -30,15 +30,13 @@ class ShoppingCartService(IShoppingCartService.IShoppingCartService):
     def removeFromCart(self):
         data = request.json
         userID = data['userId']  
-        items = data['items']     # Access the list of items
-        for item in items:
-            itemID = item['itemId']   # Access 'item_id' for each item
-            quantity = item['quantity'] # Access 'quantity' for each item
-            
-            # Process each item (e.g., remove it from the cart)
-            newShoppingCartItem = models.ShoppingCart(userID, itemID, quantity)
-            models.db.session.remove(newShoppingCartItem)
-            models.db.session.commit()
+        itemID = data['itemId']  
+        quantity = data['quantity']
+        
+        # Process each item (e.g., remove it from the cart)
+        newShoppingCartItem = models.ShoppingCart(userID, itemID, quantity)
+        models.db.session.delete(newShoppingCartItem)
+        models.db.session.commit()
 
         return jsonify({'message': 'Items removed from cart successfully.'})
 
