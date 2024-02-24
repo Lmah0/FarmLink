@@ -22,11 +22,11 @@ class User(db.Model):
     farmer_pid = db.Column(db.String(20))
     profile_bio = db.Column(db.Text)
 
-    def __init__(self, name, phoneNumber, emailAddress, password, role, profileBio):
+    def __init__(self, name, phoneNumber, emailAddress, password, role, profileBio, farmer_pid=None):
         self.name = name
         self.phone_number = phoneNumber
         self.email_address = emailAddress
         self.password = password
         self.role = role
-        self.farmer_pid = None
+        self.farmer_pid = farmer_pid
         self.profile_bio = profileBio
