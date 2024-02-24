@@ -2,8 +2,6 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import requests
 import json
-from backend.microservices.inventory_catalog_service.InventoryAndCatalogService import getPosting
-from backend.microservices.shopping_cart_service.ShoppingCartService import addToCart 
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -25,22 +23,18 @@ def checkStock():
     quantity = data['quantity'] 
     postingID = data['postingId']
     
-    # Check item is in stock (e.g., if quantity is available)
-    retrievedPosting = getPosting(postingID)
+    data = {"postingId": postingID}
+    response = requests.get("http://127.0.0.1:5001/getPosting", json=data)   
+    retrievedPosting = response.json() 
     print(f'The retrieved posting is {retrievedPosting}')
 
-
-
-    # if retrievedPosting is None:
-    #     return jsonify({'message': 'Posting not found.'}), 404
-    # else:
-    #     if retrievedPosting['quantity'] < quantity:
-    #         return jsonify({'message': 'Not enough stock available.'}), 404
-    #     else:
-    #         # Process item (e.g., add it to the cart)
-    #         addToCart(userID, itemID, quantity)
-
-    
+    if retrievedPosting['quantity'] < quantity:     # Check item is in stock (e.g., if quantity is available)
+        return jsonify({'message': 'Not enough stock available.'}), 404
+    else:
+        # Process item (e.g., add it to the cart)
+        data = {"userId": userID, "itemId": itemID, "quantity": quantity}
+        requests.post("http://127.0.0.1:5002/addToCart", json=data)   
+        return jsonify({'message': 'Sufficient stock'}), 200
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
