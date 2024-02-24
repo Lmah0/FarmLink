@@ -16,9 +16,7 @@ class ShoppingCartService(IShoppingCartService.IShoppingCartService):
         userID = data['userId']  
         itemID = data['itemId']   
         quantity = data['quantity'] 
-
-        # Check item is in stock (e.g., if quantity is available)
-            
+                    
         # Process item (e.g., add it to the cart)
         newShoppingCartItem = models.ShoppingCart(userID, itemID, quantity)
         models.db.session.add(newShoppingCartItem)
