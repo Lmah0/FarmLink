@@ -43,7 +43,7 @@ class UserManagementService(IUserManagementService.IUserManagementService):
         if user is None:
             return jsonify({'message': 'Invalid email address or password.'}), 401
         else:
-            return jsonify({'message': 'Succesful Login!'}), 200
+            return jsonify({'message': 'Successful Login! The user\'s ID is ' + str(user.id)}, {'userId': user.id}), 200
 
 userManagementService = UserManagementService()
 main.route('/', methods=['GET'])(userManagementService.testing)
