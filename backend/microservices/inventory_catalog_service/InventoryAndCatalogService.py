@@ -47,8 +47,17 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
         
         return jsonify([posting.serialize() for posting in postings]), 200
     
+    def getPosting(self):
+        data = request.json
+        postingId = data['postingId']
+
+        posting = models.Posting.query.filter_by(id=postingId).first()
+        
+        return jsonify(posting.serialize()), 200
+    
 inventoryAndCatalogService = InventoryAndCatalogService()
 
 main.route('/', methods=['GET'])(inventoryAndCatalogService.testing)
 main.route('/addPosting', methods=['POST'])(inventoryAndCatalogService.addPosting)
 main.route('/getPostings', methods=['GET'])(inventoryAndCatalogService.getPostings)
+main.route('/getPosting', methods=['GET'])(inventoryAndCatalogService.getPosting)

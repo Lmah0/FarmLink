@@ -11,3 +11,10 @@ class ShoppingCart(db.Model):
         self.user_id = user_id
         self.item_id = item_id
         self.quantity = quantity
+
+    def serialize(self):
+        return {
+            'userId': self.user_id,
+            'itemId': self.item_id,
+            'quantity': self.quantity
+        }
