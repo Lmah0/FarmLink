@@ -12,3 +12,7 @@ class IInventoryAndCatalogService(ABC):
     @abstractmethod
     def getPostings(self):
         pass
+
+    @abstractmethod
+    def getPosting(self):
+        pass
