@@ -29,7 +29,7 @@ def checkStock():
     print(f'The retrieved posting is {retrievedPosting}')
 
     if retrievedPosting['quantity'] < quantity:     # Check item is in stock (e.g., if quantity is available)
-        return jsonify({'message': 'Not enough stock available.'}), 404
+        return jsonify({'message': 'Not enough stock available.'}), 400
     else:
         # Process item (e.g., add it to the cart)
         data = {"userId": userID, "itemId": itemID, "quantity": quantity}
