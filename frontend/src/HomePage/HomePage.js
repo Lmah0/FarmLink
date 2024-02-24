@@ -1,4 +1,4 @@
-import "./css/HomePage.css";
+import "../css/HomePage.css";
 import { useState } from "react";
 
 function HomePage() {
@@ -41,7 +41,7 @@ function HomePage() {
                 alt="Product item"
                 onClick={handleBoxClick}
               />
-              
+
               <button
                 id="add-item-to-cart"
                 className={expandedBox === 0 ? "" : "hidden-element"}

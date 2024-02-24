@@ -1,5 +1,5 @@
 
-import "./css/HomePageEmpty.css";
+import "../css/HomePageEmpty.css";
 
 function HomePageEmpty() {
   return (
