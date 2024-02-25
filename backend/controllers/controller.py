@@ -36,5 +36,45 @@ def checkStock():
         requests.post("http://127.0.0.1:5002/addToCart", json=data)   
         return jsonify({'message': 'Sufficient stock'}), 200
 
+@app.route('/createOrder', methods=['GET', "POST"])
+def createOrder():
+    data = request.json
+    userID = data['userId']  
+    
+    # Get the cart
+    data = {"userId": userID}
+    response = requests.get("http://127.0.0.1:5008/returnCart", json=data)
+    cart = response.json()
+
+    print(cart)
+ 
+    # Get the available stock of each item in the cart 
+
+    for item in cart:
+       # Get the item from the database using the item ID
+        data = {"itemId": item['itemId']}
+        response = requests.get("http://127.0.0.1:5007/getItem", json=data)
+        retrievedItem = response.json()
+        print(f'The retrieved item is {retrievedItem}')
+
+
+        # Get the posting ID
+        postingID = retrievedItem['posting_id']
+        data = {"postingId": postingID}
+        response = requests.get("http://127.0.0.1:5007/getPosting", json=data)
+        retrievedPosting = response.json()
+        print(f'The retrieved posting is {retrievedPosting}')
+        # Check if the quantity in the cart is available
+        if retrievedPosting['quantity'] < item['quantity']:
+            return jsonify({'message': 'Not enough stock available.'}), 400
+        # else:
+        #TODO remove the quantity from the stock
+
+    
+
+    
+    return jsonify({'message': 'Sufficient stock'}), 200
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
