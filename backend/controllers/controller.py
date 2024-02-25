@@ -36,5 +36,54 @@ def checkStock():
         requests.post("http://127.0.0.1:5002/addToCart", json=data)   
         return jsonify({'message': 'Sufficient stock'}), 200
 
+@app.route('/createOrder', methods=['GET', "POST"])
+def createOrder():
+    data = request.json
+    userID = data['userId']  
+    
+    # Get the cart
+    data = {"userId": userID}
+    response = requests.get("http://127.0.0.1:5008/returnCart", json=data)
+    cart = response.json()
+
+    print(cart)
+ 
+    # Get the available stock of each item in the cart & sum the total cost
+    totalCost = 0
+
+    for item in cart:
+       # Get the item from the database using the item ID
+        data = {"itemId": item['itemId']}
+        response = requests.get("http://127.0.0.1:5007/getItem", json=data)
+        retrievedItem = response.json()
+        print(f'The retrieved item is {retrievedItem}')
+        totalCost += retrievedItem['price'] * item['quantity']
+
+
+        # Get the posting ID
+        postingID = retrievedItem['posting_id']
+        data = {"postingId": postingID}
+        response = requests.get("http://127.0.0.1:5007/getPosting", json=data)
+        retrievedPosting = response.json()
+        print(f'The retrieved posting is {retrievedPosting}')
+        # Check if the quantity in the cart is available
+
+        #TODO Update this logic Later
+        if retrievedPosting['quantity'] < item['quantity']:
+            return jsonify({'message': 'Not enough stock available.'}), 400
+        else:
+        #remove the quantity from the stock
+            data = {"postingId": postingID, "quantity": item['quantity']}
+            response = requests.post("http://127.0.0.1:5007/removeStock", json=data)
+            print("The response is", response)
+
+    # Create the order on the database using the cart
+    data = {"userId": userID, "totalCost": totalCost}
+    response = requests.post("http://127.0.0.1:5009/addOrder", json=data)
+
+
+    return jsonify({'message': 'Sufficient stock'}), 200
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
