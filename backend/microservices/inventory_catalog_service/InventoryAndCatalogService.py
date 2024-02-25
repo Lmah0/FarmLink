@@ -18,8 +18,9 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
         quantity = data['quantity']
         postingAuthor = data['postingAuthor']
         description = data['description']
+        imageData = data.get('imageData')
 
-        newPosting = models.Posting(userId, postingAuthor, quantity, description)
+        newPosting = models.Posting(userId, postingAuthor, quantity, description, imageData)
         
         models.db.session.add(newPosting)
         models.db.session.commit()

@@ -45,12 +45,14 @@ class Posting(db.Model):
     user_id = db.Column(db.Integer, nullable=False)
     posting_author = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(100), nullable=True)
+    image_data = db.Column(db.LargeBinary, nullable=True)
 
-    def __init__(self, user_id, posting_author, quantity, description=None, item_type=None, name=None, price=None, posting_id=None):
+    def __init__(self, user_id, posting_author, quantity, description=None, image_data=None, item_type=None, name=None, price=None, posting_id=None):
         self.user_id = user_id
         self.posting_author = posting_author
         self.quantity = quantity
         self.description = description
+        self.image_data = image_data
 
     def serialize(self):
         return {
