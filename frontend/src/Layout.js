@@ -1,9 +1,9 @@
 
-import "./css/Layout.css";
+import "./Layout.css";
 import { Outlet } from "react-router-dom";
 
-
 function Layout() {
+
     return (
         <>
             <div id="Main-Container">
