@@ -58,5 +58,6 @@ class Posting(db.Model):
             'posting_item': self.posting_item.serialize(),
             'quantity': self.quantity,
             'user_id': self.user_id,
-            'posting_author': self.posting_author
+            'posting_author': self.posting_author,
+            'description': self.description
         }
