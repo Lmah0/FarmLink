@@ -1,0 +1,171 @@
+#HomePage-Main-Container {
+  display: flex;
+  flex-direction: column;
+}
+
+#HomePage-Header {
+  display: flex;
+  align-items: center;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+#HomePage-Header > header {
+  margin-right: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#HomePage-Header > input[type="text"] {
+  flex: 1;
+  max-width: 500px;
+}
+
+#HomePage-Header > button {
+  padding: 5px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  margin-left: auto; /* Adjusted to push the button to the right */
+}
+
+#HomePage-Header > button > img {
+  padding-top: 5px;
+  width: 60px;
+  height: 60px;
+  padding-right: 10px;
+}
+
+#empty-holder {
+  text-align: center;
+  padding-top: 250px;
+
+  font-size: 2em;
+  color: gray;
+}
+
+
+/* For the item Boxes */
+#main-ItemBox-container{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+#Item-box{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 20px;
+  margin-bottom: 20px;
+  flex: 0 0 calc(25% - 40px); /*25% so 4 can fit - the 2x20px margin on left and right side of box*/
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  box-sizing: border-box;
+  max-width: 400px;
+  max-height: 400px;
+}
+
+#Item-box > h3, h4, h5{
+  padding: 2px;
+  padding-bottom: 4px;
+  text-align: center;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-wrap: wrap;
+  font-family: Georgia, serif;
+}
+
+#Item-box-img{
+  display: inline;
+  cursor: pointer;
+  width: 100%;
+}
+
+#Item-box > h3 {
+  padding-top: 10px;
+}
+
+#Item-box > h4 {
+  font-size: 15px;
+}
+
+
+/* For expanding the box */
+.hidden-element {
+  display: none !important;
+}
+
+#main-ItemBox-container.expanded-main-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px); /*  */
+  z-index: 9999; /* ensures this item is on top of everything else */
+  display: flex;
+}
+
+#Item-box.expanded-item-box {
+  align-items: flex-start;
+  position: fixed;
+  background-color: white;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999; /* ensures this item is on top of everything else */
+  width: 70%;
+  max-width: 70%;
+  height: 80%;
+  max-height: 80%;
+  overflow: auto;
+  padding: 15px;
+}
+
+#button-img-wrapper {
+  display: flex;
+  max-height: calc(100% - 50%);
+  /* width: 100%; */
+}
+
+#Item-box.expanded-item-box > div > img {
+  flex: 1;
+  /* width: 85%;
+  max-width: 85%;
+  height: 100%;
+  max-height: 100%; */
+  /* object-fit: contain; */
+  /* padding-right: calc(100% - 33%); */
+}
+
+#Item-box.expanded-item-box > div > button {
+  position: absolute; /* Set the button to absolute positioning */
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  top: 0;
+  right: 0;
+  padding: 25px;
+}
+
+#Item-box.expanded-item-box > div > button > img {
+  width: 40px;
+  height: 40px;
+}
+
+/* For sizing the page */
+@media (max-width: 1000px) {
+  #obituary-box {
+    flex: 0 0 calc(50% - 40px);
+  }
+}
+@media (max-width: 800px) {
+  #obituary-box {
+    flex: 0 0 calc(100% - 40px);
+  }
+}
