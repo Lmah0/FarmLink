@@ -18,7 +18,10 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
         quantity = data['quantity']
         postingAuthor = data['postingAuthor']
         description = data['description']
-        imageData = data.get('imageData')
+        try:
+            imageData = data.get('imageData')
+        except:
+            imageData = None
 
         newPosting = models.Posting(userId, postingAuthor, quantity, description, imageData)
         
