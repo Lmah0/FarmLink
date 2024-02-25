@@ -1,8 +1,7 @@
 import "./HomePage.css";
 import { useState } from "react";
 
-function HomePage({items}) {
-
+function HomePage({ items }) {
   const [expandedBox, setExpandedBox] = useState(null);
 
   const handleBoxClick = () => {
@@ -31,41 +30,48 @@ function HomePage({items}) {
           id="main-ItemBox-container"
           className={expandedBox === 0 ? "expanded-main-container" : ""}
         >
-          <div
-            id="Item-box"
-            className={expandedBox === 0 ? "expanded-item-box" : ""}
-          >
-            <div id={expandedBox === 0 ? "button-img-wrapper" : ""}>
-              <img
-                id="Item-box-img"
-                src="https://cdn.britannica.com/22/215522-050-8315BB78/green-grass-close-up.jpg"
-                alt="Product item"
-                onClick={handleBoxClick}
-              />
-
-              <button
-                id="add-item-to-cart"
-                className={expandedBox === 0 ? "" : "hidden-element"}
-              >
+          {items.map((item, index) => (
+            <div
+              id="Item-box"
+              className={expandedBox === 0 ? "expanded-item-box" : ""}
+              key={item.id}
+            >
+              <div id={expandedBox === 0 ? "button-img-wrapper" : ""}>
                 <img
-                  src="https://static-00.iconduck.com/assets.00/sign-plus-icon-2048x2047-jdkmk1r1.png"
-                  alt="Plus-Icon"
+                  id="Item-box-img"
+                  src="https://cdn.britannica.com/22/215522-050-8315BB78/green-grass-close-up.jpg"
+                  alt="Product item"
+                  onClick={handleBoxClick}
                 />
-              </button>
+
+                <button
+                  id="add-item-to-cart"
+                  className={expandedBox === 0 ? "" : "hidden-element"}
+                >
+                  <img
+                    src="https://static-00.iconduck.com/assets.00/sign-plus-icon-2048x2047-jdkmk1r1.png"
+                    alt="Plus-Icon"
+                  />
+                </button>
+              </div>
+              
+              <h4 className={expandedBox === 0 ? "" : "hidden-element"}>Seller: {item.posting_author}</h4>
+
+              <h3>{item.posting_item['name']}</h3>
+
+              <h4>Price: ${item.posting_item['price']}</h4>
+
+              <h4 className={expandedBox === 0 ? "" : "hidden-element"}>
+                Quanity Avaliable: {item.quantity}
+              </h4> 
+                
+              <h4 className={expandedBox === 0 ? "hidden-element" : ""}>Seller: {item.posting_author}</h4>
+
+              <p className={expandedBox === 0 ? "" : "hidden-element"}>
+                Description: {item.description}
+              </p>
             </div>
-
-            <h3>name</h3>
-
-            <h5>Seller</h5>
-
-            <h4 className={expandedBox === 0 ? "hidden-element" : ""}>
-              Short Description
-            </h4>
-
-            <p className={expandedBox === 0 ? "" : "hidden-element"}>
-              Additional Information
-            </p>
-          </div>
+          ))}
         </div>
       </div>
     </>
