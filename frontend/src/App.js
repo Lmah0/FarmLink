@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import HomePageEmpty from "./HomePage/HomePageEmpty";
 import HomePage from "./HomePage/HomePage";
 import Layout from "./Layout";
+import SellItems from "./SellItems/SellItems";
 
 function App() {
   /* This is the main app component basically the "view controller" this will just pass information along to different pages from API */
@@ -36,11 +37,13 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
 
-          {items.length === 0 ? (
+          {/* {items.length === 0 ? (
             <Route path="/" element={<HomePageEmpty />} />
           ) : (
             <Route path="/" element={<HomePage items={items} />} />
-          )}
+          )} */}
+
+          <Route path="/" element={<SellItems />} />
 
         </Route>
       </Routes>
