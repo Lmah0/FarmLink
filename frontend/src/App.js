@@ -1,7 +1,7 @@
 // src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
-import PaymentPage from './jpComponents/PaymentPage';
+import ProfilePage from './jpComponents/ProfilePage';
 import SignUpPage from './jpComponents/SignUpPage';
 import LoginPage from './jpComponents/LoginPage';
 import './App.css'; // Import the CSS file for styling
@@ -11,18 +11,19 @@ const App = () => {
     <Router>
       <div>
         <nav>
-          <ul className="nav-buttons"> {/* Add a class for styling */}
+          <div className="nav-title">Make Agriculture Great Again</div>
+          <ul className="nav-buttons">
             <li>
-              <Link to="/payment">
-                <button>Payment</button>
+              <Link to="/profile">
+                <button>Profile</button>
               </Link>
             </li>
-            <li>
+            <li className="nav-right">
               <Link to="/signup">
                 <button>Sign Up</button>
               </Link>
             </li>
-            <li>
+            <li className="nav-right">
               <Link to="/login">
                 <button>Login</button>
               </Link>
@@ -31,7 +32,7 @@ const App = () => {
         </nav>
 
         <Routes>
-          <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/login" element={<LoginPage />} />
         </Routes>

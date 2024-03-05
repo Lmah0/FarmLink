@@ -35,7 +35,6 @@ const SignUpPage = () => {
       if (response.ok) {
         // Handle successful sign-up
         alert('Sign up successful!');
-        // You might also want to redirect the user or set some state
       } else {
         // Handle unsuccessful sign-up
         const data = await response.json();
@@ -49,52 +48,42 @@ const SignUpPage = () => {
 
   return (
     <div className='signup-container'>
-      <h2>Sign Up Page</h2>
+      
       <form onSubmit={handleSignUp}>
-        
-        <label>
-          Name:
+      <h2>Sign Up Page</h2>
+        <div className='form-group'>
+          <label>Name:</label>
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-        </label>
-        <br />
-        <label>
-          Phone Number:
+        </div>
+        <div className='form-group'>
+          <label>Phone Number:</label>
           <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
-        </label>
-        <br />
-        <label>
-          Email:
+        </div>
+        <div className='form-group'>
+          <label>Email:</label>
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        </label>
-        <br />
-
-        <label>
-          Password:
+        </div>
+        <div className='form-group'>
+          <label>Password:</label>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </label>
-        
-        <br />
-        
-        <label>
-          Role:
+        </div>
+        <div className='form-group'>
+          <label>Role:</label>
           <input type="text" value={role} onChange={(e) => setRole(e.target.value)} />
-        </label>
-        
-        <br />
-        <label>
-          Farmer PID:
+        </div>
+        <div className='form-group'>
+          <label>Farmer PID:</label>
           <input type="text" value={farmerPid} onChange={(e) => setFarmerPid(e.target.value)} />
-        </label>
-        <br />
-        <label>
-          Profile Bio:
+        </div>
+        <div className='form-group'>
+          <label>Profile Bio:</label>
           <input type="text" value={profileBio} onChange={(e) => setProfileBio(e.target.value)} />
-        </label>
-        <br />
+        </div>
         <button type="submit">Sign Up</button>
       </form>
     </div>
   );
+  
 };
 
 export default SignUpPage;

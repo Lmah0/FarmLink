@@ -4,12 +4,14 @@
     align-items: center;
     height: 100vh;
     background-color: #3498db; /* Blue background color */
+    
 }
 
 form {
   background-color: #fff; /* White background color */
   padding: 20px;
   border-radius: 10px; /* Rounded corners */
+  width:30%;
 }
 
 .form-group {
@@ -19,4 +21,8 @@ form {
 label {
   display: block;
   margin-bottom: 5px;
+}
+.signup-container input{
+  width:75%;
+  align-self: center;
 }

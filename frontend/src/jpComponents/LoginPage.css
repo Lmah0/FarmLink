@@ -20,4 +20,7 @@
     display: block;
     margin-bottom: 5px;
   }
-  
+  .login-container input{
+    width:75%;
+    align-self: center;
+  }

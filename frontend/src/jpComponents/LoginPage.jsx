@@ -39,8 +39,9 @@ const LoginPage = () => {
 
   return (
     <div className="login-container">
-      <h2>Login Page</h2>
       <form onSubmit={handleLogin}>
+      <h2>Login Page</h2>
+
         <div className="form-group"> 
           <label>Email:</label>
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
