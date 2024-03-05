@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import './SignUpPage.css'; // Import the CSS file for styling
 
 const SignUpPage = () => {
+
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
@@ -46,9 +48,10 @@ const SignUpPage = () => {
   };
 
   return (
-    <div>
+    <div className='signup-container'>
       <h2>Sign Up Page</h2>
       <form onSubmit={handleSignUp}>
+        
         <label>
           Name:
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
@@ -64,15 +67,19 @@ const SignUpPage = () => {
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </label>
         <br />
+
         <label>
           Password:
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </label>
+        
         <br />
+        
         <label>
           Role:
           <input type="text" value={role} onChange={(e) => setRole(e.target.value)} />
         </label>
+        
         <br />
         <label>
           Farmer PID:

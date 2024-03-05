@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './LoginPage.css'; // Import the CSS file for styling
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -37,23 +38,20 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
+    <div className="login-container">
       <h2>Login Page</h2>
       <form onSubmit={handleLogin}>
-        <label>
-          Email:
+        <div className="form-group"> 
+          <label>Email:</label>
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        </label>
-        <br />
-        <label>
-          Password:
+        </div>
+        <div className="form-group">
+          <label>Password:</label>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </label>
-        <br />
+        </div>
         <button type="submit">Login</button>
       </form>
     </div>
   );
 };
-
 export default LoginPage;

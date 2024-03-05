@@ -1,0 +1,29 @@
+.nav-buttons {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around; /* Adjust as needed */
+  }
+  
+  .nav-buttons li {
+    margin: 0;
+  }
+  
+  .nav-buttons a {
+    text-decoration: none;
+  }
+  
+  .nav-buttons button {
+    padding: 10px 15px;
+    background-color: #3498db; /* Button color */
+    color: #fff; /* Text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-buttons button:hover {
+    background-color: #2980b9; /* Hover color */
+  }
+  
