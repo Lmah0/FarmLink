@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import HomePageEmpty from "./HomePage/HomePageEmpty";
 import HomePage from "./HomePage/HomePage";
+import Cart from "./Cart/Cart";
+import Payment from "./Payment/Payment";
 import Layout from "./Layout";
 
 function App() {
@@ -41,7 +43,8 @@ function App() {
           ) : (
             <Route path="/" element={<HomePage items={items} />} />
           )}
-
+          <Route path="/Cart" element={<Cart/>} />
+          <Route path="/Payment" element={<Payment/>} />
         </Route>
       </Routes>
     </BrowserRouter>

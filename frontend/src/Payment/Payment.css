@@ -1,0 +1,68 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 40px;
+  }
+  
+  .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    margin-top: 30px;
+  }
+
+  .payment {
+    justify-content: center;
+    display: flex;
+  }
+
+  .pay-button {
+    justify-content: center;
+    display: flex;
+    padding: 10px 20px;
+  }
+  
+  input {
+    width: calc(75%);
+    padding: 10px;
+    box-sizing: border-box;
+    height: 40px;
+  }
+
+  .text-box{
+    margin-left: calc(10%);
+    display: grid;
+  }
+
+  .row-text{
+    justify-content: center;
+    display:flex;
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  .month-sec{
+    width: calc(75%);
+  }
+
+  .timeselect{
+    margin-right: 20px;
+    height: 40px;
+    width: 40%;
+  }
+
+  .split-select{
+    flex: 2;
+  }
+
+  .split-text{
+    flex: 1;
+    margin-right: calc(20%);
+  }
+
+  .select-text{
+    margin-left: calc(10%);
+    display: flex;
+  }
+
+  
