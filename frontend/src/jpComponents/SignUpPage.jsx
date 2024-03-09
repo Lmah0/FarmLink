@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import './SignUpPage.css'; // Import the CSS file for styling
 
 const SignUpPage = () => {
-
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState(''); // Updated to store role as a string
   const [farmerPid, setFarmerPid] = useState('');
   const [profileBio, setProfileBio] = useState('');
 
@@ -26,8 +25,8 @@ const SignUpPage = () => {
           phone_number: phoneNumber,
           email_address: email,
           password: password,
-          role: role,
-          farmer_pid: farmerPid,
+          role: role, // Keep it as a string in the state
+          farmer_pid: role === 'FARMER' ? farmerPid : null, // Set PID to null if not a farmer
           profile_bio: profileBio,
         }),
       });
@@ -48,9 +47,8 @@ const SignUpPage = () => {
 
   return (
     <div className='signup-container'>
-      
       <form onSubmit={handleSignUp}>
-      <h2>Sign Up Page</h2>
+        <h2>Sign Up Page</h2>
         <div className='form-group'>
           <label>Name:</label>
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
@@ -69,12 +67,18 @@ const SignUpPage = () => {
         </div>
         <div className='form-group'>
           <label>Role:</label>
-          <input type="text" value={role} onChange={(e) => setRole(e.target.value)} />
+          <select value={role} onChange={(e) => setRole(e.target.value)}>
+            <option value="">Select Role</option>
+            <option value="FARMER">Farmer</option>
+            <option value="NONFARMER">Not a Farmer</option>
+          </select>
         </div>
-        <div className='form-group'>
-          <label>Farmer PID:</label>
-          <input type="text" value={farmerPid} onChange={(e) => setFarmerPid(e.target.value)} />
-        </div>
+        {role === 'FARMER' && (
+          <div className='form-group'>
+            <label>Farmer PID:</label>
+            <input type="text" value={farmerPid} onChange={(e) => setFarmerPid(e.target.value)} />
+          </div>
+        )}
         <div className='form-group'>
           <label>Profile Bio:</label>
           <input type="text" value={profileBio} onChange={(e) => setProfileBio(e.target.value)} />
@@ -83,7 +87,6 @@ const SignUpPage = () => {
       </form>
     </div>
   );
-  
 };
 
 export default SignUpPage;
