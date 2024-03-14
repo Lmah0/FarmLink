@@ -5,37 +5,72 @@ import './Cart.css';
 
 function Cart() {
   const[objects, setObjects] = useState([]);
-  const[price, setPrice] = useState(0);
+  const[totPrice, setTotPrice] = useState(0);
 
   const navigate = useNavigate();
 
   const goToPayment = () => {
-    navigate("/Payment", { state: {totalPrice:price}});
+    navigate("/Payment", { state: {totalPrice:totPrice}});
   }
 
-  const fetchDataForID = async (itemId) => {
+  const fetchDataForID = async (itemID) => {
     try {
-      const response = await fetch("http://127.0.0.1:5007/getItem")
-      const data = response.json();
-      const jsonData = JSON.parse(data);
-      retrieveObject(jsonData);
-      console.log(`${itemId}`)
+      const response = await fetch("http://127.0.0.1:5007/getItem", {
+        method: "POST",
+        body: JSON.stringify({
+          itemId: itemID
+        }),
+        headers: {
+          'Content-Type' : 'application/json',
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data, "JSON RES");
+        // const parsedData = JSON.parse(data);
+        console.log(`${data.item_type}`)
+        // let jsonRes = await response.json();
+        retrieveObject(data);
+        
+      } else {
+        console.log("Failed to fetch data:", response.status);
+      }
+      // const data = response.json();
+      // const jsonData = JSON.parse(data);
+      // retrieveObject(jsonData);
+
     } catch (error) {
-      console.error(`error fetching data for ${itemId}`, error);
+      console.error(`error fetching data for ${itemID}`, error);
     }
   };
 
-  const fetchCartData = async (userId) => {
+  const fetchCartData = async (useId) => {
     try {
-      const response = await fetch("http://127.0.0.1:5008/returnCart");
-      const data = await response.json();
-
-      const parsedData = JSON.parse(data);
-      const itemIDs = parsedData.map(entry => entry.itemId)
-
-      itemIDs.forEach(itemId => {
-        fetchDataForID(itemId);
+      const response = await fetch(`http://127.0.0.1:5008/returnCart`, {
+        method: "POST",
+        body: JSON.stringify({
+          userId: useId
+        }),
+        headers: {
+          'Content-Type' : 'application/json',
+        },
       });
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data, "JSON RES");
+        // const parsedData = JSON.parse(data);
+        const itemIDs = data.map(entry => entry.itemId)
+  
+        itemIDs.forEach(itemId => {
+          fetchDataForID(itemId);
+        });
+        console.log(`Fetch cart data was run`);
+        // let jsonRes = await response.json();
+        
+      } else {
+        console.log("Failed to fetch data:", response.status);
+      }
+
     } catch (error){
       console.error(`Error fetching data`, error);
     }
@@ -56,19 +91,22 @@ function Cart() {
   }, []);
 
   useEffect(() => {
+    let totalPrice = 0;
     objects.forEach(object => {
-      setPrice(price + object.itemPrice);
-    })
+      totalPrice += object.price;
+    });
+    setTotPrice(totalPrice);
   }, [objects])
   
   const retrieveObject = (jsonData) => {
     const newObject = {
       userId: 1,
-      itemId: jsonData.itemId, 
-      itemName: jsonData.itemName,
-      description: `This is Object ${objects.length + 1}`,
-      postingAuthor: jsonData.postingAuthor,
-      itemPrice: jsonData.itemPrice
+      itemId: jsonData.id, 
+      item_type: jsonData.item_type,
+      name: jsonData.name,
+      posting_id: jsonData.posting_id,      // description: `This is Object ${objects.length + 1}`,
+      // postingAuthor: jsonData.postingAuthor,
+      price: jsonData.price
     }
     setObjects([...objects, newObject])
   }
@@ -96,19 +134,19 @@ function Cart() {
             <div key={object.itemId} className="List-Object">
               <div className="Object-Image"> Reserved Space</div>
               <div className="Object-Text">
-                <button className="name-button" style={{margin:"5px"}}>{object.itemName}</button>
+                <button className="name-button" style={{margin:"5px"}}>{object.name}</button>
                 <div style={{display: "flex", justifyContent: "space-between"}}>
-                  <span style={{margin:"5px"}}>{object.description}</span>
-                  <span style={{margin:"5px"}}>{object.postingAuthor}</span>
+                  <span style={{margin:"5px"}}>Posting ID: {object.posting_id}</span>
+                  <span style={{margin:"5px"}}>Item Type: {object.item_type}</span>
                 </div>
-                <span style={{margin:"5px", fontWeight:"bold"}}>{object.itemPrice}</span>
+                <span style={{margin:"5px", fontWeight:"bold"}}>Price: ${object.price}</span>
               </div>
             </div>
           ))}
         </div>
         <div style={{display: "flex", justifyContent: "space-between"}}>
           <span style={{marginLeft:"25px"}}>Price</span>
-          <span style={{marginRight:"25px"}}>{price}</span>
+          <span style={{marginRight:"25px"}}>Total Price: ${totPrice}</span>
         </div>
         <button style={{marginLeft:"25px", background:"transparent"}} onClick={goToPayment}>Pay Price</button>
       </div>

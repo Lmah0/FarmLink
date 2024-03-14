@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import './Payment.css';
 
 function Payment() {
   const location = useLocation();
+  const navigate = useNavigate();
   const totalPrice = location.state.totalPrice;
+  const userID = 1;
 
   const generateNumbers = (start, end) => {
     const options = [];
@@ -42,12 +44,32 @@ function Payment() {
     console.log(values.textbox1);
   };
 
-  const saveText = () => {
+  const saveText = async () => {
     Object.entries(values).forEach(([key, value]) => {
       console.log(`${key}: ${value}`);
     });
     console.log(totalPrice)
-  }
+    try {
+      let response = await fetch("http://127.0.0.1:5000/checkStock", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userID),
+      });
+
+      if (response.ok) {
+        let jsonRes = await response.json();
+        console.log(jsonRes, "JSON RES");
+        console.log('Successfully Created Order');
+        navigate('/');
+      } else {
+        console.log("Failed to create order", response.status);
+      }
+    } catch (error) {
+      console.error("Error creating error", error);
+    }
+  };
 
 
   return (
