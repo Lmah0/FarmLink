@@ -1,56 +1,35 @@
-// src/components/PaymentPage.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import './ProfilePage.css'; // Import the CSS file for styling
 
-const PaymentPage = () => {
-    const [creditCardNumber, setCreditCardNumber] = useState('');
-  const [CVV, setCVV] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+const ProfilePage = () => {
+  const [userData, setUserData] = useState(null);
 
-  const handlePayment = (e) => {
-    e.preventDefault();
-
-    if (firstName && lastName && creditCardNumber && CVV) {
-      alert('Payment successful!');
-    } else {
-      alert('Please fill in all fields.');
+  useEffect(() => {
+    // Fetch user profile data from localStorage
+    const profileData = JSON.parse(localStorage.getItem('profile'));
+    if (profileData) {
+      setUserData(profileData);
     }
-  };
+  }, []);
 
   return (
-    <div>
-      <h2>Sample Payment Page</h2>
-      <h3> Order Summary</h3>
-      <p>Items(# of items)</p>
-      <p>GST:</p>
-      <p>Total:</p>
+    <div className="profile-container">
+      <h2>Profile Page</h2>
+      {userData ? (
+        <div className="profile-details">
+          <p><strong>Name:</strong> {userData.name}</p>
+          <p><strong>Email:</strong> {userData.email_address}</p>
+          <p><strong>Phone:</strong> {userData.phone_number}</p>
+          <p><strong>Role:</strong> {userData.role}</p>
+          <p><strong>PID:</strong> {userData.farmer_pid}</p>
+          <p><strong>Profile Bio:</strong> {userData.profile_bio}</p>
 
-      <h3> Payment Info:</h3>
-      <form onSubmit={handlePayment}>
-        <label>
-          First Name:
-          <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-        </label>
-        <br />
-        <label>
-          Last Name:
-          <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-        </label>
-        <br />
-        <label>
-          Credit Card:
-          <input type="text" value={creditCardNumber} onChange={(e) => setCreditCardNumber(e.target.value)} />
-        </label>
-        <br />
-        <label>
-          CVV:
-          <input type="text" value={CVV} onChange={(e) => setCVV(e.target.value)} />
-        </label>
-        <br />
-        <button type="submit">Place Order</button>
-      </form>
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
-    );
+  );
 };
 
-export default PaymentPage;
+export default ProfilePage;
