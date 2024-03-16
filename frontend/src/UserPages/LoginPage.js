@@ -12,6 +12,7 @@ const LoginPage = () => {
     if (user) {
       setIsLoggedIn(true);
       setUserId(user.userId);
+
     }
   }, []);
 
@@ -64,6 +65,7 @@ const LoginPage = () => {
       alert('Login failed. Please try again later.');
     }
   };
+
   return (
     <div className="login-container">
       <form onSubmit={handleLogin}>
