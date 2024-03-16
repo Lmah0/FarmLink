@@ -14,9 +14,9 @@ const ProfilePage = () => {
 
   return (
     <div className="profile-container">
-      <h2>Profile Page</h2>
       {userData ? (
         <div className="profile-details">
+          <h2>Profile Page</h2>
           <p><strong>Name:</strong> {userData.name}</p>
           <p><strong>Email:</strong> {userData.email_address}</p>
           <p><strong>Phone:</strong> {userData.phone_number}</p>
