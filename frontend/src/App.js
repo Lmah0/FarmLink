@@ -1,51 +1,44 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
-import HomePageEmpty from "./HomePage/HomePageEmpty";
-import HomePage from "./HomePage/HomePage";
-import Layout from "./Layout";
+// src/App.js
+import React from 'react';
+import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import ProfilePage from './jpComponents/ProfilePage';
+import SignUpPage from './jpComponents/SignUpPage';
+import LoginPage from './jpComponents/LoginPage';
+import './App.css'; // Import the CSS file for styling
 
-function App() {
-  /* This is the main app component basically the "view controller" this will just pass information along to different pages from API */
-
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    // This gets all the postings every time the page an event occurs and stores them in items array
-    const fetchData = async () => {
-      try {
-        let response = await fetch("http://127.0.0.1:5000/getPostings", {
-          method: "GET",
-        });
-
-        if (response.ok) {
-          let jsonRes = await response.json();
-          console.log(jsonRes, "JSON RES");
-          setItems(jsonRes);
-        } else {
-          console.log("Failed to fetch data:", response.status);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, []);
-
+const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
+    <Router>
+      <div>
+        <nav>
+          <div className="nav-title">Make Agriculture Great Again</div>
+          <ul className="nav-buttons">
+            <li>
+              <Link to="/profile">
+                <button>Profile</button>
+              </Link>
+            </li>
+            <li className="nav-right">
+              <Link to="/signup">
+                <button>Sign Up</button>
+              </Link>
+            </li>
+            <li className="nav-right">
+              <Link to="/login">
+                <button>Login</button>
+              </Link>
+            </li>
+          </ul>
+        </nav>
 
-          {items.length === 0 ? (
-            <Route path="/" element={<HomePageEmpty />} />
-          ) : (
-            <Route path="/" element={<HomePage items={items} />} />
-          )}
-
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        <Routes>
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;

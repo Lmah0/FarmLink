@@ -16,4 +16,3 @@ class IUserManagementService(ABC):
     @abstractmethod
     def returnProfile(self):
         pass
-
