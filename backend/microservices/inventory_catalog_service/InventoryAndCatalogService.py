@@ -83,6 +83,6 @@ main.route('/', methods=['GET'])(inventoryAndCatalogService.testing)
 main.route('/addPosting', methods=['POST'])(inventoryAndCatalogService.addPosting)
 main.route('/getPostings', methods=['GET'])(inventoryAndCatalogService.getPostings)
 main.route('/getPosting', methods=['GET'])(inventoryAndCatalogService.getPosting)
-main.route('/getItem', methods=['GET'])(inventoryAndCatalogService.getItem)
+main.route('/getItem', methods=['POST'])(inventoryAndCatalogService.getItem)
 main.route('/removeStock', methods=['POST'])(inventoryAndCatalogService.removeStock)
 
