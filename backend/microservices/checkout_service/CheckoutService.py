@@ -4,6 +4,7 @@ import requests
 import json
 from flask import Blueprint
 from . import ICheckoutService, models
+from user_management_service import models as user_models
 from datetime import datetime
 import time
 main = Blueprint('main', __name__)
@@ -21,7 +22,7 @@ class CheckoutService(ICheckoutService.ICheckoutService):
         userId = data['userId']
         totalCost = data['totalCost']
 
-        # Validate userId and totalCost (e.g., check if they are of the correct type)
+        # Validate userId and totalCost 
         if not isinstance(userId, int) or not isinstance(totalCost, (int, float)) or totalCost <= 0:
             return jsonify({'message': 'Invalid values for userId or totalCost.'}), 400
 
