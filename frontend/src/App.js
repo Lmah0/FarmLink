@@ -60,8 +60,7 @@ function App() {
     // This useEffect gets all the postings every time an event occurs on the page and stores them in items array
     const fetchData = async () => {
       try {
-        let response = await fetch("http://127.0.0.1:5001/getPostings", {
-          // mode:"no-cors",
+        let response = await fetch("http://127.0.0.1:5007/getPostings", {
           method: "GET",
         });
 

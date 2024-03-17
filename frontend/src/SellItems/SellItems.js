@@ -29,8 +29,7 @@ function SellItems() {
     };
 
     // console.log(userData, "USER DATA");
-
-    await fetch("http://127.0.0.1:5001/addPosting", {
+    await fetch("http://127.0.0.0.1:5007/addPosting", {
       method: "POST",
       body: JSON.stringify(userData), // Convert userData to JSON string
       headers: {
