@@ -28,31 +28,29 @@ function SellItems() {
       // imageData: file,
     };
 
-    // console.log(userData, "USER DATA");
-    await fetch("http://127.0.0.0.1:5007/addPosting", {
-      method: "POST",
-      body: JSON.stringify(userData), // Convert userData to JSON string
-      headers: {
-        "Content-Type": "application/json",
-      },
-      timeout: 20000, //20 seconds in milliseconds
-    })
-      .then((response) => {
+    const addPosting = async () => {
+      // This function will add a post to the database
+      try {
+        let response = await fetch("http://127.0.0.1:5007/addPosting", {
+          method: "POST",
+          body: JSON.stringify(userData), // Convert userData to JSON string
+          headers: {
+            "Content-Type": "application/json",
+          },
+          timeout: 20000, //20 seconds in milliseconds
+        });
         if (response.ok) {
-          let res = response.json();
-          console.log(res, "RESPONSE");
-          return res;
+          let jsonRes = await response.json();
+          console.log(jsonRes, "JSON RES");
         } else {
-          throw new Error("Network response was not ok");
+          console.log("Failed to add posting:", response.status);
         }
-      })
-      .then((data) => {
-        console.log(data, "data");
-        setSubmitting(false);
-      })
-      .catch((error) => {
-        setSubmitting(false);
-      });
+      } catch (error) {
+        console.error("Error adding post:", error);
+      }
+    };
+
+    addPosting();
   };
 
   // Function to handle file upload
