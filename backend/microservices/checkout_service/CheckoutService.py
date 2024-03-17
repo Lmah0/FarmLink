@@ -4,7 +4,7 @@ import requests
 import json
 from flask import Blueprint
 from . import ICheckoutService, models
-
+from datetime import datetime
 import time
 main = Blueprint('main', __name__)
 
@@ -17,7 +17,7 @@ class CheckoutService(ICheckoutService.ICheckoutService):
 
         userId = data['userId']
         totalCost = data['totalCost']
-        purchaseDate = time.strftime('%Y-%m-%d %H:%M:%S')
+        purchaseDate = datetime.now().replace(microsecond=0)
 
         newOrder = models.Order(purchaseDate, totalCost, userId)
         
