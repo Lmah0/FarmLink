@@ -20,6 +20,7 @@ function App() {
   const [userProfile, setUserProfile] = useState(
     JSON.parse(localStorage.getItem("userProfile"))
   );
+  const profileData = JSON.parse(localStorage.getItem('profile'));
 
   const handleSetProfile = (userData) => {
     localStorage.setItem("userProfile", JSON.stringify(userData));
@@ -29,6 +30,30 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem("userProfile");
     setUserProfile(null);
+
+    const cleanCart = async () => { // This function will flush the cart when the user logs out
+      try {
+        let response = await fetch("http://127.0.0.1:5001/flushCart", {
+          method: "DELETE",
+          body: JSON.stringify({
+            userId: profileData.id
+          }),
+          headers: {
+            'Content-Type' : 'application/json',
+          },
+        });
+        if (response.ok) {
+          let jsonRes = await response.json();
+          console.log(jsonRes, "JSON RES");
+        } else {
+          console.log("Failed to fetch data:", response.status);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    cleanCart();
   };
 
   useEffect(() => {
@@ -61,7 +86,7 @@ function App() {
 
           {
             userProfile ? (
-              <Route path="/" element={<HomePage items={items} handleLogout={handleLogout}/>} />
+              <Route path="/" element={<HomePage items={items} handleLogout={handleLogout} currentUserID={profileData.id}/>} />
             ) : (
               <Route path="/" element={<HomePageEmpty />} /> 
             )
@@ -69,10 +94,9 @@ function App() {
 
           <Route path="/login" element={<LoginPage handleSetProfile={handleSetProfile}/>} /> 
           <Route path="/signup" element={<SignUpPage />} />
-
-          {/* <Route path="/Cart" element={<Cart/>} />
-          <Route path="/Payment" element={<Payment/>} /> */}
-
+          <Route path="/profile" element={<ProfilePage userProfile={userProfile} />} />
+          <Route path="/cart" element={<Cart currentUserID={profileData.id} />} />
+          <Route path="/Payment" element={<Payment/>} />
 
         </Route>
       </Routes>

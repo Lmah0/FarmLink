@@ -1,9 +1,10 @@
 import "./HomePage.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function HomePage({ items, handleLogout }) {
+function HomePage({ items, handleLogout, currentUserID }) {
+  const navigate = useNavigate();
   const [expandedBox, setExpandedBox] = useState(null);
-  // const [expandedProfileBox, setExpandedProfileBox] = useState(false);
 
   const handleBoxClick = () => {
     if (expandedBox === 0) {
@@ -13,13 +14,46 @@ function HomePage({ items, handleLogout }) {
     }
   };
 
-  // const toggleExpandedBox = () => {
-  //   setExpandedProfileBox(!expandedProfileBox);
-  // };
+  const goToCart = () => {
+    navigate('/Cart'); 
+  };
+
+  const goToProfile = () => {
+    navigate("/profile");
+  };
 
   const handleLogoutClick = () => {
     handleLogout();
   };
+
+  const handleAddToCartClick = (itemId) => {
+    const addToCart = async (itemId) => { // This function will flush the cart when the user logs out
+      try {
+        let response = await fetch("http://127.0.0.1:5002/removeFromCart", {
+          method: "POST",
+          body: JSON.stringify({
+            userId :  currentUserID , 
+            itemId : itemId , 
+            quantity : 1
+          }),
+          headers: {
+            'Content-Type' : 'application/json',
+          },
+        });
+        if (response.ok) {
+          let jsonRes = await response.json();
+          console.log(jsonRes, "JSON RES");
+        } else {
+          console.log("Failed to fetch data:", response.status);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    addToCart(itemId);
+  }
+
+  // console.log("HomePage items:", cartItems);
 
   return (
     <>
@@ -28,12 +62,16 @@ function HomePage({ items, handleLogout }) {
           <header>MarketPlace</header>
           {/* <input type="text" placeholder="Search" /> */}
 
-          <button id="profile-Button">
+          <button style={{ marginRight: 20 }} onClick={goToCart}>
+            &#x1f6d2;
+          </button>
+
+          <button id="profile-Button" onClick={goToProfile}>
             <img
               src="https://media.istockphoto.com/id/1131164548/vector/avatar-5.jpg?s=612x612&w=0&k=20&c=CK49ShLJwDxE4kiroCR42kimTuuhvuo2FH5y_6aSgEo="
               alt="Person Emoji"
             />
-          </button> 
+          </button>
 
           <button id="logout-Button" onClick={handleLogoutClick}>
             Logout
@@ -61,6 +99,7 @@ function HomePage({ items, handleLogout }) {
                 <button
                   id="add-item-to-cart"
                   className={expandedBox === 0 ? "" : "hidden-element"}
+                  onClick={ handleAddToCartClick.bind(this, item.id)}
                 >
                   <img
                     src="https://static-00.iconduck.com/assets.00/sign-plus-icon-2048x2047-jdkmk1r1.png"
