@@ -50,16 +50,19 @@ function Payment() {
     });
 
     if (values.textbox1.length !== 16) {
+      alert("Card number must be 16 digits")
       console.log("Card number must be 16 digits");
       return;
     }
     if (values.textbox2.length !== 3) {
+      alert("Security number must be 3 digits")
       console.log("Security number must be 3 digits");
       return;
     }
     const requiredFields = ['textbox1', 'textbox2', 'textbox3', 'textbox4', 'textbox5', 'textbox6', 'textbox8', 'textbox9', 'textbox10'];
     for (const field of requiredFields) {
       if (!values[field]) {
+        alert(`${field} is required`)
         console.log(`${field} is required`);
         return;
       }
