@@ -38,7 +38,7 @@ function Cart({currentUserID}) {
       // const data = response.json();
       // const jsonData = JSON.parse(data);
       // retrieveObject(jsonData);
-
+ 
     } catch (error) {
       console.error(`error fetching data for ${itemID}`, error);
     }

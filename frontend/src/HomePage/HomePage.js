@@ -31,7 +31,7 @@ function HomePage({ items, handleLogout, currentUserID }) {
     const addToCart = async (itemId) => {
       // This function will flush the cart when the user logs out
       try {
-        let response = await fetch("http://127.0.0.1:5002/removeFromCart", {
+        let response = await fetch("http://127.0.0.1:5002/addToCart", {
           method: "POST",
           body: JSON.stringify({
             userId: currentUserID,
@@ -77,7 +77,7 @@ function HomePage({ items, handleLogout, currentUserID }) {
         <div
           id="main-ItemBox-container"
           className={expandedBoxes.includes(true) ? "expanded-main-container" : ""}
-        >
+        > 
           {items.map((item, index) => (
             <div
               id="Item-box"
