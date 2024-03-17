@@ -1,19 +1,63 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
+
+import Layout from "./Layout";
 import HomePageEmpty from "./HomePage/HomePageEmpty";
 import HomePage from "./HomePage/HomePage";
 import Cart from "./Cart/Cart";
 import Payment from "./Payment/Payment";
-import Layout from "./Layout";
+import SellItems from "./SellItems/SellItems";
+import LoginPage from "./UserPages/LoginPage";
+import SignUpPage from "./UserPages/SignUpPage";
+import ProfilePage from "./UserPages/ProfilePage";
 
 function App() {
   /* This is the main app component basically the "view controller" this will just pass information along to different pages from API */
 
   const [items, setItems] = useState([]);
 
+  const [userProfile, setUserProfile] = useState(
+    JSON.parse(localStorage.getItem("userProfile"))
+  );
+  const profileData = JSON.parse(localStorage.getItem('profile'));
+
+  const handleSetProfile = (userData) => {
+    localStorage.setItem("userProfile", JSON.stringify(userData));
+    setUserProfile(userData);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("userProfile");
+    setUserProfile(null);
+
+    const cleanCart = async () => { // This function will flush the cart when the user logs out
+      try {
+        let response = await fetch("http://127.0.0.1:5001/flushCart", {
+          method: "DELETE",
+          body: JSON.stringify({
+            userId: profileData.id
+          }),
+          headers: {
+            'Content-Type' : 'application/json',
+          },
+        });
+        if (response.ok) {
+          let jsonRes = await response.json();
+          console.log(jsonRes, "JSON RES");
+        } else {
+          console.log("Failed to fetch data:", response.status);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    cleanCart();
+  };
+
   useEffect(() => {
-    // This gets all the postings every time the page an event occurs and stores them in items array
+    // This useEffect gets all the postings every time an event occurs on the page and stores them in items array
     const fetchData = async () => {
       try {
         let response = await fetch("http://127.0.0.1:5007/getPostings", {
@@ -33,19 +77,26 @@ function App() {
     };
     fetchData();
   }, []);
-
+ 
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
 
-          {items.length === 0 ? (
-            <Route path="/" element={<HomePageEmpty />} />
-          ) : (
-            <Route path="/" element={<HomePage items={items} />} />
-          )}
-          <Route path="/Cart" element={<Cart/>} />
+          {
+            userProfile ? (
+              <Route path="/" element={<HomePage items={items} handleLogout={handleLogout} currentUserID={profileData.id}/>} />
+            ) : (
+              <Route path="/" element={<HomePageEmpty />} /> 
+            )
+          }
+
+          <Route path="/login" element={<LoginPage handleSetProfile={handleSetProfile}/>} /> 
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/profile" element={<ProfilePage userProfile={userProfile} />} />
+          <Route path="/cart" element={<Cart currentUserID={profileData.id} />} />
           <Route path="/Payment" element={<Payment/>} />
+
         </Route>
       </Routes>
     </BrowserRouter>

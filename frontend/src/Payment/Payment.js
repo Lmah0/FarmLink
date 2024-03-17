@@ -8,7 +8,7 @@ function Payment() {
   const navigate = useNavigate();
   const totalPrice = location.state.totalPrice;
   const userID = 1;
-
+ 
   const generateNumbers = (start, end) => {
     const options = [];
     for (let i = start; i <= end; i++) {
