@@ -12,68 +12,78 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
     def testing(self):
         return 'Hello, World! This is the Inventory and Catalog Service.'
     
-    def addPosting(self):
-        data = request.json
+    # def addPosting(self):
+    #     data = request.json
 
-        userId = data['userId']
-        quantity = data['quantity']
-        postingAuthor = data['postingAuthor']
-        description = data['description']
+    #     userId = data['userId']
+    #     quantity = data['quantity']
+    #     postingAuthor = data['postingAuthor']
+    #     description = data['description']
 
-        newPosting = models.Posting(userId, postingAuthor, quantity, description)
+    #     newPosting = models.Posting(userId, postingAuthor, quantity, description)
         
-        models.db.session.add(newPosting)
-        models.db.session.commit()
+    #     models.db.session.add(newPosting)
+    #     models.db.session.commit()
 
-        postingId = newPosting.id
-        itemName = data['itemName']
-        itemPrice = data['itemPrice']
+    #     postingId = newPosting.id
+    #     itemName = data['itemName']
+    #     itemPrice = data['itemPrice']
 
-        itemType = data['itemType']
-        try:
-            itemType = models.ItemType[itemType]
-        except KeyError:
-            return jsonify({'message': 'Invalid item type.'})
+    #     itemType = data['itemType']
+    #     try:
+    #         itemType = models.ItemType[itemType]
+    #     except KeyError:
+    #         return jsonify({'message': 'Invalid item type.'})
 
-        newItem = models.Item(itemName, itemPrice, itemType, postingId)
+    #     newItem = models.Item(itemName, itemPrice, itemType, postingId)
         
-        models.db.session.add(newItem)
-        models.db.session.commit()
+    #     models.db.session.add(newItem)
+    #     models.db.session.commit()
 
-        return jsonify({'message': 'New posting created!'}), 200
+    #     return jsonify({'message': 'New posting created!', 'postingId': postingId}), 200
     
-    def uploadImage(self):
+    def addPosting(self):
         try:
             # Check if the POST request has the file part
-            if 'file' not in request.files:
-                return 'No file part', 400
+            imageFile = None
+            try:
+                imageFile = request.files['file']
+            except Exception as e:
+                print("No image.")
+            
+            if 'userdata' not in request.form:
+                return 'No user data', 400
+            data = json.loads(request.form['userdata'])
 
-            imageFile = request.files['file']
+            userId = data['userId']
+            quantity = data['quantity']
+            postingAuthor = data['postingAuthor']
+            description = data['description']
 
-            if not imageFile:
-                print("What is file")
-                return jsonify({'error': 'No file part'}), 400
+            newPosting = models.Posting(userId, postingAuthor, quantity, description)
+            
+            models.db.session.add(newPosting)
+            models.db.session.commit()
 
-            # If the user does not select a file, the browser submits an empty file without a filename
-            if imageFile.filename == '':
-                return jsonify({'error': 'No selected file'}), 400
+            postingId = newPosting.id
+            itemName = data['itemName']
+            itemPrice = data['itemPrice']
 
-            # Specify the directory where you want to save the uploaded images
-            upload_directory = './'
+            itemType = data['itemType']
+            try:
+                itemType = models.ItemType[itemType]
+            except KeyError:
+                return jsonify({'message': 'Invalid item type.'})
 
-            # If the directory doesn't exist, create it
-            if not os.path.exists(upload_directory):
-                os.makedirs(upload_directory)
-
-            # Save the file to the specified directory
-            imageFile.save(os.path.join(upload_directory, imageFile.filename))
+            newItem = models.Item(itemName, itemPrice, itemType, postingId)
+            
+            models.db.session.add(newItem)
+            models.db.session.commit()
 
             # Optionally, you can return the file path or any other response
-            return jsonify({'message': 'File uploaded successfully', 'file_path': os.path.join(upload_directory, imageFile.filename)}), 200
+            return jsonify({'message': 'New posting added successfully'}), 200
 
         except Exception as e:
-            print("ERROR HTEE")
-            print(e)
             return jsonify({'error': str(e)}), 500
         
         return jsonify({'message': 'File uploaded successfully'}), 200
@@ -125,4 +135,3 @@ main.route('/getPostings', methods=['GET'])(inventoryAndCatalogService.getPostin
 main.route('/getPosting', methods=['GET'])(inventoryAndCatalogService.getPosting)
 main.route('/getItem', methods=['POST'])(inventoryAndCatalogService.getItem)
 main.route('/removeStock', methods=['POST'])(inventoryAndCatalogService.removeStock)
-main.route('/uploadImage', methods=['POST'])(inventoryAndCatalogService.uploadImage)
