@@ -15,7 +15,8 @@ db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
-    CORS(app, resources={r"/*": {"origins": "*"}})
+    # CORS(app, resources={r"/*": {"origins": "*"}})
+    CORS(app)
     app.config.from_pyfile('config.py', silent=True)
     if ENVIRONMENT == 'production':
         load_dotenv()
