@@ -19,7 +19,7 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
         postingAuthor = data['postingAuthor']
         description = data['description']
 
-        newPosting = models.Posting(userId, postingAuthor, quantity, description)
+        newPosting = models.Posting(userId, postingAuthor, quantity, description) # Add to posting table
         
         models.db.session.add(newPosting)
         models.db.session.commit()
@@ -34,7 +34,7 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
         except KeyError:
             return jsonify({'message': 'Invalid item type.'})
 
-        newItem = models.Item(itemName, itemPrice, itemType, postingId)
+        newItem = models.Item(itemName, itemPrice, itemType, postingId) # add to item table
         
         models.db.session.add(newItem)
         models.db.session.commit()
