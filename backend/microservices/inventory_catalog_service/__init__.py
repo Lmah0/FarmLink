@@ -11,7 +11,7 @@ ENVIRONMENT = 'development'
 db = SQLAlchemy()
 
 # To run: 'flask --app inventory_catalog_service run --debug' in console
-# To run on a specific port: 'flask --app inventory_catalog_service run --debug --port <SomePortNumberYouChoose>' in console
+# To run on a specific port: 'flask --app inventory_catalog_service run --debug --port 5007' in console
 
 def create_app():
     app = Flask(__name__)
