@@ -50,53 +50,30 @@ function SellItems() {
       }
     };
     addPosting();
-    // const uploadImage = async () => {
-    //   const formData = new FormData();
-    //   //formData.append("file", file);
-    //   formData.append('image', file);
-    //   try {
-    //     const response = await fetch("http://127.0.0.1:5007/uploadImage", {
-    //       method: "POST",
-    //       // form: 'file=@"/Users/liammah/Desktop/Images/DeveloperTestImages/IMG_0231_Original.jpg"',
-    //       body: formData,
-    //       headers: { 
-    //         "Content-Type": "multipart/form-data",
-    //         "Access-Control-Allow-Origin": "*",
-    //         "Accept": "*/*",
-    //       },
-    //       timeout: 20000, //20 seconds in milliseconds
-    //     });
-    //     if (response.ok) {
-    //       let jsonRes = await response.json();
-    //       console.log(jsonRes, "JSON RES");
-    //     } else {
-    //       console.log("Failed to upload image:", response.status, " ", response.text);
-    //     }
-    //   } catch (error) {
-    //     console.error("Error uploading image:", error);
-    //   }
-    // };
-    // if (file) {
-    //   uploadImage();
-    // }
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "multipart/form-data");
-    myHeaders.append("Access-Control-Allow-Origin", "*");
+    
+    const addImage = async () => {
+      const myHeaders = new Headers();
+      // myHeaders.append("Content-Type", "multipart/form-data");
+      myHeaders.append("Access-Control-Allow-Origin", "*");
 
-    const formdata = new FormData();
-    formdata.append("file", file, "IMG_0231_Original.jpg");
+      const formdata = new FormData();
+      formdata.append("file", file);
 
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: formdata,
-      redirect: "follow"
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: formdata,
+        redirect: "follow"
+      };
+
+      fetch("http://127.0.0.1:5007/uploadImage", requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.error(error));
     };
-
-    fetch("http://127.0.0.1:5007/uploadImage", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.error(error));
+    if (file) {
+      addImage();
+    }
   };
 
   return (

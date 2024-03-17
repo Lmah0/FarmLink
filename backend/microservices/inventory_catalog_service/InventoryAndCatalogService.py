@@ -45,6 +45,9 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
     def uploadImage(self):
         try:
             # Check if the POST request has the file part
+            if 'file' not in request.files:
+                return 'No file part', 400
+
             imageFile = request.files['file']
 
             if not imageFile:
