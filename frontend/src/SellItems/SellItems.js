@@ -49,8 +49,32 @@ function SellItems() {
         console.error("Error adding post:", error);
       }
     };
-
     addPosting();
+    const uploadImage = async () => {
+      const formData = new FormData();
+      formData.append("file", file);
+      try {
+        let response = await fetch("http://127.0.0.1:5007/uploadImage", {
+          method: "POST",
+          body: formData,
+          headers: { 
+            "Content-Type": "multipart/form-data",
+          },
+          timeout: 20000, //20 seconds in milliseconds
+        });
+        if (response.ok) {
+          let jsonRes = await response.json();
+          console.log(jsonRes, "JSON RES");
+        } else {
+          console.log("Failed to upload image:", response.status);
+        }
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    };
+    if (file) {
+      uploadImage();
+    }
   };
 
   // Function to handle file upload
