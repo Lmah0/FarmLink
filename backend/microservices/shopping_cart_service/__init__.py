@@ -11,7 +11,7 @@ ENVIRONMENT = 'development'
 db = SQLAlchemy()
 
 # To run: 'flask --app shopping_cart_service run --debug' in console
-# To run on a specific port: 'flask --app shopping_cart_service run --debug --port <SomePortNumberYouChoose>' in console
+# To run on a specific port: 'flask --app shopping_cart_service run --debug --port 5008' in console
 def create_app():
     app = Flask(__name__)
     CORS(app, resources={r"/*": {"origins": "*"}})

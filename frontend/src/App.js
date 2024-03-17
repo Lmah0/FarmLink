@@ -16,7 +16,7 @@ function App() {
     // This gets all the postings every time the page an event occurs and stores them in items array
     const fetchData = async () => {
       try {
-        let response = await fetch("http://127.0.0.1:5000/getPostings", {
+        let response = await fetch("http://127.0.0.1:5007/getPostings", {
           method: "GET",
         });
 

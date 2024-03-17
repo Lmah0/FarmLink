@@ -24,7 +24,7 @@ def checkStock():
     postingID = data['postingId']
     
     data = {"postingId": postingID}
-    response = requests.get("http://127.0.0.1:5001/getPosting", json=data)   
+    response = requests.get("http://127.0.0.1:5007/getPosting", json=data)   
     retrievedPosting = response.json() 
     print(f'The retrieved posting is {retrievedPosting}')
 
@@ -33,7 +33,7 @@ def checkStock():
     else:
         # Process item (e.g., add it to the cart)
         data = {"userId": userID, "itemId": itemID, "quantity": quantity}
-        requests.post("http://127.0.0.1:5002/addToCart", json=data)   
+        requests.post("http://127.0.0.1:5008/addToCart", json=data)   
         return jsonify({'message': 'Sufficient stock'}), 200
 
 @app.route('/createOrder', methods=['GET', "POST"])
@@ -68,7 +68,6 @@ def createOrder():
         print(f'The retrieved posting is {retrievedPosting}')
         # Check if the quantity in the cart is available
 
-        #TODO Update this logic Later
         if retrievedPosting['quantity'] < item['quantity']:
             return jsonify({'message': 'Not enough stock available.'}), 400
         else:
