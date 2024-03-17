@@ -16,7 +16,7 @@ function SellItems() {
     e.preventDefault();
     setSubmitting(true);
 
-    await fetch("http://127.0.0.0.1:5001/addPosting", {
+    await fetch("http://127.0.0.0.1:5007/addPosting", {
       method: "POST",
       // body: data,
       timeout: 20000, //20 seconds in milliseconds
