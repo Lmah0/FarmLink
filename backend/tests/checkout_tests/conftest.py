@@ -5,7 +5,7 @@ from microservices.checkout_service import create_app, db
 
 @pytest.fixture()
 def app():
-    app = create_app()
+    app = create_app("test") # Create DB in memory so that production DB is not affected during tests
     with app.app_context():
         db.create_all()
     
@@ -14,5 +14,5 @@ def app():
     # Teardown
 
 @pytest.fixture()
-def client(setup): # Simulate requests to service
-    return setup.test_client()
+def client(app): # Simulate requests to service
+    return app.test_client()

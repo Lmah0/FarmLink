@@ -26,15 +26,6 @@ class CheckoutService(ICheckoutService.ICheckoutService):
         
         return jsonify({'message': 'New Order Created!'}), 200
 
-
-
-
-
-
-
-        return jsonify({'message': 'New order created!'}), 200
-
-
 checkoutService = CheckoutService()
 
 main.route('/', methods=['GET'])(checkoutService.testing)

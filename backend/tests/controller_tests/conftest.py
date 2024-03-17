@@ -1,4 +1,4 @@
 import pytest
 
 import pytest 
-from controllers.controller import controller
+from controllers import controller

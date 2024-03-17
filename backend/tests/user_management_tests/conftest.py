@@ -14,5 +14,5 @@ def setup():
     # Teardown
 
 @pytest.fixture()
-def client(setup): # Simulate requests to service
-    return setup.test_client()
+def client(app): # Simulate requests to service
+    return app.test_client()
