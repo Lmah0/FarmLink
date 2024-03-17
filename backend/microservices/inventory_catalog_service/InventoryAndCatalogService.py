@@ -40,6 +40,12 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
         models.db.session.commit()
 
         return jsonify({'message': 'New posting created!'}), 200
+    
+    def uploadImage(self):
+        pass
+
+    def getImage(self):
+        pass
 
     def getPostings(self):
         postings = models.Posting.query.all()

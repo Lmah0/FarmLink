@@ -6,10 +6,7 @@ import json
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-# INSTRUCTIONS:
-# 1. You need to use this file to control all the microservices to coordinate the payment as specified in the doc
-# 2. You need to run each microservice at the same time, and call on the proper logic from within each microservice to complete the logic for this
-     # When you run each microservice at the same time, you must specify different ports when you run each one (default is 5000 and we cannot run all microservices off the same port)
+# Run in directory controllers/ with command: flask --app controller run --debug --port 5002
 
 @app.route('/')
 def hello_world():

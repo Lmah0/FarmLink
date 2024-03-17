@@ -16,3 +16,11 @@ class IInventoryAndCatalogService(ABC):
     @abstractmethod
     def getPosting(self):
         pass
+
+    @abstractmethod
+    def uploadImage(self):
+        pass
+
+    @abstractmethod
+    def getImage(self):
+        pass
