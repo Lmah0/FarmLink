@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import './SignUpPage.css'; // Import the CSS file for styling
 
 const SignUpPage = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
@@ -34,6 +36,7 @@ const SignUpPage = () => {
       if (response.ok) {
         // Handle successful sign-up
         alert('Sign up successful!');
+        navigate("/login");
       } else {
         // Handle unsuccessful sign-up
         const data = await response.json();

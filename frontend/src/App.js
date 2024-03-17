@@ -16,17 +16,27 @@ function App() {
   /* This is the main app component basically the "view controller" this will just pass information along to different pages from API */
 
   const [items, setItems] = useState([]);
-  const [userID, setUserID] = useState(false);
 
-  const handleUserIdChange = (newUserId) => {
-    setUserID(newUserId);
+  const [userProfile, setUserProfile] = useState(
+    JSON.parse(localStorage.getItem("userProfile"))
+  );
+
+  const handleSetProfile = (userData) => {
+    localStorage.setItem("userProfile", JSON.stringify(userData));
+    setUserProfile(userData);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("userProfile");
+    setUserProfile(null);
   };
 
   useEffect(() => {
     // This useEffect gets all the postings every time an event occurs on the page and stores them in items array
     const fetchData = async () => {
       try {
-        let response = await fetch("http://127.0.0.1:5000/getPostings", {
+        let response = await fetch("http://127.0.0.1:5001/getPostings", {
+          // mode:"no-cors",
           method: "GET",
         });
 
@@ -48,19 +58,17 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          {/* <Route path="/" element={<HomePageEmpty />} /> */}
-          {/* <Route path="/login" element={<LoginPage />} /> */}
-          {/* <Route path="/signup" element={<SignUpPage />} /> */}
 
+          {
+            userProfile ? (
+              <Route path="/" element={<HomePage items={items} handleLogout={handleLogout}/>} />
+            ) : (
+              <Route path="/" element={<HomePageEmpty />} /> 
+            )
+          }
 
-
-          {/* <Route path="/" element={<SellItems/>} /> */}
-
-          {items.length === 0 ? (
-            <Route path="/" element={<HomePageEmpty />} />
-          ) : (
-            <Route path="/" element={<HomePage items={items} />} />
-          )}
+          <Route path="/login" element={<LoginPage handleSetProfile={handleSetProfile}/>} /> 
+          <Route path="/signup" element={<SignUpPage />} />
 
           {/* <Route path="/Cart" element={<Cart/>} />
           <Route path="/Payment" element={<Payment/>} /> */}

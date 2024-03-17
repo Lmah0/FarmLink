@@ -1,8 +1,9 @@
 import "./HomePage.css";
 import { useState } from "react";
 
-function HomePage({ items }) {
+function HomePage({ items, handleLogout }) {
   const [expandedBox, setExpandedBox] = useState(null);
+  // const [expandedProfileBox, setExpandedProfileBox] = useState(false);
 
   const handleBoxClick = () => {
     if (expandedBox === 0) {
@@ -12,17 +13,30 @@ function HomePage({ items }) {
     }
   };
 
+  // const toggleExpandedBox = () => {
+  //   setExpandedProfileBox(!expandedProfileBox);
+  // };
+
+  const handleLogoutClick = () => {
+    handleLogout();
+  };
+
   return (
     <>
       <div id="HomePage-Main-Container">
         <div id="HomePage-Header">
           <header>MarketPlace</header>
-          <input type="text" placeholder="Search" />
-          <button id="search-Button">
+          {/* <input type="text" placeholder="Search" /> */}
+
+          <button id="profile-Button">
             <img
               src="https://media.istockphoto.com/id/1131164548/vector/avatar-5.jpg?s=612x612&w=0&k=20&c=CK49ShLJwDxE4kiroCR42kimTuuhvuo2FH5y_6aSgEo="
               alt="Person Emoji"
             />
+          </button> 
+
+          <button id="logout-Button" onClick={handleLogoutClick}>
+            Logout
           </button>
         </div>
 
@@ -54,18 +68,22 @@ function HomePage({ items }) {
                   />
                 </button>
               </div>
-              
-              <h4 className={expandedBox === 0 ? "" : "hidden-element"}>Seller: {item.posting_author}</h4>
 
-              <h3>{item.posting_item['name']}</h3>
+              <h4 className={expandedBox === 0 ? "" : "hidden-element"}>
+                Seller: {item.posting_author}
+              </h4>
 
-              <h4>Price: ${item.posting_item['price']}</h4>
+              <h3>{item.posting_item["name"]}</h3>
+
+              <h4>Price: ${item.posting_item["price"]}</h4>
 
               <h4 className={expandedBox === 0 ? "" : "hidden-element"}>
                 Quanity Avaliable: {item.quantity}
-              </h4> 
-                
-              <h4 className={expandedBox === 0 ? "hidden-element" : ""}>Seller: {item.posting_author}</h4>
+              </h4>
+
+              <h4 className={expandedBox === 0 ? "hidden-element" : ""}>
+                Seller: {item.posting_author}
+              </h4>
 
               <p className={expandedBox === 0 ? "" : "hidden-element"}>
                 Description: {item.description}
