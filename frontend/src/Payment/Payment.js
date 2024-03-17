@@ -48,16 +48,31 @@ function Payment() {
     Object.entries(values).forEach(([key, value]) => {
       console.log(`${key}: ${value}`);
     });
+
+    if (values.textbox1.length !== 16) {
+      console.log("Card number must be 16 digits");
+      return;
+    }
+    if (values.textbox2.length !== 3) {
+      console.log("Security number must be 3 digits");
+      return;
+    }
+    const requiredFields = ['textbox1', 'textbox2', 'textbox3', 'textbox4', 'textbox5', 'textbox6', 'textbox8', 'textbox9', 'textbox10'];
+    for (const field of requiredFields) {
+      if (!values[field]) {
+        console.log(`${field} is required`);
+        return;
+      }
+    }
     console.log(totalPrice)
     try {
-      let response = await fetch("http://127.0.0.1:5000/checkStock", {
+      let response = await fetch("http://127.0.0.1:5000/createOrder", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(userID),
       });
-
       if (response.ok) {
         let jsonRes = await response.json();
         console.log(jsonRes, "JSON RES");
