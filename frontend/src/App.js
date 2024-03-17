@@ -20,8 +20,21 @@ function App() {
   const [userProfile, setUserProfile] = useState(
     JSON.parse(localStorage.getItem("userProfile"))
   );
-  const profileData = JSON.parse(localStorage.getItem('profile'));
+  
+  // const profileData = JSON.parse(localStorage.getItem("userProfile"));
 
+  let profileData = {};
+  if (userProfile) {
+    const storedProfile = localStorage.getItem('profile');
+    if (storedProfile) {
+      try {
+        profileData = JSON.parse(storedProfile);
+      } catch (error) {
+        console.error('Error parsing stored profile:', error);
+      }
+    }
+  }
+  
   const handleSetProfile = (userData) => {
     localStorage.setItem("userProfile", JSON.stringify(userData));
     setUserProfile(userData);
