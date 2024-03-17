@@ -1,5 +1,6 @@
 import "./SellItems.css";
 import { useState } from "react";
+import React from 'react';
 
 function SellItems() {
   // Define state variables to hold form data
@@ -81,7 +82,7 @@ function SellItems() {
           />
 
           <input
-            placeholder="Quanity"
+            placeholder="Quantity"
             type="number"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}

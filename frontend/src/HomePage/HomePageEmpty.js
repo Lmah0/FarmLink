@@ -1,5 +1,4 @@
-
-import "./HomePageEmpty.css";
+import React from 'react';
 
 function HomePageEmpty() {
   return (

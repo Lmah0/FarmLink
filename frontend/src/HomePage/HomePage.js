@@ -1,5 +1,6 @@
 import "./HomePage.css";
 import { useState } from "react";
+import React from 'react';
 
 function HomePage({ items }) {
   const [expandedBox, setExpandedBox] = useState(null);
