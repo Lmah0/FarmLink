@@ -1,0 +1,26 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    background-color: #3498db; /* Blue background color */
+  }
+  
+  form {
+    background-color: #fff; /* White background color */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .login-container input{
+    width:75%;
+    align-self: center;
+  }

@@ -44,8 +44,19 @@ class UserManagementService(IUserManagementService.IUserManagementService):
             return jsonify({'message': 'Invalid email address or password.'}), 401
         else:
             return jsonify({'message': 'Successful Login! The user\'s ID is ' + str(user.id), 'userId': user.id}), 200
+    
+    def returnProfile(self):
+        data = request.json
+        userId = data['userId']
+        user = models.User.query.filter_by(id=userId).first()
+        
+        if user is None:
+            return jsonify({'message': 'Invalid user ID.'}), 401
+        else:
+            return jsonify(user.serialize()), 200
 
 userManagementService = UserManagementService()
 main.route('/', methods=['GET'])(userManagementService.testing)
 main.route('/register', methods=['POST'])(userManagementService.register)
 main.route('/login', methods=['POST'])(userManagementService.login)
+main.route('/returnProfile', methods=['POST'])(userManagementService.returnProfile)

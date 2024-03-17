@@ -13,3 +13,6 @@ class IUserManagementService(ABC):
     def login(self):
         pass
 
+    @abstractmethod
+    def returnProfile(self):
+        pass
