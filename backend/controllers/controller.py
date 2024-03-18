@@ -78,7 +78,7 @@ def createOrder():
         # Check if the quantity in the cart is available
 
         if retrievedPosting['quantity'] < item['quantity']:
-            return jsonify({'message': 'Not enough stock available.'}), 400
+            return jsonify({'message': 'Not enough stock available.'}), 420 # 420 is a custom error code
         else:
         #remove the quantity from the stock
             data = {"postingId": postingID, "quantity": item['quantity']}
