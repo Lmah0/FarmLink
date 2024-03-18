@@ -1,12 +1,10 @@
-import os
-
+import os, json
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
-
-
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
+from flask_swagger_ui import get_swaggerui_blueprint
 
 ENVIRONMENT = 'development'
 db = SQLAlchemy()
@@ -17,6 +15,24 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
     CORS(app, resources={r"/*": {"origins": "*"}})
+
+    # Configure Swagger UI
+    SWAGGER_URL = '/swagger'
+    API_URL = 'http://127.0.0.1:5009/swagger.json'
+    swaggerui_blueprint = get_swaggerui_blueprint(
+        SWAGGER_URL,
+        API_URL,
+        config={
+            'app_name': "Sample API"
+        }
+    )
+    app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
+
+    @app.route('/swagger.json')
+    def swagger():
+        with open('./checkout_service/swagger.json', 'r') as f:
+            return jsonify(json.load(f))
+
     app.config.from_pyfile('config.py', silent=True)
     if ENVIRONMENT == 'production':
         load_dotenv()
