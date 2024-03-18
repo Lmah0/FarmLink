@@ -1,27 +1,30 @@
 import "./Layout.css";
 import { Outlet } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 
 function Layout() {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    const goToCart = () => {
-        navigate("/Cart")
-    }
+    // const goToCart = () => {
+    //     navigate("/Cart")
+    // }
 
     return (
         <>
             <div id="Main-Container">
                 <header>
-                    <div>Make Agriculture Great Again</div>
-                    <button style={{marginRight: 20}} onClick={goToCart}>&#x1f6d2;</button>
+                    Make Agriculture Great Again
+                    {/* <button style={{marginRight: 20}} onClick={goToCart}>&#x1f6d2;</button> */}
                 </header>
 
                 <div>
                     <Outlet />
                 </div>
-                <footer>&#169;MAGA</footer>
+
+                <footer>
+                    &#169;MAGA
+                </footer>
             </div>
         </>
     );

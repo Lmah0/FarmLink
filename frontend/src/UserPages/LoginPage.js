@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import './LoginPage.css'; // Import the CSS file for styling
 
-const LoginPage = () => {
+const LoginPage = ({handleSetProfile}) => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -20,7 +22,7 @@ const LoginPage = () => {
 
     try {
       // Make a POST request to your Flask API endpoint for login
-      const response = await fetch('http://localhost:5000/login', {
+      const response = await fetch('http://127.0.0.1:5000/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,9 +39,10 @@ const LoginPage = () => {
         alert(`Login successful! User ID: ${data.userId}`);
         setIsLoggedIn(true);
         setUserId(data.userId);
+        // console.log('User ID:', data);
 
         // Fetch user profile data after successful login
-        const profileResponse = await fetch('http://localhost:5000/returnProfile', {
+        const profileResponse = await fetch('http://127.0.0.1:5000/returnProfile', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -50,7 +53,9 @@ const LoginPage = () => {
         if (profileResponse.ok) {
           const profileData = await profileResponse.json();
           // You can save profile data in localStorage or use it directly as needed
-          localStorage.setItem('profile', JSON.stringify(profileData));
+          // localStorage.setItem('profile', JSON.stringify(profileData));
+          handleSetProfile(JSON.stringify(profileData)); // Call the function passed from App.js with profileData
+          navigate("/");
         } else {
           alert('Failed to fetch user profile data.');
         }
@@ -64,6 +69,7 @@ const LoginPage = () => {
       alert('Login failed. Please try again later.');
     }
   };
+
   return (
     <div className="login-container">
       <form onSubmit={handleLogin}>

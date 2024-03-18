@@ -24,7 +24,7 @@ class ShoppingCartService(IShoppingCartService.IShoppingCartService):
 
         return jsonify({'message': 'Items added to cart successfully.'})
 
-
+ 
     def removeFromCart(self):
         data = request.json
         userID = data['userId']  

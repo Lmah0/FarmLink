@@ -9,6 +9,7 @@ function SellItems() {
   const [quantity, setQuantity] = useState("");
   const [itemType, setItemType] = useState("");
   const [file, setFile] = useState(null);
+  const [imageSrc, setImageSrc] = useState("");
 
   const [submitting, setSubmitting] = useState(false);
 
@@ -16,27 +17,41 @@ function SellItems() {
     e.preventDefault();
     setSubmitting(true);
 
-    await fetch("http://127.0.0.0.1:5001/addPosting", {
-      method: "POST",
-      // body: data,
-      timeout: 20000, //20 seconds in milliseconds
-    })
-      .then((response) => {
+    const userData = {
+      userId: 1, // This will be the user's id
+      quantity: parseInt(quantity), // Parse quantity to integer
+      postingAuthor: "Eric Mei", // This will be the user's name
+      itemName: title,
+      description: description,
+      itemPrice: parseFloat(price), // Parse price to integer
+      itemType: itemType,
+      // imageData: file,
+    };
+
+    const addPosting = async () => {
+      // This function will add a post to the database
+      try {
+        const formdata = new FormData();
+        formdata.append("file", file);
+        formdata.append("userdata", JSON.stringify(userData));
+        let response = await fetch("http://127.0.0.1:5007/addPosting", {
+          method: "POST",
+          headers: {"Access-Control-Allow-Origin": "*"},
+          body: formdata, // Convert userData to JSON string
+          redirect: "follow" //20 seconds in milliseconds
+        });
         if (response.ok) {
-          let res = response.json();
-          console.log(res, "RESPONSE");
-          return res;
+          let jsonRes = await response.json();
+          console.log(jsonRes);
+          return jsonRes['postingId']
         } else {
-          throw new Error("Network response was not ok");
+          console.log("Failed to add posting:", response.status);
         }
-      })
-      .then((data) => {
-        console.log(data, "data");
-        setSubmitting(false);
-      })
-      .catch((error) => {
-        setSubmitting(false);
-      });
+      } catch (error) {
+        console.error("Error adding post:", error);
+      }
+    };
+    addPosting();
   };
 
   return (
@@ -57,13 +72,12 @@ function SellItems() {
               type="file"
               accept=".jpg, .jpeg, .png"
               onChange={(e) => setFile(e.target.files[0])}
-              required
+              // onChange={handleFileChange}
+              // required
             />
           </div>
-
-          <h2>Required</h2>
-          <h3>Be as Descriptive as Possbile</h3>
-
+          {/* <h2>Required</h2> */}
+          {/* <h3>Be as Descriptive as Possbile</h3>  */}
           <input
             type="text"
             placeholder="Title"
@@ -71,7 +85,6 @@ function SellItems() {
             onChange={(e) => setTitle(e.target.value)}
             required
           />
-
           <input
             placeholder="Price"
             type="number"
@@ -79,22 +92,25 @@ function SellItems() {
             onChange={(e) => setPrice(e.target.value)}
             required
           />
-
           <input
-            placeholder="Quanity"
+            placeholder="Quantity"
             type="number"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
             required
           />
 
-          <input
-            type="text"
-            placeholder="Item Type"
+          <select
             value={itemType}
             onChange={(e) => setItemType(e.target.value)}
             required
-          />
+          >
+            <option value="">Select Item Type</option>
+            <option value="MACHINERY">MACHINERY</option>
+            <option value="TOOLS">TOOLS</option>
+            <option value="LIVESTOCK">LIVESTOCK</option>
+            <option value="PRODUCE">PRODUCE</option>
+          </select>
 
           <input
             type="text"
@@ -103,7 +119,6 @@ function SellItems() {
             onChange={(e) => setDescription(e.target.value)}
             required
           />
-
           <button type="submit">Create Listing</button>
         </form>
       </div>

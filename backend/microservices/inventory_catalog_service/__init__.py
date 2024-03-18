@@ -11,11 +11,12 @@ ENVIRONMENT = 'development'
 db = SQLAlchemy()
 
 # To run: 'flask --app inventory_catalog_service run --debug' in console
-# To run on a specific port: 'flask --app inventory_catalog_service run --debug --port <SomePortNumberYouChoose>' in console
+# To run on a specific port: 'flask --app inventory_catalog_service run --debug --port 5007' in console
 
 def create_app(ENVIRONMENT='development'):
     app = Flask(__name__)
-    CORS(app, resources={r"/*": {"origins": "*"}})
+    # CORS(app, resources={r"/*": {"origins": "*"}})
+    CORS(app)
     app.config.from_pyfile('config.py', silent=True)
     if ENVIRONMENT == 'production':
         load_dotenv()

@@ -13,7 +13,7 @@ ENVIRONMENT = 'development'
 db = SQLAlchemy()
 
 # To run: 'flask --app checkout_service run --debug' in console
-# To run on a specific port: 'flask --app checkout_service run --debug --port <SomePortNumberYouChoose>' in console
+# To run on a specific port: 'flask --app checkout_service run --debug --port 5009' in console
 
 def create_app(ENVIRONMENT='development'):
     app = Flask(__name__)

@@ -2,6 +2,7 @@ backend/microservices/checkout_service/__pycache__
 backend/microservices/inventory_catalog_service/__pycache__
 backend/microservices/shopping_cart_service/__pycache__
 backend/microservices/user_management_service/__pycache__
+backend/microservices/maga-db/
 /venv
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
