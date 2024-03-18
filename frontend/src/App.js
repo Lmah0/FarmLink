@@ -18,26 +18,30 @@ function App() {
   const [items, setItems] = useState([]);
 
   const [userProfile, setUserProfile] = useState(
-    JSON.parse(localStorage.getItem("userProfile"))
+    JSON.parse(localStorage.getItem("profile"))
   );
-  
+  // const [profileData, setProfileData] = useState({});
+
   // const profileData = JSON.parse(localStorage.getItem("userProfile"));
 
-  let profileData = {};
-  if (userProfile) {
-    const storedProfile = localStorage.getItem('profile');
-    if (storedProfile) {
-      try {
-        profileData = JSON.parse(storedProfile);
-      } catch (error) {
-        console.error('Error parsing stored profile:', error);
-      }
-    }
-  }
+  // if (userProfile) {
+  //   const storedProfile = localStorage.getItem('profile');
+  //   if (storedProfile) {
+  //     try {
+  //       profileData = JSON.parse(storedProfile);
+  //     } catch (error) {
+  //       console.error('Error parsing stored profile:', error);
+  //     }
+  //   }
+  // }
   
   const handleSetProfile = (userData) => {
-    localStorage.setItem("userProfile", JSON.stringify(userData));
-    setUserProfile(userData);
+    localStorage.setItem("profile", userData);
+    const profileData = JSON.parse(localStorage.getItem('profile'));
+    if (profileData) {
+      // setProfileData(profileData);
+      setUserProfile(profileData);
+    }
   };
 
   const handleLogout = () => {
@@ -49,7 +53,7 @@ function App() {
         let response = await fetch("http://127.0.0.1:5001/flushCart", {
           method: "DELETE",
           body: JSON.stringify({
-            userId: profileData.id
+            userId: userProfile.id
           }),
           headers: {
             'Content-Type' : 'application/json',
@@ -98,7 +102,7 @@ function App() {
 
           {
             userProfile ? (
-              <Route path="/" element={<HomePage items={items} handleLogout={handleLogout} currentUserID={profileData.id}/>} />
+              <Route path="/" element={<HomePage items={items} handleLogout={handleLogout} currentUserID={userProfile.id}/>} />
             ) : (
               <Route path="/" element={<HomePageEmpty />} /> 
             )
@@ -106,8 +110,8 @@ function App() {
 
           <Route path="/login" element={<LoginPage handleSetProfile={handleSetProfile}/>} /> 
           <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/profile" element={<ProfilePage userProfile={userProfile} />} />
-          <Route path="/cart" element={<Cart currentUserID={profileData.id} />} />
+          <Route path="/profile" element={<ProfilePage/>} />
+          <Route path="/cart" element={<Cart currentUserID={userProfile.id} />} />
           <Route path="/Payment" element={<Payment/>} />
           <Route path="/SellItems" element={<SellItems />} />
 
