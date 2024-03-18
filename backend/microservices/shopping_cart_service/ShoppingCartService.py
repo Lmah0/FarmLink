@@ -18,10 +18,19 @@ class ShoppingCartService(IShoppingCartService.IShoppingCartService):
             return jsonify({'message': 'Invalid values for userId, itemId, or quantity.'}), 400
         elif quantity <= 0:
             return jsonify({'message': 'Quantity must be greater than 0.'}), 400
+        
+        # Check if an entry with the same user_id and item_id exists
+        existing_entry = models.ShoppingCart.query.filter_by(user_id=userID, item_id=itemID).first()
+
+        if existing_entry:
+            # If the entry exists, update the quantity
+            existing_entry.quantity += quantity
+        else:
+            # If the entry does not exist, create a new entry
+            newShoppingCartItem = models.ShoppingCart(userID, itemID, quantity)
+            models.db.session.add(newShoppingCartItem)
                     
-        # Process item (e.g., add it to the cart)
-        newShoppingCartItem = models.ShoppingCart(userID, itemID, quantity)
-        models.db.session.add(newShoppingCartItem)
+
         models.db.session.commit()
 
         return jsonify({'message': 'Items added to cart successfully.'})
