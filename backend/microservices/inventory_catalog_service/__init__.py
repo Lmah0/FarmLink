@@ -24,7 +24,7 @@ def create_app():
         SWAGGER_URL,
         API_URL,
         config={
-            'app_name': "Sample API"
+            'app_name': "API Documentation"
         }
     )
     app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)

@@ -1,0 +1,191 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "User Management API",
+      "description": "An API for user registration, login, and profile management.",
+      "version": "1.0"
+    },
+    "basePath": "/api",
+    "schemes": [
+      "http"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/register": {
+        "post": {
+          "summary": "Register a new user.",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Data required for user registration.",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the user."
+                  },
+                  "phone_number": {
+                    "type": "string",
+                    "description": "Phone number of the user."
+                  },
+                  "email_address": {
+                    "type": "string",
+                    "description": "Email address of the user."
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Password of the user."
+                  },
+                  "role": {
+                    "type": "string",
+                    "description": "Role of the user (e.g., 'admin', 'user')."
+                  },
+                  "farmer_pid": {
+                    "type": "string",
+                    "description": "PID of the farmer."
+                  },
+                  "profile_bio": {
+                    "type": "string",
+                    "description": "Profile bio of the user."
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User registered successfully.",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "Confirmation message."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/login": {
+        "post": {
+          "summary": "Login with user credentials.",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Data required for user login.",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email_address": {
+                    "type": "string",
+                    "description": "Email address of the user."
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Password of the user."
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful login.",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "Confirmation message."
+                  },
+                  "userId": {
+                    "type": "integer",
+                    "description": "ID of the user."
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Invalid email address or password."
+            }
+          }
+        }
+      },
+      "/returnProfile": {
+        "post": {
+          "summary": "Return user profile.",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Data required to return user profile.",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "ID of the user."
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User profile returned successfully.",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "ID of the user."
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the user."
+                  },
+                  "phone_number": {
+                    "type": "string",
+                    "description": "Phone number of the user."
+                  },
+                  "email_address": {
+                    "type": "string",
+                    "description": "Email address of the user."
+                  },
+                  "role": {
+                    "type": "string",
+                    "description": "Role of the user."
+                  },
+                  "farmer_pid": {
+                    "type": "string",
+                    "description": "PID of the farmer."
+                  },
+                  "profile_bio": {
+                    "type": "string",
+                    "description": "Profile bio of the user."
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Invalid user ID."
+            }
+          }
+        }
+      }
+    }
+  }
+  
