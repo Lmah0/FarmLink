@@ -54,14 +54,17 @@ class ShoppingCartService(IShoppingCartService.IShoppingCartService):
             return jsonify({'message': 'Items removed from cart successfully.'})
 
     def returnCart(self):
-        data = request.json
-        userID = data['userId']  
-        if 'userId' not in data:
+        userID = request.args.get('userId', "")  # Retrieve userID from query parameters
+        if not userID:
             return jsonify({'message': 'Invalid request: userId is required.'}), 400
-        elif not isinstance(userID, int):
+        try:
+            userID = int(userID)
+        except ValueError:
+            print((userID))
             return jsonify({'message': 'Invalid value for userId.'}), 400
         
         items = models.ShoppingCart.query.filter_by(user_id=userID).all() # Access the list of items under the User ID
+        
         print(f"The Items are {items}")
 
         return jsonify([item.serialize() for item in items]), 200        

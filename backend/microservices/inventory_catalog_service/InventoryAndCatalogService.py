@@ -94,13 +94,15 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
         return jsonify(posting.serialize()), 200
     
     def getItem(self):
-        data = request.json
-        itemId = data['itemId']
-        if 'itemId' not in data:
+        itemId = request.args.get('itemId', "")  # Retrieve userID from query parameters
+        if not itemId:
             return jsonify({'message': 'Invalid request: itemId is required.'}), 400
-        elif not isinstance(itemId, int):
+        try:
+            itemId = int(itemId)
+        except ValueError:
             return jsonify({'message': 'Invalid value for itemId.'}), 400
-        elif itemId <= 0:
+        
+        if itemId <= 0:
             return jsonify({'message': 'itemId must be greater than 0.'}), 400
         
         item = models.Item.query.filter_by(id=itemId).first()

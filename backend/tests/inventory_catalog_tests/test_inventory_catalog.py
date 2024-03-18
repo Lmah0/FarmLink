@@ -215,7 +215,7 @@ def test_get_item_with_invalid_item_id(client, app):
         db.session.commit()
 
         
-    response = client.post('/getItem', json={'itemId': None})
+    response = client.get(f'/getItem?itemId={None}')
     print(response)
     assert response.status_code == 400
 
@@ -246,7 +246,7 @@ def test_get_item_with_valid_item_id(client, app):
         db.session.commit()
 
         
-    response = client.post('/getItem', json={'itemId': 1})
+    response = client.get(f'/getItem?itemId={1}')
     print(response)
     assert response.status_code == 200
 

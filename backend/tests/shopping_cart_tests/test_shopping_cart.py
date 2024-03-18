@@ -142,10 +142,8 @@ def test_remove_from_cart_with_valid_values(client, app):
 
 # Tests for returnCart
 def test_return_cart_with_invalid_user_id(client, app):
-    data = {
-        "userId": None
-    }
-    response = client.post('/returnCart', json=data)
+
+    response = client.get(f'/returnCart?userId={None}')
     assert response.status_code == 400
     assert b'Invalid value for userId.' in response.data
 
@@ -155,10 +153,8 @@ def test_return_cart_with_valid_values(client, app):
         db.session.add(test_cart)
         db.session.commit()
 
-    data = {
-        "userId": 1
-    }
-    response = client.post('/returnCart', json=data)
+
+    response = client.get(f'/returnCart?userId={1}')
     assert response.status_code == 200
     data = response.json 
     assert data[0]['userId'] == 1
