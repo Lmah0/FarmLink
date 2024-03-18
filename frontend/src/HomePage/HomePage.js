@@ -2,9 +2,7 @@ import "./HomePage.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function HomePage({ items, handleLogout, currentUserID }) {
-
-  console.log(currentUserID, "Current User ID HOMEPAGE")
+function HomePage({ items, handleLogout, currentUserID, currentRole }) {
 
   const navigate = useNavigate();
   const [expandedBoxes, setExpandedBoxes] = useState(
@@ -29,6 +27,11 @@ function HomePage({ items, handleLogout, currentUserID }) {
     handleLogout();
   };
 
+  const handleSellItemClick = () => {
+    navigate("/SellItems")
+  };
+
+
   const handleAddToCartClick = (itemId) => {
     const addToCart = async (itemId) => {
       // This function will flush the cart when the user logs out
@@ -46,7 +49,7 @@ function HomePage({ items, handleLogout, currentUserID }) {
         });
         if (response.ok) {
           let jsonRes = await response.json();
-          console.log(jsonRes, "JSON RES");
+          // console.log(jsonRes, "JSON RES");
         } else {
           console.log("Failed to fetch data:", response.status);
         }
@@ -62,6 +65,9 @@ function HomePage({ items, handleLogout, currentUserID }) {
       <div id="HomePage-Main-Container">
         <div id="HomePage-Header">
           <header>MarketPlace</header>
+          <button onClick={handleSellItemClick} className={currentRole === "FARMER" ? "" : "hidden-button"}>
+            Sell
+          </button>
           <button style={{ marginRight: 20 }} onClick={goToCart}>
             &#x1f6d2;
           </button>
