@@ -47,29 +47,29 @@ function App() {
     localStorage.removeItem("profile");
     setUserProfile(null);
 
-    const cleanCart = async () => { // This function will flush the cart when the user logs out
-      try {
-        let response = await fetch("http://127.0.0.1:5001/flushCart", {
-          method: "DELETE",
-          body: JSON.stringify({
-            userId: userProfile.id
-          }),
-          headers: {
-            'Content-Type' : 'application/json',
-          },
-        });
-        if (response.ok) {
-          let jsonRes = await response.json();
-          console.log(jsonRes, "JSON RES");
-        } else {
-          console.log("Failed to fetch data:", response.status);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+    // const cleanCart = async () => { // This function will flush the cart when the user logs out
+    //   try {
+    //     let response = await fetch("http://127.0.0.1:5001/flushCart", {
+    //       method: "DELETE",
+    //       body: JSON.stringify({
+    //         userId: userProfile.id
+    //       }),
+    //       headers: {
+    //         'Content-Type' : 'application/json',
+    //       },
+    //     });
+    //     if (response.ok) {
+    //       let jsonRes = await response.json();
+    //       console.log(jsonRes, "JSON RES");
+    //     } else {
+    //       console.log("Failed to fetch data:", response.status);
+    //     }
+    //   } catch (error) {
+    //     console.error("Error fetching data:", error);
+    //   }
+    // };
 
-    cleanCart();
+    // cleanCart();
   };
 
   useEffect(() => {
