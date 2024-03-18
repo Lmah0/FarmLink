@@ -24,20 +24,22 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
             
             if 'userdata' not in request.form:
                 return 'No user data', 400
+            
             data = json.loads(request.form['userdata'])
 
             userId = data['userId']
             quantity = data['quantity']
             postingAuthor = data['postingAuthor']
             description = data['description']
-            try:
-                if 'userId' not in data or 'quantity' not in data or 'postingAuthor' not in data:
-            return jsonify({'message': 'Invalid request: userId, quantity, and postingAuthor are required.'}), 400
+            if 'userId' not in data or 'quantity' not in data or 'postingAuthor' not in data:
+                return jsonify({'message': 'Invalid request: userId, quantity, and postingAuthor are required.'}), 400
         
-        elif not isinstance(userId, int) or not isinstance(quantity, int) or quantity <= 0:
-            return jsonify({'message': 'Invalid values for userId or quantity.'}), 400
-
-        newPosting = models.Posting(userId, postingAuthor, quantity, imageFile, description) # Add to posting table
+            elif not isinstance(userId, int) or not isinstance(quantity, int):
+                return jsonify({'message': 'Invalid values for userId or quantity.'}), 400
+            elif quantity <= 0:
+                return jsonify({'message': 'quantity must be greater than 0.'}), 400
+            try:
+                newPosting = models.Posting(userId, postingAuthor, quantity, imageFile, description) # Add to posting table
                 
                 models.db.session.add(newPosting)
                 models.db.session.commit()
@@ -49,19 +51,21 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
             itemPrice = data['itemPrice']
 
             itemType = data['itemType']
-    
-        if 'itemName' not in data or 'itemPrice' not in data:
-            return jsonify({'message': 'Invalid request: itemName, and itemPrice are required.'}), 400
-        elif not isinstance(itemName, str) or not isinstance(itemPrice, (int, float)) or itemPrice <= 0:
-            return jsonify({'message': 'Invalid values for itemName or itemPrice.'}), 400
         
-        try:
-                itemType = models.ItemType[itemType]
+            if 'itemName' not in data or 'itemPrice' not in data:
+                return jsonify({'message': 'Invalid request: itemName, and itemPrice are required.'}), 400
+            elif not isinstance(itemName, str) or not isinstance(itemPrice, (int, float)):
+                return jsonify({'message': 'Invalid values for itemName or itemPrice.'}), 400
+            elif itemPrice <= 0:
+                return jsonify({'message': 'itemPrice must be greater than 0.'}), 400
+            
+            try:
+                    itemType = models.ItemType[itemType]
             except KeyError:
-                return jsonify({'message': 'Invalid item type.'}), 400
+                    return jsonify({'message': 'Invalid item type.'}), 400
 
             newItem = models.Item(itemName, itemPrice, itemType, postingId) # add to item table
-            
+                
             models.db.session.add(newItem)
             models.db.session.commit()
 
@@ -70,6 +74,7 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
 
         except Exception as e:
             return jsonify({'error': str(e)}), 500
+
         
         return jsonify({'message': 'File uploaded successfully'}), 200
 
@@ -85,6 +90,12 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
     def getPosting(self):
         data = request.json
         postingId = data['postingId']
+        if 'postingId' not in data:
+            return jsonify({'message': 'Invalid request: postingId is required.'}), 400
+        elif not isinstance(postingId, int):
+            return jsonify({'message': 'Invalid value for postingId.'}), 400
+        elif postingId <= 0:
+            return jsonify({'message': 'postingId must be greater than 0.'}), 400
 
         posting = models.Posting.query.filter_by(id=postingId).first()
         
@@ -93,7 +104,13 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
     def getItem(self):
         data = request.json
         itemId = data['itemId']
-
+        if 'itemId' not in data:
+            return jsonify({'message': 'Invalid request: itemId is required.'}), 400
+        elif not isinstance(itemId, int):
+            return jsonify({'message': 'Invalid value for itemId.'}), 400
+        elif itemId <= 0:
+            return jsonify({'message': 'itemId must be greater than 0.'}), 400
+        
         item = models.Item.query.filter_by(id=itemId).first()
         
         return jsonify(item.serialize()), 200
@@ -103,6 +120,13 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
         postingId = data['postingId']
         quantity = data['quantity']
 
+        if 'postingId' not in data or 'quantity' not in data:
+            return jsonify({'message': 'Invalid request: postingId and quantity are required.'}), 400
+        elif not isinstance(postingId, int) or not isinstance(quantity, int):
+            return jsonify({'message': 'Invalid values for postingId or quantity.'}), 400
+        elif postingId <= 0 or quantity <= 0:
+            return jsonify({'message': 'postingId and quantity must be greater than 0.'}), 400
+        
         # Remove Stock From Posting
         posting = models.Posting.query.filter_by(id=postingId).first()
         posting.quantity -= quantity
