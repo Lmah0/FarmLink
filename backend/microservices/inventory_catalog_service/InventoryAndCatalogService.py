@@ -12,42 +12,13 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
     def testing(self):
         return 'Hello, World! This is the Inventory and Catalog Service.'
     
-    # def addPosting(self):
-    #     data = request.json
-
-    #     userId = data['userId']
-    #     quantity = data['quantity']
-    #     postingAuthor = data['postingAuthor']
-    #     description = data['description']
-
-    #     newPosting = models.Posting(userId, postingAuthor, quantity, description)
-        
-    #     models.db.session.add(newPosting)
-    #     models.db.session.commit()
-
-    #     postingId = newPosting.id
-    #     itemName = data['itemName']
-    #     itemPrice = data['itemPrice']
-
-    #     itemType = data['itemType']
-    #     try:
-    #         itemType = models.ItemType[itemType]
-    #     except KeyError:
-    #         return jsonify({'message': 'Invalid item type.'})
-
-    #     newItem = models.Item(itemName, itemPrice, itemType, postingId)
-        
-    #     models.db.session.add(newItem)
-    #     models.db.session.commit()
-
-    #     return jsonify({'message': 'New posting created!', 'postingId': postingId}), 200
-    
     def addPosting(self):
         try:
             # Check if the POST request has the file part
             imageFile = None
             try:
-                imageFile = request.files['file']
+                imageFile = request.files['file'].read()
+                print("Saving imageFile")
             except Exception as e:
                 print("No image.")
             
@@ -59,11 +30,13 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
             quantity = data['quantity']
             postingAuthor = data['postingAuthor']
             description = data['description']
-
-            newPosting = models.Posting(userId, postingAuthor, quantity, description)
-            
-            models.db.session.add(newPosting)
-            models.db.session.commit()
+            try:
+                newPosting = models.Posting(userId, postingAuthor, quantity, imageFile, description)
+                
+                models.db.session.add(newPosting)
+                models.db.session.commit()
+            except Exception as e:
+                print(e)
 
             postingId = newPosting.id
             itemName = data['itemName']
