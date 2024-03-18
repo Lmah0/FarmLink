@@ -1,7 +1,5 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-import requests
-import json
 import os
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy

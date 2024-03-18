@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template
+from flask import jsonify, request
 from flask_cors import CORS
 import json
 from flask import Blueprint

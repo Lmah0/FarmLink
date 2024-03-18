@@ -1,7 +1,5 @@
-from flask import Flask, jsonify, request, render_template
+from flask import jsonify, request
 from flask_cors import CORS
-import requests
-import json
 from flask import Blueprint
 from . import IUserManagementService, models
 
