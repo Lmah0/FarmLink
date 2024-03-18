@@ -84,6 +84,14 @@ def createOrder():
             data = {"postingId": postingID, "quantity": item['quantity']}
             response = requests.post("http://127.0.0.1:5007/removeStock", json=data)
             print("The response is", response)
+        # Flushing Cart
+            data = {"userId": userID}
+            response = requests.post("http://127.0.0.1:5008/flushCart", json=data)
+            print("The response is", response)
+    
+
+
+    
 
     # Create the order on the database using the cart
     data = {"userId": userID, "totalCost": totalCost}
