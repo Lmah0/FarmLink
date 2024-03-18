@@ -18,6 +18,10 @@ class UserManagementService(IUserManagementService.IUserManagementService):
             farmerPid = data['farmer_pid']
         except KeyError:
             farmerPid = None
+        
+        if farmerPid == 0:
+            role = "NONFARMER"
+
         profileBio = data['profile_bio']
 
         try: # check that role is in ROLE enum
