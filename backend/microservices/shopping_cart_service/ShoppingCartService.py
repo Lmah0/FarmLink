@@ -47,7 +47,8 @@ class ShoppingCartService(IShoppingCartService.IShoppingCartService):
             return jsonify({'message': 'Items removed from cart successfully.'})
 
     def returnCart(self):
-        userID = request.args.get('userId', "")
+        data = request.json
+        userID = data['userId']
         items = models.ShoppingCart.query.filter_by(user_id=userID).all() # Access the list of items under the User ID
         print(f"The Items are {items}")
 

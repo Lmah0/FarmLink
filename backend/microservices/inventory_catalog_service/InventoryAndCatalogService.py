@@ -71,8 +71,9 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
         return jsonify(posting.serialize()), 200
     
     def getItem(self):
-        itemId = request.args.get('itemId', "")
-
+        data = request.json
+        itemId = data['itemId']
+        print("Item ID: ", itemId )
         item = models.Item.query.filter_by(id=itemId).first()
         
         return jsonify(item.serialize()), 200

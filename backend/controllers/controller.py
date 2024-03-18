@@ -52,7 +52,7 @@ def createOrder():
     
     # Get the cart
     data = {"userId": userID}
-    response = requests.get(f"http://127.0.0.1:5008/returnCart?userId={userID}")
+    response = requests.get(f"http://127.0.0.1:5008/returnCart", json=data)
     cart = response.json()
 
     print(cart)
@@ -63,7 +63,9 @@ def createOrder():
     for item in cart:
        # Get the item from the database using the item ID
         itemId = item['itemId']
-        response = requests.get(f"http://127.0.0.1:5007/getItem?itemId={itemId}")
+        print(itemId)
+        data = {"itemId": itemId}
+        response = requests.get(f"http://127.0.0.1:5007/getItem", json=data)
         retrievedItem = response.json()
         print(f'The retrieved item is {retrievedItem}')
         totalCost += retrievedItem['price'] * item['quantity']
@@ -90,9 +92,7 @@ def createOrder():
     response = requests.post("http://127.0.0.1:5009/addOrder", json=data)
 
     # Flush the cart
-
-                               
-
+                
     return jsonify({'message': 'Sufficient stock'}), 200
 
 
