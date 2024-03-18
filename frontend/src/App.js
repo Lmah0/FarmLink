@@ -109,7 +109,7 @@ function App() {
           <Route path="/profile" element={<ProfilePage userProfile={userProfile} />} />
           <Route path="/cart" element={<Cart currentUserID={profileData.id} />} />
           <Route path="/Payment" element={<Payment/>} />
-          <Route path="/SellItems" element={<SellItems/>} />
+          <Route path="/SellItems" element={<SellItems />} />
 
         </Route>
       </Routes>

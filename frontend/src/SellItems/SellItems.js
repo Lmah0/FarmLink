@@ -31,17 +31,19 @@ function SellItems() {
     const addPosting = async () => {
       // This function will add a post to the database
       try {
+        const formdata = new FormData();
+        formdata.append("file", file);
+        formdata.append("userdata", JSON.stringify(userData));
         let response = await fetch("http://127.0.0.1:5007/addPosting", {
           method: "POST",
-          body: JSON.stringify(userData), // Convert userData to JSON string
-          headers: {
-            "Content-Type": "application/json",
-          },
-          timeout: 20000, //20 seconds in milliseconds
+          headers: {"Access-Control-Allow-Origin": "*"},
+          body: formdata, // Convert userData to JSON string
+          redirect: "follow" //20 seconds in milliseconds
         });
         if (response.ok) {
           let jsonRes = await response.json();
-          console.log(jsonRes, "JSON RES");
+          console.log(jsonRes);
+          return jsonRes['postingId']
         } else {
           console.log("Failed to add posting:", response.status);
         }
@@ -49,22 +51,7 @@ function SellItems() {
         console.error("Error adding post:", error);
       }
     };
-
     addPosting();
-  };
-
-  // Function to handle file upload
-  const handleFileChange = (e) => {
-    const reader = new FileReader();
-    const file = e.target.files[0];
-
-    reader.onloadend = () => {
-      setImageSrc(reader.result);
-    };
-
-    if (file) {
-      reader.readAsDataURL(file);
-    }
   };
 
   return (

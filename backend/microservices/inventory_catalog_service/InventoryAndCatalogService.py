@@ -4,6 +4,7 @@ import requests
 import json
 from flask import Blueprint
 from . import IInventoryAndCatalogService, models
+import os
 
 main = Blueprint('main', __name__)
 
@@ -12,34 +13,56 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
         return 'Hello, World! This is the Inventory and Catalog Service.'
     
     def addPosting(self):
-        data = request.json
-
-        userId = data['userId']
-        quantity = data['quantity']
-        postingAuthor = data['postingAuthor']
-        description = data['description']
-
-        newPosting = models.Posting(userId, postingAuthor, quantity, description)
-        
-        models.db.session.add(newPosting)
-        models.db.session.commit()
-
-        postingId = newPosting.id
-        itemName = data['itemName']
-        itemPrice = data['itemPrice']
-
-        itemType = data['itemType']
         try:
-            itemType = models.ItemType[itemType]
-        except KeyError:
-            return jsonify({'message': 'Invalid item type.'})
+            # Check if the POST request has the file part
+            imageFile = None
+            try:
+                imageFile = request.files['file'].read()
+                print("Saving imageFile")
+            except Exception as e:
+                print("No image.")
+            
+            if 'userdata' not in request.form:
+                return 'No user data', 400
+            data = json.loads(request.form['userdata'])
 
-        newItem = models.Item(itemName, itemPrice, itemType, postingId)
+            userId = data['userId']
+            quantity = data['quantity']
+            postingAuthor = data['postingAuthor']
+            description = data['description']
+            try:
+                newPosting = models.Posting(userId, postingAuthor, quantity, imageFile, description)
+                
+                models.db.session.add(newPosting)
+                models.db.session.commit()
+            except Exception as e:
+                print(e)
+
+            postingId = newPosting.id
+            itemName = data['itemName']
+            itemPrice = data['itemPrice']
+
+            itemType = data['itemType']
+            try:
+                itemType = models.ItemType[itemType]
+            except KeyError:
+                return jsonify({'message': 'Invalid item type.'})
+
+            newItem = models.Item(itemName, itemPrice, itemType, postingId)
+            
+            models.db.session.add(newItem)
+            models.db.session.commit()
+
+            # Optionally, you can return the file path or any other response
+            return jsonify({'message': 'New posting added successfully'}), 200
+
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
         
-        models.db.session.add(newItem)
-        models.db.session.commit()
+        return jsonify({'message': 'File uploaded successfully'}), 200
 
-        return jsonify({'message': 'New posting created!'}), 200
+    def getImage(self):
+        pass
 
     def getPostings(self):
         postings = models.Posting.query.all()
@@ -85,4 +108,3 @@ main.route('/getPostings', methods=['GET'])(inventoryAndCatalogService.getPostin
 main.route('/getPosting', methods=['GET'])(inventoryAndCatalogService.getPosting)
 main.route('/getItem', methods=['POST'])(inventoryAndCatalogService.getItem)
 main.route('/removeStock', methods=['POST'])(inventoryAndCatalogService.removeStock)
-

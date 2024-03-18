@@ -87,7 +87,7 @@ function HomePage({ items, handleLogout, currentUserID }) {
               <div id="button-img-wrapper">
                 <img
                   id="Item-box-img"
-                  src="https://cdn.britannica.com/22/215522-050-8315BB78/green-grass-close-up.jpg"
+                  src={`data:image/jpeg;base64,${item.image}`}
                   alt="Product item"
                   onClick={() => handleBoxClick(index)}
                 />
