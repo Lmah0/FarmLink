@@ -47,8 +47,7 @@ class ShoppingCartService(IShoppingCartService.IShoppingCartService):
             return jsonify({'message': 'Items removed from cart successfully.'})
 
     def returnCart(self):
-        data = request.json
-        userID = data['userId']  
+        userID = request.args.get('userId', "")
         items = models.ShoppingCart.query.filter_by(user_id=userID).all() # Access the list of items under the User ID
         print(f"The Items are {items}")
 
@@ -76,5 +75,5 @@ shoppingCartService = ShoppingCartService()
 
 main.route('/addToCart', methods=['POST'])(shoppingCartService.addToCart)
 main.route('/removeFromCart', methods=['DELETE'])(shoppingCartService.removeFromCart)
-main.route('/returnCart', methods=['POST'])(shoppingCartService.returnCart)
+main.get('/returnCart')(shoppingCartService.returnCart)
 main.route('/flushCart', methods=['DELETE'])(shoppingCartService.flushCart)
