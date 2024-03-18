@@ -14,7 +14,10 @@ class UserManagementService(IUserManagementService.IUserManagementService):
         emailAddress = data['email_address']
         password = data['password']
         role = data['role']
-        farmerPid = data['farmer_pid']
+        try:
+            farmerPid = data['farmer_pid']
+        except KeyError:
+            farmerPid = None
         profileBio = data['profile_bio']
 
         try: # check that role is in ROLE enum
