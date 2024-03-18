@@ -4,7 +4,6 @@ import requests
 import json
 from flask import Blueprint
 from . import ICheckoutService, models
-from user_management_service import models as user_models
 from datetime import datetime
 import time
 main = Blueprint('main', __name__)
