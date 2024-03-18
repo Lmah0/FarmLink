@@ -96,28 +96,30 @@ function App() {
   }, []);
  
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Layout />}>
 
-          {
-            userProfile ? (
-              <Route path="/" element={<HomePage items={items} handleLogout={handleLogout} currentUserID={userProfile.id}/>} />
-            ) : (
-              <Route path="/" element={<HomePageEmpty />} /> 
-            )
-          }
+            {
+              userProfile ? (
+                <Route path="/" element={<HomePage items={items} handleLogout={handleLogout} currentUserID={userProfile.id}/>} />
+              ) : (
+                <Route path="/" element={<HomePageEmpty />} /> 
+              )
+            }
 
-          <Route path="/login" element={<LoginPage handleSetProfile={handleSetProfile}/>} /> 
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/profile" element={<ProfilePage/>} />
-          <Route path="/cart" element={<Cart currentUserID={userProfile.id} />} />
-          <Route path="/Payment" element={<Payment/>} />
-          <Route path="/SellItems" element={<SellItems />} />
+            <Route path="/login" element={<LoginPage handleSetProfile={handleSetProfile}/>} /> 
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/profile" element={<ProfilePage/>} />
+            <Route path="/cart" element={<Cart currentUserID={userProfile.id} />} />
+            <Route path="/Payment" element={<Payment currentUserID={userProfile.id}/>} />
+            <Route path="/SellItems" element={<SellItems />} />
 
-        </Route>
-      </Routes>
-    </BrowserRouter>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 };
 

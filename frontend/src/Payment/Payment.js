@@ -3,7 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import './Payment.css';
 
-function Payment() {
+function Payment({currentUserID}) {
+
   const location = useLocation();
   const navigate = useNavigate();
   const totalPrice = location.state.totalPrice;
@@ -71,7 +72,7 @@ function Payment() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(userID),
+        userId: currentUserID,
       });
       if (response.ok) {
         let jsonRes = await response.json();
