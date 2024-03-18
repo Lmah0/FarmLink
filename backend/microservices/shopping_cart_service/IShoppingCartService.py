@@ -2,10 +2,6 @@ from abc import ABC, abstractmethod
 
 class IShoppingCartService(ABC):
     @abstractmethod
-    def testing(self):
-        pass
-
-    @abstractmethod
     def addToCart(self):
         pass
 

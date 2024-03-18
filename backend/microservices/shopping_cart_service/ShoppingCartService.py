@@ -8,9 +8,6 @@ from . import IShoppingCartService, models
 main = Blueprint('main', __name__)
 
 class ShoppingCartService(IShoppingCartService.IShoppingCartService):
-    def testing(self):
-        return 'Hello, World! This is the Shopping Cart Service.'
-    
     def addToCart(self):
         data = request.json
         userID = data['userId']  
@@ -71,7 +68,6 @@ class ShoppingCartService(IShoppingCartService.IShoppingCartService):
 
 shoppingCartService = ShoppingCartService()
 
-main.route('/', methods=['GET'])(shoppingCartService.testing)
 main.route('/addToCart', methods=['POST'])(shoppingCartService.addToCart)
 main.route('/removeFromCart', methods=['DELETE'])(shoppingCartService.removeFromCart)
 main.route('/returnCart', methods=['POST'])(shoppingCartService.returnCart)

@@ -9,9 +9,6 @@ import os
 main = Blueprint('main', __name__)
 
 class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalogService):
-    def testing(self):
-        return 'Hello, World! This is the Inventory and Catalog Service.'
-    
     def addPosting(self):
         try:
             # Check if the POST request has the file part
@@ -61,9 +58,6 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
         
         return jsonify({'message': 'File uploaded successfully'}), 200
 
-    def getImage(self):
-        pass
-
     def getPostings(self):
         postings = models.Posting.query.all()
         print(postings)
@@ -102,7 +96,6 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
     
 inventoryAndCatalogService = InventoryAndCatalogService()
 
-main.route('/', methods=['GET'])(inventoryAndCatalogService.testing)
 main.route('/addPosting', methods=['POST'])(inventoryAndCatalogService.addPosting)
 main.route('/getPostings', methods=['GET'])(inventoryAndCatalogService.getPostings)
 main.route('/getPosting', methods=['GET'])(inventoryAndCatalogService.getPosting)
