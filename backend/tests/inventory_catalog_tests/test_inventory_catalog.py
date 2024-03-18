@@ -1,5 +1,4 @@
 from microservices.inventory_catalog_service.models import Item, Posting, ItemType
-
 from microservices.inventory_catalog_service import db
 import json
 # Tests for addPosting
