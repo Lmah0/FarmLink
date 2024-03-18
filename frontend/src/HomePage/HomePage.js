@@ -65,7 +65,7 @@ function HomePage({ items, handleLogout, currentUserID, currentRole }) {
       <div id="HomePage-Main-Container">
         <div id="HomePage-Header">
           <header>MarketPlace</header>
-          <button onClick={handleSellItemClick} className={currentRole === "FARMER" ? "" : "hidden-element"}>
+          <button onClick={handleSellItemClick} className={currentRole === "FARMER" ? "" : "hidden-button"}>
             Sell
           </button>
           <button style={{ marginRight: 20 }} onClick={goToCart}>
