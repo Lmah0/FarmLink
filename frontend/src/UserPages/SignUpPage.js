@@ -20,15 +20,6 @@ const SignUpPage = () => {
       const response = await fetch('http://127.0.0.1:5000/register', {
         method: 'POST',
         body: JSON.stringify({
-          // name: 'eric',
-          // phone_number: '403-292-9102',
-          // email_address: 'eric@gmail.com',
-          // password: '123',
-          // role: 'NONFARMER', // Keep it as a string in the state
-          // farmer_pid: 0, // Set PID to null if not a farmer
-          // profile_bio: 'I am a farmer'
-          
-
           name: name,
           phone_number: phoneNumber,
           email_address: email,
