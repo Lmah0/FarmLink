@@ -2,7 +2,7 @@ import "./HomePage.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function HomePage({ items, handleLogout, currentUserID, currentFarmerPID }) {
+function HomePage({ items, handleLogout, currentUserID, currentRole }) {
 
   const navigate = useNavigate();
   const [expandedBoxes, setExpandedBoxes] = useState(
@@ -65,7 +65,7 @@ function HomePage({ items, handleLogout, currentUserID, currentFarmerPID }) {
       <div id="HomePage-Main-Container">
         <div id="HomePage-Header">
           <header>MarketPlace</header>
-          <button onClick={handleSellItemClick} className={currentFarmerPID === 0 ? "hidden-element" : ""}>
+          <button onClick={handleSellItemClick} className={currentRole === "FARMER" ? "" : "hidden-element"}>
             Sell
           </button>
           <button style={{ marginRight: 20 }} onClick={goToCart}>

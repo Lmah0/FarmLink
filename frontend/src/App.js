@@ -55,7 +55,6 @@ function App() {
     };
     fetchData();
   }, []);
- 
   return (
     <>
       <BrowserRouter>
@@ -65,7 +64,7 @@ function App() {
             {
               userProfile ? (
                 <>
-                  <Route path="/" element={<HomePage items={items} handleLogout={handleLogout} currentUserID={userProfile.id} currentFarmerPID={userProfile.farmer_pid}  /> } />
+                  <Route path="/" element={<HomePage items={items} handleLogout={handleLogout} currentUserID={userProfile.id} currentRole={userProfile.role}  /> } />
                   <Route path="/cart" element={<Cart currentUserID={userProfile.id} />} />
                   <Route path="/Payment" element={<Payment currentUserID={userProfile.id}/>} />
                 </>
