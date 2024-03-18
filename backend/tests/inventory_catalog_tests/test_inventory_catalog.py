@@ -196,7 +196,6 @@ def test_get_posting_with_valid_posting_id(client, app):
 def test_get_item_with_invalid_item_id(client, app):
     # Add postings directly to the database
     with app.app_context():
-        # Add a posting with userId=1
         test_posting = Posting(
             user_id=1,
             posting_author='Test',
