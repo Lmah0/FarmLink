@@ -1,0 +1,128 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Inventory and Catalog Service API",
+      "description": "An API for managing inventory and catalog.",
+      "version": "1.0"
+    },
+    "basePath": "/api",
+    "schemes": [
+      "http"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/addPosting": {
+        "post": {
+          "summary": "Add a new posting to inventory.",
+          "parameters": [
+            {
+              "in": "formData",
+              "name": "file",
+              "type": "file",
+              "description": "The image file associated with the posting."
+            },
+            {
+              "in": "formData",
+              "name": "userdata",
+              "type": "string",
+              "description": "JSON data containing posting information."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "New posting added successfully."
+            },
+            "400": {
+              "description": "Bad request - No user data provided."
+            },
+            "500": {
+              "description": "Internal server error."
+            }
+          }
+        }
+      },
+      "/getPostings": {
+        "get": {
+          "summary": "Get all postings.",
+          "responses": {
+            "200": {
+              "description": "List of postings retrieved successfully."
+            }
+          }
+        }
+      },
+      "/getPosting": {
+        "get": {
+          "summary": "Get a specific posting.",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "postingId",
+              "type": "integer",
+              "description": "ID of the posting to retrieve."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Posting retrieved successfully."
+            }
+          }
+        }
+      },
+      "/getItem": {
+        "get": {
+          "summary": "Get an item by ID.",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "itemId",
+              "type": "integer",
+              "description": "ID of the item to retrieve."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Item retrieved successfully."
+            }
+          }
+        }
+      },
+      "/removeStock": {
+        "post": {
+          "summary": "Remove stock from a posting.",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Data required for removing stock.",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "postingId": {
+                    "type": "integer",
+                    "description": "ID of the posting to remove stock from."
+                  },
+                  "quantity": {
+                    "type": "integer",
+                    "description": "Quantity of stock to remove."
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Stock removed successfully."
+            }
+          }
+        }
+      }
+    }
+  }
+  

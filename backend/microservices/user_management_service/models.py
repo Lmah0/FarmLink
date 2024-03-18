@@ -22,11 +22,22 @@ class User(db.Model):
     farmer_pid = db.Column(db.String(20))
     profile_bio = db.Column(db.Text)
 
-    def __init__(self, name, phoneNumber, emailAddress, password, role, profileBio):
+    def __init__(self, name, phoneNumber, emailAddress, password, role, profileBio, farmer_pid=None):
         self.name = name
         self.phone_number = phoneNumber
         self.email_address = emailAddress
         self.password = password
         self.role = role
-        self.farmer_pid = None
+        self.farmer_pid = farmer_pid
         self.profile_bio = profileBio
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'phone_number': self.phone_number,
+            'email_address': self.email_address,
+            'role': str(self.role),
+            'farmer_pid': self.farmer_pid,
+            'profile_bio': self.profile_bio
+        }

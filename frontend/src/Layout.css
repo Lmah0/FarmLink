@@ -1,0 +1,26 @@
+#Main-Container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Make the container take the full height of the viewport */
+}
+
+#Main-Container > header, footer {
+  flex: 0 0 5%; /* Header and footer take up 10% of the container's height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+#Main-Container > header {
+  padding-top: 15px;
+  font-size: 25px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #000;
+}
+
+div {
+  flex: 1;
+  overflow-y: auto;
+}
+

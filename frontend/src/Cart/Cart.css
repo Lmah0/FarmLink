@@ -1,0 +1,33 @@
+.Header-Bar {
+  font-size: 20px;
+}
+
+.List-Object{
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 20px;
+  min-height: 80px;
+  display:flex;
+}
+
+.Object-Image{
+  flex: 1;
+  background-color: #ccc;
+}
+
+.Object-Text{
+  flex: 7;
+}
+
+.cart{
+  margin-left: 20px;
+}
+
+.name-button {
+  background: transparent;
+  border: none;
+}
+
+button {
+  cursor: pointer;
+}
