@@ -18,6 +18,7 @@ frontend/coverage
 __pycache__/
 backend/controllers/__pycache__/controller.cpython-311.pyc
 
+
 # production
 frontend/build
 
