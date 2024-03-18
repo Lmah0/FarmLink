@@ -39,13 +39,12 @@ function App() {
     localStorage.setItem("profile", userData);
     const profileData = JSON.parse(localStorage.getItem('profile'));
     if (profileData) {
-      // setProfileData(profileData);
       setUserProfile(profileData);
     }
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("userProfile");
+    localStorage.removeItem("profile");
     setUserProfile(null);
 
     const cleanCart = async () => { // This function will flush the cart when the user logs out
@@ -94,6 +93,8 @@ function App() {
     };
     fetchData();
   }, []);
+
+  console.log(userProfile, "USER PROFILE")
  
   return (
     <>
@@ -103,7 +104,11 @@ function App() {
 
             {
               userProfile ? (
-                <Route path="/" element={<HomePage items={items} handleLogout={handleLogout} currentUserID={userProfile.id}/>} />
+                <>
+                  <Route path="/" element={<HomePage items={items} handleLogout={handleLogout} currentUserID={userProfile.id}/>} />
+                  <Route path="/cart" element={<Cart currentUserID={userProfile.id} />} />
+                  <Route path="/Payment" element={<Payment currentUserID={userProfile.id}/>} />
+                </>
               ) : (
                 <Route path="/" element={<HomePageEmpty />} /> 
               )
@@ -112,8 +117,6 @@ function App() {
             <Route path="/login" element={<LoginPage handleSetProfile={handleSetProfile}/>} /> 
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/profile" element={<ProfilePage/>} />
-            <Route path="/cart" element={<Cart currentUserID={userProfile.id} />} />
-            <Route path="/Payment" element={<Payment currentUserID={userProfile.id}/>} />
             <Route path="/SellItems" element={<SellItems />} />
 
           </Route>
