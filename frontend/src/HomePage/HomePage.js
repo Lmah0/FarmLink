@@ -3,11 +3,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function HomePage({ items, handleLogout, currentUserID }) {
+
+  // console.log(currentUserID, "Current User ID HOMEPAGE")
+
   const navigate = useNavigate();
   const [expandedBoxes, setExpandedBoxes] = useState(
     Array(items.length).fill(false)
   );
-
 
   const handleBoxClick = (index) => {
     const newExpandedBoxes = [...expandedBoxes];
@@ -30,8 +32,8 @@ function HomePage({ items, handleLogout, currentUserID }) {
   const handleAddToCartClick = (itemId) => {
     const addToCart = async (itemId) => {
       // This function will flush the cart when the user logs out
-      try {
-        let response = await fetch("http://127.0.0.1:5002/addToCart", {
+      try { 
+        let response = await fetch("http://127.0.0.1:5008/addToCart", {
           method: "POST",
           body: JSON.stringify({
             userId: currentUserID,
