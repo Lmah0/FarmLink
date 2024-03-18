@@ -99,6 +99,11 @@
   display: none !important;
 }
 
+.hidden-button {
+  visibility: hidden; /* Makes the element invisible */
+  pointer-events: none; /* Makes the element unclickable */
+}
+
 #main-ItemBox-container.expanded-main-container {
   position: fixed;
   top: 0;
