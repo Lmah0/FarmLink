@@ -41,15 +41,7 @@ function Cart({currentUserID}) {
   useEffect(() => {
     const fetchCartData = async (userId) => {
       try {
-        const response = await fetch(`http://127.0.0.1:5007/returnCart`, {
-          method: "POST",
-          body: JSON.stringify({
-            userId: userId
-          }),
-          headers: {
-            'Content-Type' : 'application/json',
-          },
-        });
+        const response = await fetch(`http://127.0.0.1:5007/returnCart?userId=${userId}`);
         if (response.ok) {
           const data = await response.json();
           console.log(data, "JSON RES");
