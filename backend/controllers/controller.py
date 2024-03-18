@@ -25,6 +25,9 @@ def checkStock():
     
     data = {"postingId": postingID}
     response = requests.get("http://127.0.0.1:5001/getPosting", json=data)   
+    if response.status_code != 200:
+        return jsonify({'message': 'Error in retrieving posting.'}), 400
+    
     retrievedPosting = response.json() 
     print(f'The retrieved posting is {retrievedPosting}')
 
@@ -44,6 +47,8 @@ def createOrder():
     # Get the cart
     data = {"userId": userID}
     response = requests.get("http://127.0.0.1:5008/returnCart", json=data)
+    if response.status_code != 200:
+        return jsonify({'message': 'Error in retrieving cart.'}), 400
     cart = response.json()
 
     print(cart)

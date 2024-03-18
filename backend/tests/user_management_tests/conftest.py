@@ -4,8 +4,8 @@ import pytest
 from microservices.user_management_service import create_app, db
 
 @pytest.fixture()
-def setup():
-    app = create_app()
+def app():
+    app = create_app('test')
     with app.app_context():
         db.create_all()
     

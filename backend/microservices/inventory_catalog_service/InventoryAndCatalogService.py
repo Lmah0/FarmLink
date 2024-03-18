@@ -19,6 +19,12 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
         postingAuthor = data['postingAuthor']
         description = data['description']
 
+        if 'userId' not in data or 'quantity' not in data or 'postingAuthor' not in data:
+            return jsonify({'message': 'Invalid request: userId, quantity, and postingAuthor are required.'}), 400
+        
+        elif not isinstance(userId, int) or not isinstance(quantity, int) or quantity <= 0:
+            return jsonify({'message': 'Invalid values for userId or quantity.'}), 400
+
         newPosting = models.Posting(userId, postingAuthor, quantity, description) # Add to posting table
         
         models.db.session.add(newPosting)
@@ -29,10 +35,16 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
         itemPrice = data['itemPrice']
 
         itemType = data['itemType']
+
+        if 'itemName' not in data or 'itemPrice' not in data:
+            return jsonify({'message': 'Invalid request: itemName, and itemPrice are required.'}), 400
+        elif not isinstance(itemName, str) or not isinstance(itemPrice, (int, float)) or itemPrice <= 0:
+            return jsonify({'message': 'Invalid values for itemName or itemPrice.'}), 400
+        
         try:
             itemType = models.ItemType[itemType]
         except KeyError:
-            return jsonify({'message': 'Invalid item type.'})
+            return jsonify({'message': 'Invalid item type.'}), 400
 
         newItem = models.Item(itemName, itemPrice, itemType, postingId) # add to item table
         
