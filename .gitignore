@@ -16,6 +16,7 @@ frontend/.pnp.js
 frontend/coverage
 .pytest_cache
 __pycache__/
+backend/controllers/__pycache__/controller.cpython-311.pyc
 
 # production
 frontend/build
