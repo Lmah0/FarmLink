@@ -1,7 +1,5 @@
-from flask import Flask, jsonify, request, render_template
+from flask import jsonify, request
 from flask_cors import CORS
-import requests
-import json
 from flask import Blueprint
 from . import ICheckoutService, models
 
@@ -9,9 +7,6 @@ import time
 main = Blueprint('main', __name__)
 
 class CheckoutService(ICheckoutService.ICheckoutService):
-    def testing(self):
-        return 'Hello, World! This is the Checkout Service.'
-    
     def addOrder(self):
         data = request.json
 
@@ -26,16 +21,6 @@ class CheckoutService(ICheckoutService.ICheckoutService):
         
         return jsonify({'message': 'New Order Created!'}), 200
 
-
-
-
-
-
-
-        return jsonify({'message': 'New order created!'}), 200
-
-
 checkoutService = CheckoutService()
 
-main.route('/', methods=['GET'])(checkoutService.testing)
 main.route('/addOrder', methods=['POST'])(checkoutService.addOrder)

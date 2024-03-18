@@ -42,13 +42,7 @@ const LoginPage = ({handleSetProfile}) => {
         // console.log('User ID:', data);
 
         // Fetch user profile data after successful login
-        const profileResponse = await fetch('http://127.0.0.1:5000/returnProfile', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ userId: data.userId }),
-        });
+        const profileResponse = await fetch(`http://127.0.0.1:5000/returnProfile?userId=${data.userId}`);
 
         if (profileResponse.ok) {
           const profileData = await profileResponse.json();

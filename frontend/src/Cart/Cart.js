@@ -17,15 +17,7 @@ function Cart({currentUserID}) {
 
   const fetchDataForID = async (itemID) => {
     try {
-      const response = await fetch("http://127.0.0.1:5007/getItem", {
-        method: "POST",
-        body: JSON.stringify({
-          itemId: itemID
-        }),
-        headers: {
-          'Content-Type' : 'application/json',
-        },
-      });
+      const response = await fetch(`http://127.0.0.1:5007/getItem?itemId=${itemID}`);
       if (response.ok) {
         const data = await response.json();
         console.log(data, "JSON RES");
@@ -49,15 +41,7 @@ function Cart({currentUserID}) {
   useEffect(() => {
     const fetchCartData = async (userId) => {
       try {
-        const response = await fetch(`http://127.0.0.1:5008/returnCart`, {
-          method: "POST",
-          body: JSON.stringify({
-            userId: userId
-          }),
-          headers: {
-            'Content-Type' : 'application/json',
-          },
-        });
+        const response = await fetch(`http://127.0.0.1:5008/returnCart?userId=${userId}`);
         if (response.ok) {
           const data = await response.json();
           console.log(data, "JSON RES");

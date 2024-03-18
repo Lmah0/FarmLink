@@ -1,17 +1,29 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-import requests
-import json
+import requests, json
+from flask_swagger_ui import get_swaggerui_blueprint
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Run in directory controllers/ with command: flask --app controller run --debug --port 5002
 
-@app.route('/')
-def hello_world():
-    return 'Hello, World! This is the Controller for our application.'
+SWAGGER_URL = '/swagger'
+API_URL = 'http://127.0.0.1:5002/swagger.json'
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "API Documentation"
+    }
+)
+app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
+@app.route('/swagger.json')
+def swagger():
+    with open('../controllers/swagger.json', 'r') as f:
+        return jsonify(json.load(f))
+        
 @app.route('/checkStock', methods=['GET', "POST"])
 def checkStock():
     data = request.json
@@ -50,8 +62,8 @@ def createOrder():
 
     for item in cart:
        # Get the item from the database using the item ID
-        data = {"itemId": item['itemId']}
-        response = requests.get("http://127.0.0.1:5007/getItem", json=data)
+        itemId = item['itemId']
+        response = requests.get(f"http://127.0.0.1:5007/getItem?itemId={itemId}")
         retrievedItem = response.json()
         print(f'The retrieved item is {retrievedItem}')
         totalCost += retrievedItem['price'] * item['quantity']

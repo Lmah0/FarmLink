@@ -1,25 +1,28 @@
-from flask import Flask, jsonify, request, render_template
+from flask import jsonify, request
 from flask_cors import CORS
-import requests
-import json
 from flask import Blueprint
 from . import IShoppingCartService, models
 
 main = Blueprint('main', __name__)
 
 class ShoppingCartService(IShoppingCartService.IShoppingCartService):
-    def testing(self):
-        return 'Hello, World! This is the Shopping Cart Service.'
-    
     def addToCart(self):
         data = request.json
-        userID = data['userId']  
-        itemID = data['itemId']   
-        quantity = data['quantity'] 
-                    
-        # Process item (e.g., add it to the cart)
-        newShoppingCartItem = models.ShoppingCart(userID, itemID, quantity)
-        models.db.session.add(newShoppingCartItem)
+        userID = data['userId']
+        itemID = data['itemId']
+        quantity = data['quantity']
+        
+        # Check if an entry with the same user_id and item_id exists
+        existing_entry = models.ShoppingCart.query.filter_by(user_id=userID, item_id=itemID).first()
+
+        if existing_entry:
+            # If the entry exists, update the quantity
+            existing_entry.quantity += quantity
+        else:
+            # If the entry does not exist, create a new entry
+            newShoppingCartItem = models.ShoppingCart(userID, itemID, quantity)
+            models.db.session.add(newShoppingCartItem)
+
         models.db.session.commit()
 
         return jsonify({'message': 'Items added to cart successfully.'})
@@ -44,8 +47,7 @@ class ShoppingCartService(IShoppingCartService.IShoppingCartService):
             return jsonify({'message': 'Items removed from cart successfully.'})
 
     def returnCart(self):
-        data = request.json
-        userID = data['userId']  
+        userID = request.args.get('userId', "")
         items = models.ShoppingCart.query.filter_by(user_id=userID).all() # Access the list of items under the User ID
         print(f"The Items are {items}")
 
@@ -71,8 +73,7 @@ class ShoppingCartService(IShoppingCartService.IShoppingCartService):
 
 shoppingCartService = ShoppingCartService()
 
-main.route('/', methods=['GET'])(shoppingCartService.testing)
 main.route('/addToCart', methods=['POST'])(shoppingCartService.addToCart)
 main.route('/removeFromCart', methods=['DELETE'])(shoppingCartService.removeFromCart)
-main.route('/returnCart', methods=['POST'])(shoppingCartService.returnCart)
+main.get('/returnCart')(shoppingCartService.returnCart)
 main.route('/flushCart', methods=['DELETE'])(shoppingCartService.flushCart)

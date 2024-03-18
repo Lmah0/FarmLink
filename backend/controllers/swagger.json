@@ -1,0 +1,111 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Stock and Order API",
+      "description": "An API for checking stock and creating orders.",
+      "version": "1.0"
+    },
+    "basePath": "/api",
+    "schemes": [
+      "http"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/checkStock": {
+        "post": {
+          "summary": "Check stock availability.",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Data required to check stock availability.",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "ID of the user."
+                  },
+                  "itemId": {
+                    "type": "integer",
+                    "description": "ID of the item."
+                  },
+                  "quantity": {
+                    "type": "integer",
+                    "description": "Quantity of the item to check."
+                  },
+                  "postingId": {
+                    "type": "integer",
+                    "description": "ID of the posting."
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Sufficient stock available.",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "Confirmation message."
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Not enough stock available."
+            }
+          }
+        }
+      },
+      "/createOrder": {
+        "post": {
+          "summary": "Create an order.",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Data required to create an order.",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "ID of the user."
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Order created successfully.",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "Confirmation message."
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Not enough stock available."
+            }
+          }
+        }
+      }
+    }
+  }
+  
