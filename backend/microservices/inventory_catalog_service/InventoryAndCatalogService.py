@@ -1,10 +1,8 @@
 from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
-import requests
 import json
 from flask import Blueprint
 from . import IInventoryAndCatalogService, models
-import os
 
 main = Blueprint('main', __name__)
 

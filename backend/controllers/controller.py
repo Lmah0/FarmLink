@@ -8,10 +8,6 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Run in directory controllers/ with command: flask --app controller run --debug --port 5002
 
-@app.route('/')
-def hello_world():
-    return 'Hello, World! This is the Controller for our application.'
-
 @app.route('/checkStock', methods=['GET', "POST"])
 def checkStock():
     data = request.json
