@@ -52,7 +52,7 @@ def createOrder():
     
     # Get the cart
     data = {"userId": userID}
-    response = requests.get("http://127.0.0.1:5008/returnCart", json=data)
+    response = requests.post("http://127.0.0.1:5008/returnCart", json=data)
     cart = response.json()
 
     print(cart)
