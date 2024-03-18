@@ -80,7 +80,7 @@ function HomePage({ items, handleLogout, currentUserID }) {
           id="main-ItemBox-container"
           className={expandedBoxes.includes(true) ? "expanded-main-container" : ""}
         > 
-          {items.map((item, index) => (
+          {items.map((item, index) => ( items.quantity > 0 ? (null) : (
             <div
               id="Item-box"
               className={expandedBoxes[index] ? "expanded-item-box" : ""}
@@ -119,6 +119,7 @@ function HomePage({ items, handleLogout, currentUserID }) {
                 Description: {item.description}
               </p>
             </div>
+          )
           ))}
         </div>
       </div>
