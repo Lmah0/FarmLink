@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-      "title": "Inventory and Catalog API",
+      "title": "Inventory and Catalog Service API",
       "description": "An API for managing inventory and catalog.",
       "version": "1.0"
     },
@@ -10,8 +10,7 @@
       "http"
     ],
     "consumes": [
-      "application/json",
-      "multipart/form-data"
+      "application/json"
     ],
     "produces": [
       "application/json"
@@ -19,37 +18,27 @@
     "paths": {
       "/addPosting": {
         "post": {
-          "summary": "Adds a new posting to the inventory.",
+          "summary": "Add a new posting to inventory.",
           "parameters": [
             {
               "in": "formData",
               "name": "file",
               "type": "file",
-              "required": false,
-              "description": "Image file for the posting (optional)."
+              "description": "The image file associated with the posting."
             },
             {
               "in": "formData",
               "name": "userdata",
               "type": "string",
-              "required": true,
-              "description": "User data in JSON format including 'userId', 'quantity', 'postingAuthor', 'description', 'itemName', 'itemPrice', and 'itemType'."
+              "description": "JSON data containing posting information."
             }
           ],
           "responses": {
             "200": {
-              "description": "Posting added successfully.",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "message": {
-                    "type": "string"
-                  }
-                }
-              }
+              "description": "New posting added successfully."
             },
             "400": {
-              "description": "Invalid request data."
+              "description": "Bad request - No user data provided."
             },
             "500": {
               "description": "Internal server error."
@@ -59,56 +48,69 @@
       },
       "/getPostings": {
         "get": {
-          "summary": "Gets all postings from the inventory.",
+          "summary": "Get all postings.",
           "responses": {
             "200": {
-              "description": "Successful response.",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/Posting"
-                }
-              }
+              "description": "List of postings retrieved successfully."
             }
           }
         }
       },
       "/getPosting": {
         "get": {
-          "summary": "Gets a posting by ID from the inventory.",
+          "summary": "Get a specific posting.",
           "parameters": [
             {
-              "name": "postingId",
               "in": "query",
-              "required": true,
+              "name": "postingId",
               "type": "integer",
               "description": "ID of the posting to retrieve."
             }
           ],
           "responses": {
             "200": {
-              "description": "Successful response.",
-              "schema": {
-                "$ref": "#/definitions/Posting"
-              }
+              "description": "Posting retrieved successfully."
             }
           }
         }
       },
       "/getItem": {
-        "post": {
-          "summary": "Gets an item by ID from the inventory.",
+        "get": {
+          "summary": "Get an item by ID.",
           "parameters": [
             {
+              "in": "query",
               "name": "itemId",
+              "type": "integer",
+              "description": "ID of the item to retrieve."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Item retrieved successfully."
+            }
+          }
+        }
+      },
+      "/removeStock": {
+        "post": {
+          "summary": "Remove stock from a posting.",
+          "parameters": [
+            {
               "in": "body",
+              "name": "body",
+              "description": "Data required for removing stock.",
               "required": true,
               "schema": {
                 "type": "object",
                 "properties": {
-                  "itemId": {
+                  "postingId": {
                     "type": "integer",
-                    "description": "ID of the item to retrieve."
+                    "description": "ID of the posting to remove stock from."
+                  },
+                  "quantity": {
+                    "type": "integer",
+                    "description": "Quantity of stock to remove."
                   }
                 }
               }
@@ -116,84 +118,8 @@
           ],
           "responses": {
             "200": {
-              "description": "Successful response.",
-              "schema": {
-                "$ref": "#/definitions/Item"
-              }
-            }
-          }
-        }
-      },
-      "/removeStock": {
-        "post": {
-          "summary": "Removes stock from a posting in the inventory.",
-          "parameters": [
-            {
-              "name": "postData",
-              "in": "body",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/StockRemovalRequest"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
               "description": "Stock removed successfully."
             }
-          }
-        }
-      }
-    },
-    "definitions": {
-      "Posting": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
-          },
-          "userId": {
-            "type": "integer"
-          },
-          "quantity": {
-            "type": "integer"
-          },
-          "postingAuthor": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          }
-        }
-      },
-      "Item": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
-          },
-          "name": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number"
-          },
-          "type": {
-            "type": "string"
-          },
-          "postingId": {
-            "type": "integer"
-          }
-        }
-      },
-      "StockRemovalRequest": {
-        "type": "object",
-        "properties": {
-          "postingId": {
-            "type": "integer"
-          },
-          "quantity": {
-            "type": "integer"
           }
         }
       }

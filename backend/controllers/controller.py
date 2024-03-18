@@ -62,8 +62,8 @@ def createOrder():
 
     for item in cart:
        # Get the item from the database using the item ID
-        data = {"itemId": item['itemId']}
-        response = requests.get("http://127.0.0.1:5007/getItem", json=data)
+        itemId = item['itemId']
+        response = requests.get(f"http://127.0.0.1:5007/getItem?itemId={itemId}")
         retrievedItem = response.json()
         print(f'The retrieved item is {retrievedItem}')
         totalCost += retrievedItem['price'] * item['quantity']

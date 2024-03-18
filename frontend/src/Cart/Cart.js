@@ -15,15 +15,7 @@ function Cart({currentUserID}) {
 
   const fetchDataForID = async (itemID) => {
     try {
-      const response = await fetch("http://127.0.0.1:5001/getItem", {
-        method: "POST",
-        body: JSON.stringify({
-          itemId: itemID
-        }),
-        headers: {
-          'Content-Type' : 'application/json',
-        },
-      });
+      const response = await fetch(`http://127.0.0.1:5001/getItem?itemId=${itemID}`);
       if (response.ok) {
         const data = await response.json();
         console.log(data, "JSON RES");
