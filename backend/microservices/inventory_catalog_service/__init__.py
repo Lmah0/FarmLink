@@ -13,7 +13,7 @@ db = SQLAlchemy()
 # To run: 'flask --app inventory_catalog_service run --debug' in console
 # To run on a specific port: 'flask --app inventory_catalog_service run --debug --port 5007' in console
 
-def create_app():
+def create_app(ENVIRONMENT='development'):
     app = Flask(__name__)
     CORS(app)
 
@@ -38,7 +38,8 @@ def create_app():
     if ENVIRONMENT == 'production':
         load_dotenv()
         app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace('postgres:', 'postgresql:')
-
+    elif ENVIRONMENT == 'test': # Create DB in memory so that production DB is not affected during tests
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
     db.init_app(app)
 
     from . import models

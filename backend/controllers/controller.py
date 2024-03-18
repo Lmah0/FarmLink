@@ -34,6 +34,9 @@ def checkStock():
     
     data = {"postingId": postingID}
     response = requests.get("http://127.0.0.1:5007/getPosting", json=data)   
+    if response.status_code != 200:
+        return jsonify({'message': 'Error in retrieving posting.'}), 400
+    
     retrievedPosting = response.json() 
     print(f'The retrieved posting is {retrievedPosting}')
 
@@ -52,7 +55,9 @@ def createOrder():
     
     # Get the cart
     data = {"userId": userID}
-    response = requests.get("http://127.0.0.1:5008/returnCart", json=data)
+    response = requests.get(f"http://127.0.0.1:5008/returnCart?userId={userID}")
+    if response.status_code != 200:
+        return jsonify({'message': 'Error in retrieving cart.'}), 400
     cart = response.json()
 
     print(cart)
@@ -63,6 +68,8 @@ def createOrder():
     for item in cart:
        # Get the item from the database using the item ID
         itemId = item['itemId']
+        print(itemId)
+        data = {"itemId": itemId}
         response = requests.get(f"http://127.0.0.1:5007/getItem?itemId={itemId}")
         retrievedItem = response.json()
         print(f'The retrieved item is {retrievedItem}')
@@ -78,18 +85,23 @@ def createOrder():
         # Check if the quantity in the cart is available
 
         if retrievedPosting['quantity'] < item['quantity']:
-            return jsonify({'message': 'Not enough stock available.'}), 400
+            return jsonify({'message': 'Not enough stock available.'}), 420 # 420 is a custom error code        
         else:
         #remove the quantity from the stock
             data = {"postingId": postingID, "quantity": item['quantity']}
             response = requests.post("http://127.0.0.1:5007/removeStock", json=data)
             print("The response is", response)
+        # Flushing Cart
+            data = {"userId": userID}
+            response = requests.delete("http://127.0.0.1:5008/flushCart", json=data)
+            print("The response is", response)    
 
     # Create the order on the database using the cart
     data = {"userId": userID, "totalCost": totalCost}
     response = requests.post("http://127.0.0.1:5009/addOrder", json=data)
 
 
+                
     return jsonify({'message': 'Sufficient stock'}), 200
 
 

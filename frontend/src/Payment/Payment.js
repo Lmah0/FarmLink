@@ -67,12 +67,15 @@ function Payment({currentUserID}) {
     }
     console.log(totalPrice)
     try {
+      let data = {
+        userId: currentUserID
+      };
       let response = await fetch("http://127.0.0.1:5002/createOrder", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        userId: currentUserID,
+        body: JSON.stringify(data)  // Convert data to JSON string and include in the body
       });
       if (response.ok) {
         let jsonRes = await response.json();
@@ -81,6 +84,7 @@ function Payment({currentUserID}) {
         navigate('/');
       } else {
         console.log("Failed to create order", response.status);
+        console.log(response, "RESPONSE");
       }
     } catch (error) {
       console.error("Error creating error", error);

@@ -18,4 +18,5 @@ Werkzeug==3.0.1
 zipp==3.17.0
 python-dotenv~=1.0.1
 psycopg2==2.9.9
+pytest==8.1.1
 flask_swagger_ui==4.11.1
