@@ -41,8 +41,7 @@ class UserManagementService(IUserManagementService.IUserManagementService):
             return jsonify({'message': 'Successful Login! The user\'s ID is ' + str(user.id), 'userId': user.id}), 200
     
     def returnProfile(self):
-        data = request.json
-        userId = data['userId']
+        userId = request.args.get('userId', "")
         user = models.User.query.filter_by(id=userId).first()
         
         if user is None:
@@ -53,4 +52,4 @@ class UserManagementService(IUserManagementService.IUserManagementService):
 userManagementService = UserManagementService()
 main.route('/register', methods=['POST'])(userManagementService.register)
 main.route('/login', methods=['POST'])(userManagementService.login)
-main.route('/returnProfile', methods=['POST'])(userManagementService.returnProfile)
+main.get('/returnProfile')(userManagementService.returnProfile)

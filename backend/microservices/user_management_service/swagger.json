@@ -124,23 +124,15 @@
         }
       },
       "/returnProfile": {
-        "post": {
+        "get": {
           "summary": "Return user profile.",
           "parameters": [
             {
-              "in": "body",
-              "name": "body",
-              "description": "Data required to return user profile.",
+              "in": "query",
+              "name": "userId",
+              "description": "ID of the user.",
               "required": true,
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "userId": {
-                    "type": "integer",
-                    "description": "ID of the user."
-                  }
-                }
-              }
+              "type": "integer"
             }
           ],
           "responses": {
