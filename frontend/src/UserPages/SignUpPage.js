@@ -17,20 +17,29 @@ const SignUpPage = () => {
 
     try {
       // Make a POST request to your Flask API endpoint for user registration
-      const response = await fetch('http://localhost:5000/register', {
+      const response = await fetch('http://127.0.0.1:5000/register', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
+          // name: 'eric',
+          // phone_number: '403-292-9102',
+          // email_address: 'eric@gmail.com',
+          // password: '123',
+          // role: 'NONFARMER', // Keep it as a string in the state
+          // farmer_pid: 0, // Set PID to null if not a farmer
+          // profile_bio: 'I am a farmer'
+          
+
           name: name,
           phone_number: phoneNumber,
           email_address: email,
           password: password,
           role: role, // Keep it as a string in the state
-          farmer_pid: role === 'FARMER' ? farmerPid : null, // Set PID to null if not a farmer
+          farmer_pid: role === 'FARMER' ? parseInt(farmerPid) : 0, // Set PID to null if not a farmer
           profile_bio: profileBio,
         }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
       if (response.ok) {
