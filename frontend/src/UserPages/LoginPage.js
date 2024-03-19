@@ -22,7 +22,7 @@ const LoginPage = ({handleSetProfile}) => {
 
     try {
       // Make a POST request to your Flask API endpoint for login
-      const response = await fetch('http://127.0.0.1:5000/login', {
+      const response = await fetch('https://maga-user-management-7c1e7511f413.herokuapp.com/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ const LoginPage = ({handleSetProfile}) => {
         // console.log('User ID:', data);
 
         // Fetch user profile data after successful login
-        const profileResponse = await fetch(`http://127.0.0.1:5000/returnProfile?userId=${data.userId}`);
+        const profileResponse = await fetch(`https://maga-user-management-7c1e7511f413.herokuapp.com/returnProfile?userId=${data.userId}`);
 
         if (profileResponse.ok) {
           const profileData = await profileResponse.json();

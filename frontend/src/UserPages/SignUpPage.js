@@ -17,7 +17,7 @@ const SignUpPage = () => {
 
     try {
       // Make a POST request to your Flask API endpoint for user registration
-      const response = await fetch('http://127.0.0.1:5000/register', {
+      const response = await fetch('https://maga-user-management-7c1e7511f413.herokuapp.com/register', {
         method: 'POST',
         body: JSON.stringify({
           name: name,
