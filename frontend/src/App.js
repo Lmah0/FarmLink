@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import Layout from "./Layout";
@@ -55,18 +55,20 @@ function App() {
     };
     fetchData();
   }, []);
+
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
 
-            {
+            { 
               userProfile ? (
                 <>
                   <Route path="/" element={<HomePage items={items} handleLogout={handleLogout} currentUserID={userProfile.id} currentRole={userProfile.role}  /> } />
                   <Route path="/cart" element={<Cart currentUserID={userProfile.id} />} />
                   <Route path="/Payment" element={<Payment currentUserID={userProfile.id}/>} />
+                  <Route path="/SellItems" element={<SellItems currentUserID={userProfile.id} currentUserName={userProfile.name}/>} />
                 </>
               ) : (
                 <Route path="/" element={<HomePageEmpty />} /> 
@@ -76,7 +78,6 @@ function App() {
             <Route path="/login" element={<LoginPage handleSetProfile={handleSetProfile}/>} /> 
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/profile" element={<ProfilePage/>} />
-            <Route path="/SellItems" element={<SellItems />} />
 
           </Route>
         </Routes>

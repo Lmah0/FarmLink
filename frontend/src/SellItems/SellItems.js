@@ -1,7 +1,7 @@
 import "./SellItems.css";
 import { useState } from "react";
 
-function SellItems() {
+function SellItems({currentUserID, currentUserName}) {
   // Define state variables to hold form data
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -9,18 +9,17 @@ function SellItems() {
   const [quantity, setQuantity] = useState("");
   const [itemType, setItemType] = useState("");
   const [file, setFile] = useState(null);
-  const [imageSrc, setImageSrc] = useState("");
-
-  const [submitting, setSubmitting] = useState(false);
+  // const [imageSrc, setImageSrc] = useState("");
+  // const [submitting, setSubmitting] = useState(false);
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
-    setSubmitting(true);
-
+    // setSubmitting(true);
+ 
     const userData = {
-      userId: 1, // This will be the user's id
+      userId: currentUserID, // This will be the user's id
       quantity: parseInt(quantity), // Parse quantity to integer
-      postingAuthor: "Eric Mei", // This will be the user's name
+      postingAuthor: currentUserName, // This will be the user's name
       itemName: title,
       description: description,
       itemPrice: parseFloat(price), // Parse price to integer
