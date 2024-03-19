@@ -64,11 +64,10 @@ def test_remove_from_cart_with_invalid_user_id(client, app):
     data = {
         "userId": None,
         "itemId": 1,
-        "quantity": 1
     }
     response = client.delete('/removeFromCart', json=data)
     assert response.status_code == 400
-    assert b'Invalid values for userId, itemId, or quantity.' in response.data
+    assert b'Invalid values for userId, or itemId' in response.data
     with app.app_context():
         assert ShoppingCart.query.count() == 1
 
@@ -81,30 +80,13 @@ def test_remove_from_cart_with_invalid_item_id(client, app):
     data = {
         "userId": 1,
         "itemId": None,
-        "quantity": 1
     }
     response = client.delete('/removeFromCart', json=data)
     assert response.status_code == 400
-    assert b'Invalid values for userId, itemId, or quantity.' in response.data
+    assert b'Invalid values for userId, or itemId' in response.data
     with app.app_context():
         assert ShoppingCart.query.count() == 1
 
-def test_remove_from_cart_with_invalid_quantity(client, app):
-    test_cart = ShoppingCart(1, 1, 1)
-    with app.app_context():
-        db.session.add(test_cart)
-        db.session.commit()
-
-    data = {
-        "userId": 1,
-        "itemId": 1,
-        "quantity": -1
-    }
-    response = client.delete('/removeFromCart', json=data)
-    assert response.status_code == 400
-    assert b'Quantity must be greater than 0.' in response.data
-    with app.app_context():
-        assert ShoppingCart.query.count() == 1
 
 def test_remove_from_cart_with_item_not_in_cart(client, app):
     test_cart = ShoppingCart(1, 1, 1)

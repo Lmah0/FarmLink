@@ -107,8 +107,7 @@ function Cart({currentUserID}) {
           method: "DELETE",
           body: JSON.stringify({
             userId :  currentUserID , 
-            itemId : itemId , 
-            quantity : 1
+            itemId : itemId  
           }),
           headers: {
             'Content-Type' : 'application/json',
