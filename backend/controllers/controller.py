@@ -31,6 +31,13 @@ def checkStock():
     itemID = data['itemId']   
     quantity = data['quantity'] 
     postingID = data['postingId']
+
+    if not userID or not itemID or not quantity or not postingID:
+        return jsonify({'message': 'Invalid request: userId, itemId, quantity, and postingId are required.'}), 400
+    elif not isinstance(userID, int) or not isinstance(itemID, int) or not isinstance(quantity, int) or not isinstance(postingID, int):
+        return jsonify({'message': 'Invalid values for userId, itemId, quantity, or postingId.'}), 400
+    elif quantity <= 0:
+        return jsonify({'message': 'Quantity must be greater than 0.'}), 400
     
     data = {"postingId": postingID}
     response = requests.get("http://127.0.0.1:5007/getPosting", json=data)   
@@ -53,6 +60,11 @@ def createOrder():
     data = request.json
     userID = data['userId']  
     
+    if not userID:
+        return jsonify({'message': 'Invalid request: userId is required.'}), 400
+    elif not isinstance(userID, int):
+        return jsonify({'message': 'Invalid value for userId.'}), 400
+
     # Get the cart
     data = {"userId": userID}
     response = requests.get(f"http://127.0.0.1:5008/returnCart?userId={userID}")
@@ -88,7 +100,6 @@ def createOrder():
             return jsonify({'message': 'Not enough stock available.'}), 420 # 420 is a custom error code        
         else:
         #remove the quantity from the stock
-            data = {"postingId": postingID, "quantity": item['quantity']}
             response = requests.post("http://127.0.0.1:5007/removeStock", json=data)
             print("The response is", response)
         # Flushing Cart
