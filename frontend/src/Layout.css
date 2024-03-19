@@ -21,6 +21,11 @@
   border-bottom: 2px solid #000;
 }
 
+.logo {
+  height: 4rem;
+  padding-right: 1rem;
+}
+
 div {
   flex: 1;
   overflow-y: auto;

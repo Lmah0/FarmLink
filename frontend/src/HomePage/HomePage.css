@@ -97,6 +97,7 @@
   box-sizing: border-box;
   max-width: 400px;
   max-height: 400px;
+  background-color: #F9EFDB;
 }
 
 #Item-box > h3, h4, h5{

@@ -1,5 +1,6 @@
 import "./Layout.css";
 import { Outlet, useNavigate } from "react-router-dom";
+import logo from "./Images/agriculture.png";
 
 function Layout({ handleLogout }) {
     const navigate = useNavigate();
@@ -24,6 +25,7 @@ function Layout({ handleLogout }) {
         <>
             <div id="Main-Container">
                 <header>
+                    <img className="logo" src={logo}></img>
                     <div className="title">Make Agriculture Great Again</div>
                     <nav className="navbar">
                         <button className="navbar-button" onClick={goToHome}>Home</button>
