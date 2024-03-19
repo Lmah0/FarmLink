@@ -6,8 +6,15 @@
 #HomePage-Header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding-left: 25px;
   padding-right: 25px;
+}
+
+#HomePage-Buttons{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 #HomePage-Header > header {
@@ -16,25 +23,49 @@
   font-weight: bold;
 }
 
-#HomePage-Header > input[type="text"] {
-  flex: 1;
-  max-width: 500px;
-}
-
-#HomePage-Header > button {
+#HomePage-Header > div > button:not(#HomePage-Header-SELL, #HomePage-Header-CART) {
   padding: 5px;
   border: none;
   background-color: transparent;
   cursor: pointer;
-  margin-left: auto; /* Adjusted to push the button to the right */
+  /* margin-left: auto; Adjusted to push the button to the right */
+}
+#HomePage-Header-CART{
+  background-color: transparent;
+  cursor: pointer;
+  padding: 5px;
+  margin-right: 10px;
+  border: 10px;
+  width: 60px;
+  height: 60px;
+  font-weight: bolder;
+  font-size: larger;
+
+  border: 2px solid gray;
+  border-radius: 100%; /* This will make the border circular */
+}
+#HomePage-Header-SELL{
+  background-color: transparent;
+  cursor: pointer;
+  padding: 5px;
+  margin-right: 15px;
+  border: 10px;
+  width: 60px;
+  height: 60px;
+  font-weight: bolder;
+  font-size: larger;
+
+  border: 2px solid gray;
+  border-radius: 100%; /* This will make the border circular */
 }
 
-#HomePage-Header > button > img {
+#HomePage-Header > div> button > img {
   padding-top: 5px;
   width: 60px;
   height: 60px;
   padding-right: 10px;
 }
+
 
 #empty-holder {
   text-align: center;
@@ -162,6 +193,7 @@
   width: 40px;
   height: 40px;
 }
+
 
 /* For sizing the page */
 @media (max-width: 1000px) {

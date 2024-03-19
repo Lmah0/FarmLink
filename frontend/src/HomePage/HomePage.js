@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function HomePage({ items, handleLogout, currentUserID, currentRole }) {
-
   const navigate = useNavigate();
   const [expandedBoxes, setExpandedBoxes] = useState(
     Array(items.length).fill(false)
@@ -28,14 +27,13 @@ function HomePage({ items, handleLogout, currentUserID, currentRole }) {
   };
 
   const handleSellItemClick = () => {
-    navigate("/SellItems")
+    navigate("/SellItems");
   };
-
 
   const handleAddToCartClick = (itemId) => {
     const addToCart = async (itemId) => {
       // This function will flush the cart when the user logs out
-      try { 
+      try {
         let response = await fetch("http://127.0.0.1:5008/addToCart", {
           method: "POST",
           body: JSON.stringify({
@@ -49,7 +47,7 @@ function HomePage({ items, handleLogout, currentUserID, currentRole }) {
         });
         if (response.ok) {
           let jsonRes = await response.json();
-          // console.log(jsonRes, "JSON RES");
+          console.log(jsonRes, "JSON RES");
         } else {
           console.log("Failed to fetch data:", response.status);
         }
@@ -65,27 +63,42 @@ function HomePage({ items, handleLogout, currentUserID, currentRole }) {
       <div id="HomePage-Main-Container">
         <div id="HomePage-Header">
           <header>MarketPlace</header>
-          <button onClick={handleSellItemClick} className={currentRole === "FARMER" ? "" : "hidden-button"}>
-            Sell
-          </button>
-          <button style={{ marginRight: 20 }} onClick={goToCart}>
-            &#x1f6d2;
-          </button>
-          <button id="profile-Button" onClick={goToProfile}>
-            <img
-              src="https://media.istockphoto.com/id/1131164548/vector/avatar-5.jpg?s=612x612&w=0&k=20&c=CK49ShLJwDxE4kiroCR42kimTuuhvuo2FH5y_6aSgEo="
-              alt="Person Emoji"
-            />
-          </button>
-          <button id="logout-Button" onClick={handleLogoutClick}>
-            Logout
-          </button>
+          <div id="HomePage-Buttons">
+            <button onClick={goToCart} id="HomePage-Header-CART">
+              {/* <img
+              src="https://media.istockphoto.com/id/1151942531/vector/shopping-cart-icon-vector.jpg?s=612x612&w=0&k=20&c=uws25WiHpAZQd8n_gkPgDVbSvjRb6xCUyoXj4isMP4E="
+                alt="Shopping Cart"
+              /> */}
+              Cart
+            </button>
+            <button
+              id="HomePage-Header-SELL"
+              onClick={handleSellItemClick}
+              className={currentRole === "FARMER" ? "" : "hidden-button"}
+            >
+              Sell Item
+            </button>
+            <button id="profile-Button" onClick={goToProfile}>
+              <img
+                src="https://media.istockphoto.com/id/1131164548/vector/avatar-5.jpg?s=612x612&w=0&k=20&c=CK49ShLJwDxE4kiroCR42kimTuuhvuo2FH5y_6aSgEo="
+                alt="Person Emoji"
+              />
+            </button>
+            <button id="logout-Button" onClick={handleLogoutClick}>
+              <img
+                src="https://cdn.iconscout.com/icon/free/png-256/free-logout-2032031-1713022.png?f=webp"
+                alt="Logout-Button"
+              />
+            </button>
+          </div>
         </div>
 
         <div
           id="main-ItemBox-container"
-          className={expandedBoxes.includes(true) ? "expanded-main-container" : ""}
-        > 
+          className={
+            expandedBoxes.includes(true) ? "expanded-main-container" : ""
+          }
+        >
           {items.map((item, index) => (
             <div
               id="Item-box"

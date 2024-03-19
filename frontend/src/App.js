@@ -14,7 +14,6 @@ import ProfilePage from "./UserPages/ProfilePage";
 
 function App() {
   /* This is the main app component basically the "view controller" this will just pass information along to different pages from API */
-  
 
   const [items, setItems] = useState([]);
 
