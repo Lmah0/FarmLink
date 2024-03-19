@@ -55,3 +55,11 @@
 .auth-button:hover {
   background-color: hsl(210, 94%, 6%); /* Darker button background color on hover */
 }
+
+.motto {
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  padding-top: 10rem;
+}

@@ -16,8 +16,8 @@ function HomePageEmpty() {
     <div>
       <div id="HomePage-Main-Container">
         <div className="login-page">
-          <div>
-            The path to branching the agricultural market starts here.
+          <div className="motto typewriter">
+            <h1>Branching the agricultural market starts here.</h1>
           </div>
           <div>
             <button className="auth-button" onClick={handleSignUpClick}>
