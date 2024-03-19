@@ -72,27 +72,12 @@ function HomePage({ items, handleLogout, currentUserID, currentRole }) {
         <div id="HomePage-Header">
           <header>MarketPlace</header>
           <div id="HomePage-Buttons">
-            <button onClick={goToCart} id="HomePage-Header-CART">
-              Cart
-            </button>
             <button
               id="HomePage-Header-SELL"
               onClick={handleSellItemClick}
               className={currentRole === "FARMER" ? "" : "hidden-button"}
             >
               Sell Item
-            </button>
-            <button id="profile-Button" onClick={goToProfile}>
-              <img
-                src="https://media.istockphoto.com/id/1131164548/vector/avatar-5.jpg?s=612x612&w=0&k=20&c=CK49ShLJwDxE4kiroCR42kimTuuhvuo2FH5y_6aSgEo="
-                alt="Person Emoji"
-              />
-            </button>
-            <button id="logout-Button" onClick={handleLogoutClick}>
-              <img
-                src="https://cdn.iconscout.com/icon/free/png-256/free-logout-2032031-1713022.png?f=webp"
-                alt="Logout-Button"
-              />
             </button>
           </div>
         </div>

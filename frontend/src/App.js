@@ -59,7 +59,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route element={<Layout handleLogout={handleLogout} />}>
+          <Route element={<Layout handleLogout={handleLogout} currentRole={userProfile.role}/>}>
 
             { 
               userProfile ? (
