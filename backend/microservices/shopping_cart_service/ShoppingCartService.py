@@ -23,20 +23,12 @@ class ShoppingCartService(IShoppingCartService.IShoppingCartService):
         existing_entry = models.ShoppingCart.query.filter_by(user_id=userID, item_id=itemID).first()
 
         if existing_entry:
-            # If the entry exists, update the quantity
-            existing_entry.quantity += quantity
-        else:
-            # If the entry does not exist, create a new entry
-            existing_entry = models.ShoppingCart.query.filter_by(user_id=userID, item_id=itemID).first()
-        if existing_entry:
         # If the entry exists, update the quantity
             existing_entry.quantity += quantity
         else:
             # If the entry does not exist, create a new entry
             newShoppingCartItem = models.ShoppingCart(userID, itemID, quantity)
-                models.db.session.add(newShoppingCartItem)
-                    
-
+            models.db.session.add(newShoppingCartItem)
 
         models.db.session.commit()
 
