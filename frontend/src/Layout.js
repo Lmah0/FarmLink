@@ -1,7 +1,7 @@
 import "./Layout.css";
 import { Outlet, useNavigate } from "react-router-dom";
 
-function Layout() {
+function Layout({ handleLogout }) {
     const navigate = useNavigate();
 
     const goToHome = () => {
@@ -16,7 +16,7 @@ function Layout() {
         navigate("/Cart");
     };
 
-    const handleLogout = () => {
+    const logoutHandler = () => {
         handleLogout();
     };
 
@@ -27,9 +27,9 @@ function Layout() {
                     <div className="title">Make Agriculture Great Again</div>
                     <nav className="navbar">
                         <button className="navbar-button" onClick={goToHome}>Home</button>
-                        <button className="navbar-button" onClick={goToProfile}>Profile</button>
+                        <button className="navbar-button" onClick={goToProfile}>My Profile</button>
                         <button className="navbar-button" onClick={goToCart}>Cart</button>
-                        <button className="navbar-button" onClick={handleLogout}>Logout</button>
+                        <button className="navbar-button" onClick={logoutHandler}>Logout</button>
                     </nav>
                 </header>
 
