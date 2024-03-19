@@ -59,7 +59,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route element={<Layout />}>
+          <Route element={<Layout handleLogout={handleLogout} />}>
 
             { 
               userProfile ? (

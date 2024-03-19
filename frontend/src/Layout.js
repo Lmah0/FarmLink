@@ -1,21 +1,36 @@
 import "./Layout.css";
-import { Outlet } from "react-router-dom";
-// import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from "react-router-dom";
 
+function Layout({ handleLogout }) {
+    const navigate = useNavigate();
 
-function Layout() {
-    // const navigate = useNavigate();
+    const goToHome = () => {
+        navigate("/");
+    };
 
-    // const goToCart = () => {
-    //     navigate("/Cart")
-    // }
+    const goToProfile = () => {
+        navigate("/profile");
+    };
+
+    const goToCart = () => {
+        navigate("/Cart");
+    };
+
+    const logoutHandler = () => {
+        handleLogout();
+    };
 
     return (
         <>
             <div id="Main-Container">
                 <header>
-                    Make Agriculture Great Again
-                    {/* <button style={{marginRight: 20}} onClick={goToCart}>&#x1f6d2;</button> */}
+                    <div className="title">Make Agriculture Great Again</div>
+                    <nav className="navbar">
+                        <button className="navbar-button" onClick={goToHome}>Home</button>
+                        <button className="navbar-button" onClick={goToProfile}>My Profile</button>
+                        <button className="navbar-button" onClick={goToCart}>Cart</button>
+                        <button className="navbar-button" onClick={logoutHandler}>Logout</button>
+                    </nav>
                 </header>
 
                 <div>
@@ -29,5 +44,5 @@ function Layout() {
         </>
     );
 }
-  
+
 export default Layout;
