@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import './SignUpPage.css'; // Import the CSS file for styling
 
 const SignUpPage = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
@@ -15,25 +17,26 @@ const SignUpPage = () => {
 
     try {
       // Make a POST request to your Flask API endpoint for user registration
-      const response = await fetch('http://localhost:5000/register', {
+      const response = await fetch('http://127.0.0.1:5000/register', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
           name: name,
           phone_number: phoneNumber,
           email_address: email,
           password: password,
           role: role, // Keep it as a string in the state
-          farmer_pid: role === 'FARMER' ? farmerPid : null, // Set PID to null if not a farmer
+          farmer_pid: role === 'FARMER' ? parseInt(farmerPid) : 0, // Set PID to null if not a farmer
           profile_bio: profileBio,
         }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
       if (response.ok) {
         // Handle successful sign-up
         alert('Sign up successful!');
+        navigate("/login");
       } else {
         // Handle unsuccessful sign-up
         const data = await response.json();

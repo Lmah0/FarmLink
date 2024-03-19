@@ -1,20 +1,29 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-import requests
-import json
+import requests, json
+from flask_swagger_ui import get_swaggerui_blueprint
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-# INSTRUCTIONS:
-# 1. You need to use this file to control all the microservices to coordinate the payment as specified in the doc
-# 2. You need to run each microservice at the same time, and call on the proper logic from within each microservice to complete the logic for this
-     # When you run each microservice at the same time, you must specify different ports when you run each one (default is 5000 and we cannot run all microservices off the same port)
+# Run in directory controllers/ with command: flask --app controller run --debug --port 5002
 
-@app.route('/')
-def hello_world():
-    return 'Hello, World! This is the Controller for our application.'
+SWAGGER_URL = '/swagger'
+API_URL = 'http://127.0.0.1:5002/swagger.json'
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "API Documentation"
+    }
+)
+app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
+@app.route('/swagger.json')
+def swagger():
+    with open('../controllers/swagger.json', 'r') as f:
+        return jsonify(json.load(f))
+        
 @app.route('/checkStock', methods=['GET', "POST"])
 def checkStock():
     data = request.json
@@ -25,6 +34,9 @@ def checkStock():
     
     data = {"postingId": postingID}
     response = requests.get("http://127.0.0.1:5007/getPosting", json=data)   
+    if response.status_code != 200:
+        return jsonify({'message': 'Error in retrieving posting.'}), 400
+    
     retrievedPosting = response.json() 
     print(f'The retrieved posting is {retrievedPosting}')
 
@@ -43,7 +55,9 @@ def createOrder():
     
     # Get the cart
     data = {"userId": userID}
-    response = requests.get("http://127.0.0.1:5008/returnCart", json=data)
+    response = requests.get(f"http://127.0.0.1:5008/returnCart?userId={userID}")
+    if response.status_code != 200:
+        return jsonify({'message': 'Error in retrieving cart.'}), 400
     cart = response.json()
 
     print(cart)
@@ -53,8 +67,10 @@ def createOrder():
 
     for item in cart:
        # Get the item from the database using the item ID
-        data = {"itemId": item['itemId']}
-        response = requests.get("http://127.0.0.1:5007/getItem", json=data)
+        itemId = item['itemId']
+        print(itemId)
+        data = {"itemId": itemId}
+        response = requests.get(f"http://127.0.0.1:5007/getItem?itemId={itemId}")
         retrievedItem = response.json()
         print(f'The retrieved item is {retrievedItem}')
         totalCost += retrievedItem['price'] * item['quantity']
@@ -69,18 +85,23 @@ def createOrder():
         # Check if the quantity in the cart is available
 
         if retrievedPosting['quantity'] < item['quantity']:
-            return jsonify({'message': 'Not enough stock available.'}), 400
+            return jsonify({'message': 'Not enough stock available.'}), 420 # 420 is a custom error code        
         else:
         #remove the quantity from the stock
             data = {"postingId": postingID, "quantity": item['quantity']}
             response = requests.post("http://127.0.0.1:5007/removeStock", json=data)
             print("The response is", response)
+        # Flushing Cart
+            data = {"userId": userID}
+            response = requests.delete("http://127.0.0.1:5008/flushCart", json=data)
+            print("The response is", response)    
 
     # Create the order on the database using the cart
     data = {"userId": userID, "totalCost": totalCost}
     response = requests.post("http://127.0.0.1:5009/addOrder", json=data)
 
 
+                
     return jsonify({'message': 'Sufficient stock'}), 200
 
 

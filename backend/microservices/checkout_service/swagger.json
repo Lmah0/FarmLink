@@ -1,0 +1,60 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Checkout API",
+      "description": "An API for handling orders and checkout functionality.",
+      "version": "1.0"
+    },
+    "basePath": "/api",
+    "schemes": [
+      "http"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/addOrder": {
+        "post": {
+          "summary": "Create a new order.",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Order object containing userId and totalCost.",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "ID of the user placing the order."
+                  },
+                  "totalCost": {
+                    "type": "number",
+                    "description": "Total cost of the order."
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response.",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "Confirmation message."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+}

@@ -3,12 +3,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import './Payment.css';
 
-function Payment() {
+function Payment({currentUserID}) {
+
   const location = useLocation();
   const navigate = useNavigate();
   const totalPrice = location.state.totalPrice;
   const userID = 1;
-
+ 
   const generateNumbers = (start, end) => {
     const options = [];
     for (let i = start; i <= end; i++) {
@@ -69,12 +70,15 @@ function Payment() {
     }
     console.log(totalPrice)
     try {
+      let data = {
+        userId: currentUserID
+      };
       let response = await fetch("http://127.0.0.1:5002/createOrder", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(userID),
+        body: JSON.stringify(data)  // Convert data to JSON string and include in the body
       });
       if (response.ok) {
         let jsonRes = await response.json();
@@ -83,6 +87,7 @@ function Payment() {
         navigate('/');
       } else {
         console.log("Failed to create order", response.status);
+        console.log(response, "RESPONSE");
       }
     } catch (error) {
       console.error("Error creating error", error);

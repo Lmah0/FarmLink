@@ -1,0 +1,198 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Shopping Cart API",
+      "description": "An API for managing shopping cart functionality.",
+      "version": "1.0"
+    },
+    "basePath": "/api",
+    "schemes": [
+      "http"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/addToCart": {
+        "post": {
+          "summary": "Add items to the shopping cart.",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Data required to add items to the cart.",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "ID of the user."
+                  },
+                  "itemId": {
+                    "type": "integer",
+                    "description": "ID of the item."
+                  },
+                  "quantity": {
+                    "type": "integer",
+                    "description": "Quantity of the item to add."
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Items added to cart successfully.",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "Confirmation message."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/removeFromCart": {
+        "delete": {
+          "summary": "Remove items from the shopping cart.",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Data required to remove items from the cart.",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "ID of the user."
+                  },
+                  "itemId": {
+                    "type": "integer",
+                    "description": "ID of the item."
+                  },
+                  "quantity": {
+                    "type": "integer",
+                    "description": "Quantity of the item to remove."
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Items removed from cart successfully.",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "Confirmation message."
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Item not found in cart."
+            }
+          }
+        }
+      },
+      "/returnCart": {
+        "post": {
+          "summary": "Return items in the shopping cart.",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Data required to return items from the cart.",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "ID of the user."
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Items in cart returned successfully.",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "type": "integer",
+                      "description": "ID of the user."
+                    },
+                    "itemId": {
+                      "type": "integer",
+                      "description": "ID of the item."
+                    },
+                    "quantity": {
+                      "type": "integer",
+                      "description": "Quantity of the item in the cart."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/flushCart": {
+        "delete": {
+          "summary": "Remove all items from the shopping cart.",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Data required to flush the cart.",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "ID of the user."
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "All items removed from cart successfully.",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "Confirmation message."
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "No items found in cart for the specified user ID."
+            }
+          }
+        }
+      }
+    }
+  }
+  

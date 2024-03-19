@@ -1,19 +1,41 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
+
+import Layout from "./Layout";
 import HomePageEmpty from "./HomePage/HomePageEmpty";
 import HomePage from "./HomePage/HomePage";
 import Cart from "./Cart/Cart";
 import Payment from "./Payment/Payment";
-import Layout from "./Layout";
+import SellItems from "./SellItems/SellItems";
+import LoginPage from "./UserPages/LoginPage";
+import SignUpPage from "./UserPages/SignUpPage";
+import ProfilePage from "./UserPages/ProfilePage";
 
 function App() {
   /* This is the main app component basically the "view controller" this will just pass information along to different pages from API */
 
   const [items, setItems] = useState([]);
 
+  const [userProfile, setUserProfile] = useState(
+    JSON.parse(localStorage.getItem("profile"))
+  );
+  
+  const handleSetProfile = (userData) => {
+    localStorage.setItem("profile", userData);
+    const profileData = JSON.parse(localStorage.getItem('profile'));
+    if (profileData) {
+      setUserProfile(profileData);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("profile");
+    setUserProfile(null);
+  };
+
   useEffect(() => {
-    // This gets all the postings every time the page an event occurs and stores them in items array
+    // This useEffect gets all the postings every time an event occurs on the page and stores them in items array
     const fetchData = async () => {
       try {
         let response = await fetch("http://127.0.0.1:5007/getPostings", {
@@ -22,7 +44,6 @@ function App() {
 
         if (response.ok) {
           let jsonRes = await response.json();
-          console.log(jsonRes, "JSON RES");
           setItems(jsonRes);
         } else {
           console.log("Failed to fetch data:", response.status);
@@ -35,20 +56,32 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Layout />}>
 
-          {items.length === 0 ? (
-            <Route path="/" element={<HomePageEmpty />} />
-          ) : (
-            <Route path="/" element={<HomePage items={items} />} />
-          )}
-          <Route path="/Cart" element={<Cart/>} />
-          <Route path="/Payment" element={<Payment/>} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+            { 
+              userProfile ? (
+                <>
+                  <Route path="/" element={<HomePage items={items} handleLogout={handleLogout} currentUserID={userProfile.id} currentRole={userProfile.role}  /> } />
+                  <Route path="/cart" element={<Cart currentUserID={userProfile.id} />} />
+                  <Route path="/Payment" element={<Payment currentUserID={userProfile.id}/>} />
+                  <Route path="/SellItems" element={<SellItems currentUserID={userProfile.id} currentUserName={userProfile.name}/>} />
+                </>
+              ) : (
+                <Route path="/" element={<HomePageEmpty />} /> 
+              )
+            }
+
+            <Route path="/login" element={<LoginPage handleSetProfile={handleSetProfile}/>} /> 
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/profile" element={<ProfilePage/>} />
+
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 };
 
