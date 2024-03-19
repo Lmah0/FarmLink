@@ -26,10 +26,37 @@ div {
   overflow-y: auto;
 }
 
-header {
-  border-bottom: 2px solid #000;
-}
-
 footer {
   border-top: 2px solid #000;
 }
+
+header {
+  border-bottom: 2px solid #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+}
+
+.title {
+  font-size: 1.5rem; /* Adjust font size as needed */
+  font-weight: bold; /* Optionally bold */
+}
+
+.navbar {
+  display: flex;
+  align-items: center; /* Align navbar items vertically */
+}
+
+.navbar-button {
+  padding: 1rem 2rem; /* Adjust padding as needed */
+  margin-left: 10px; /* Adjust spacing between buttons */
+  font-size: 1rem; /* Adjust font size as needed */
+  border: none;
+  background-color: #638889; /* Adjust button background color */
+  color: white; /* Adjust button text color */
+  border-radius: 2rem; /* Adjust button border radius */
+  cursor: pointer;
+}
+
+
