@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function HomePage({ items, handleLogout, currentUserID, currentRole }) {
+  console.log(currentRole);
   const navigate = useNavigate();
   const [expandedBoxes, setExpandedBoxes] = useState(
     Array(items.length).fill(false)
