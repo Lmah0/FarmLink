@@ -66,17 +66,17 @@ const LoginPage = ({handleSetProfile}) => {
 
   return (
     <div className="login-container">
-      <form onSubmit={handleLogin}>
-        <h2>Login Page</h2>
-        <div className="form-group"> 
-          <label>Email:</label>
+      <form id="login-form" onSubmit={handleLogin}>
+        <h2>Login</h2>
+        <div className="form-group email-input"> 
+          <label>Email</label>
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div className="form-group">
-          <label>Password:</label>
+          <label>Password</label>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
-        <button type="submit">Login</button>
+        <button id="submit-login" type="submit">Login</button>
       </form>
     </div>
   );

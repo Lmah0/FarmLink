@@ -2,8 +2,6 @@ import "./HomePageEmpty.css";
 import { useNavigate } from "react-router-dom";
 import { Typed } from "react-typed";
 import React from "react";
-import logo from "./../Images/agriculture.png";
-
 
 function HomePageEmpty() {
   const navigate = useNavigate();
