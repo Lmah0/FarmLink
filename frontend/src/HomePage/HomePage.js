@@ -7,11 +7,19 @@ function HomePage({ items, handleLogout, currentUserID, currentRole }) {
   const [expandedBoxes, setExpandedBoxes] = useState(
     Array(items.length).fill(false)
   );
+  const [expandedBoxIndex, setExpandedBoxIndex] = useState(null);
+  const [yesExpandedBoxActive, setYesExpandedBoxActive] = useState(false);
 
   const handleBoxClick = (index) => {
     const newExpandedBoxes = [...expandedBoxes];
     newExpandedBoxes[index] = !newExpandedBoxes[index];
     setExpandedBoxes(newExpandedBoxes);
+    setYesExpandedBoxActive(!yesExpandedBoxActive);
+    if (expandedBoxIndex !== null) {
+      setExpandedBoxIndex(null);
+    } else {
+      setExpandedBoxIndex(index);
+    }
   };
 
   const goToCart = () => {
@@ -58,17 +66,13 @@ function HomePage({ items, handleLogout, currentUserID, currentRole }) {
     addToCart(itemId);
   };
 
-  return (
+  return ( 
     <>
       <div id="HomePage-Main-Container">
         <div id="HomePage-Header">
           <header>MarketPlace</header>
           <div id="HomePage-Buttons">
             <button onClick={goToCart} id="HomePage-Header-CART">
-              {/* <img
-              src="https://media.istockphoto.com/id/1151942531/vector/shopping-cart-icon-vector.jpg?s=612x612&w=0&k=20&c=uws25WiHpAZQd8n_gkPgDVbSvjRb6xCUyoXj4isMP4E="
-                alt="Shopping Cart"
-              /> */}
               Cart
             </button>
             <button
@@ -102,7 +106,10 @@ function HomePage({ items, handleLogout, currentUserID, currentRole }) {
           {items.map((item, index) => (
             <div
               id="Item-box"
-              className={expandedBoxes[index] ? "expanded-item-box" : ""}
+              className={
+                expandedBoxes[index] ? "expanded-item-box" :
+                (yesExpandedBoxActive === true && expandedBoxIndex !== index ? "hidden-button" : "")
+              }
               key={item.id}
             >
               <div id="button-img-wrapper">
@@ -111,7 +118,7 @@ function HomePage({ items, handleLogout, currentUserID, currentRole }) {
                   src={`data:image/jpeg;base64,${item.image}`}
                   alt="Product item"
                   onClick={() => handleBoxClick(index)}
-                />
+                  />
                 <button
                   id="add-item-to-cart"
                   className={expandedBoxes[index] ? "" : "hidden-element"}
