@@ -11,7 +11,7 @@ function SellItems({currentUserID, currentUserName}) {
   const [file, setFile] = useState(null);
   // const [imageSrc, setImageSrc] = useState("");
   // const [submitting, setSubmitting] = useState(false);
-
+ 
   const onSubmitForm = async (e) => {
     e.preventDefault();
     // setSubmitting(true);
@@ -59,7 +59,7 @@ function SellItems({currentUserID, currentUserName}) {
         <h2>Create a Listing</h2>
         <form onSubmit={onSubmitForm}>
           <div id="image-upload-container">
-            <label htmlFor="file-upload" id="image-upload-label">
+            <label htmlFor="file-upload" id="image-upload-label" className={file ? "image-added" : ""}>
               <img
                 src="https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png"
                 alt="Photo Icon"
