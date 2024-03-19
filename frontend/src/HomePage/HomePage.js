@@ -75,7 +75,7 @@ function HomePage({ items, handleLogout, currentUserID, currentRole }) {
             <button
               id="HomePage-Header-SELL"
               onClick={handleSellItemClick}
-              className={currentRole === "FARMER" ? "" : "hidden-button"}
+              className={currentRole === "FARMER" ? "sell-button" : "hidden-button"}
             >
               Sell Item
             </button>

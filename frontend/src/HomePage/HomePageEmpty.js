@@ -13,20 +13,24 @@ function HomePageEmpty() {
   };
 
   return (
-    <>
+    <div>
       <div id="HomePage-Main-Container">
-        <div id="empty-holder">No Postings Currently Available</div>
-        <div className="auth-buttons">
-          <button className="auth-button" onClick={handleSignUpClick}>
-            Sign Up
-          </button>
-          <br />
-          <button className="auth-button" onClick={handleLoginClick}>
-            Login
-          </button>
+        <div className="login-page">
+          <div>
+            The path to branching the agricultural market starts here.
+          </div>
+          <div>
+            <button className="auth-button" onClick={handleSignUpClick}>
+              Sign Up
+            </button>
+            <br />
+            <button className="auth-button" onClick={handleLoginClick}>
+              Login
+            </button>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

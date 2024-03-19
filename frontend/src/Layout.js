@@ -2,7 +2,7 @@ import "./Layout.css";
 import { Outlet, useNavigate } from "react-router-dom";
 import logo from "./Images/agriculture.png";
 
-function Layout({ handleLogout }) {
+function Layout({ handleLogout, isLoggedIn }) {
     const navigate = useNavigate();
 
     const goToHome = () => {
@@ -21,6 +21,10 @@ function Layout({ handleLogout }) {
         handleLogout();
     };
 
+    const handleBackButton = () => {
+        navigate('/');
+    }
+
     return (
         <>
             <div id="Main-Container">
@@ -28,10 +32,11 @@ function Layout({ handleLogout }) {
                     <img className="logo" src={logo}></img>
                     <div className="title">Make Agriculture Great Again</div>
                     <nav className="navbar">
-                        <button className="navbar-button" onClick={goToHome}>Home</button>
-                        <button className="navbar-button" onClick={goToProfile}>My Profile</button>
-                        <button className="navbar-button" onClick={goToCart}>Cart</button>
-                        <button className="navbar-button" onClick={logoutHandler}>Logout</button>
+                        <button className={ isLoggedIn ? "navbar-button" : "navbar-button hidden-button" } onClick={goToHome}>Home</button>
+                        <button className={ isLoggedIn ? "navbar-button" : "navbar-button hidden-button" } onClick={goToProfile}>My Profile</button>
+                        <button className={ isLoggedIn ? "navbar-button" : "navbar-button hidden-button" } onClick={goToCart}>Cart</button>
+                        <button className={ isLoggedIn ? "navbar-button" : "navbar-button hidden-button" }onClick={logoutHandler}>Logout</button>
+                        <button className="navbar-button" onClick={handleBackButton}>Back</button>
                     </nav>
                 </header>
 

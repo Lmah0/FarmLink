@@ -51,7 +51,7 @@ header {
 .navbar-button {
   padding: 1rem 2rem; /* Adjust padding as needed */
   margin-left: 10px; /* Adjust spacing between buttons */
-  font-size: 1rem; /* Adjust font size as needed */
+  font-size: 0.8rem; /* Adjust font size as needed */
   border: none;
   background-color: #638889; /* Adjust button background color */
   color: white; /* Adjust button text color */
@@ -64,4 +64,7 @@ header {
   padding-right: 1rem;
 }
 
-
+.hidden-button {
+  visibility: hidden; /* Makes the element invisible */
+  pointer-events: none; /* Makes the element unclickable */
+}
