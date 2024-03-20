@@ -71,12 +71,8 @@ function SellItems({currentUserID, currentUserName}) {
               type="file"
               accept=".jpg, .jpeg, .png"
               onChange={(e) => setFile(e.target.files[0])}
-              // onChange={handleFileChange}
-              // required
             />
           </div>
-          {/* <h2>Required</h2> */}
-          {/* <h3>Be as Descriptive as Possbile</h3>  */}
           <input
             type="text"
             placeholder="Title"

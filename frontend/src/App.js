@@ -1,6 +1,8 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 import Layout from "./Layout";
 import HomePageEmpty from "./HomePage/HomePageEmpty";
@@ -27,14 +29,20 @@ function App() {
     const profileData = JSON.parse(localStorage.getItem('profile'));
     if (profileData) {
       setUserProfile(profileData);
-      setIsLoggedIn(true);
     }
   };
+
+  useEffect(() => {
+    if (userProfile) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  });
 
   const handleLogout = () => {
     localStorage.removeItem("profile");
     setUserProfile(null);
-    setIsLoggedIn(false);
   };
 
 
