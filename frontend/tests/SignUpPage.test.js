@@ -6,6 +6,8 @@ import { render, fireEvent } from '@testing-library/react';
 jest.mock('react-router-dom', () => ({
   useNavigate: jest.fn(),
 }));
+// Mocking console.error to prevent it from outputting during the test
+console.error = jest.fn();
 
 describe('<SignUpPage />', () => {
   it('renders the component without crashing', () => {

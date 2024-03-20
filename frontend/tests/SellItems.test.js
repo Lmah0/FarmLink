@@ -5,6 +5,9 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { useNavigate } from 'react-router-dom';
 
+// Mocking console.error to prevent it from outputting during the test
+console.error = jest.fn();
+
 // Mocking react-router-dom module
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
