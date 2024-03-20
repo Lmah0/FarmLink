@@ -19,7 +19,7 @@
 }
 
 .input-form {
-  background-color: #EBD9B4;
+  background-color: #EBD9B4 !important;
   border: 1px solid #000;
   /* height: 20%; */
 }
@@ -27,15 +27,25 @@
 .signup-form {
   background-color: #EBD9B4; /* White background color */
   padding: 20px;
-  border-radius: 10px; /* Rounded corners */
-  width:100%;
+  width: 100%;
+}
+
+.signup-fields {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 2rem;
+  padding: 2rem;
+  background-color: #638889;
+  border: 1px solid #000;
 }
 
 .signup-title {
-  margin-bottom: 0rem;
-  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  margin-top: 0rem;
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .signup-label {
@@ -44,13 +54,16 @@
 }
 
 .signup-form-group {
-  background-color: #EBD9B4;
+  background-color: #9DBC98;
   border: None;
   padding: 0rem;
-  margin: 0rem;
+  margin: 0.5rem;
   max-height: 5rem;
   padding-top: 1rem;
   width: 75%;
+  border: 1px solid #000;
+  border-radius: 1rem;
+  padding: 0.5rem;
 }
 
 .input-form {
