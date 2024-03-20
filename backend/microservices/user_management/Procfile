@@ -1,1 +1,1 @@
-web: gunicorn wsgi:app
+web: cd backend/microservices/user_management && gunicorn wsgi:app
