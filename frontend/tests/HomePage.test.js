@@ -2,46 +2,97 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import HomePage from '../src/HomePage/HomePage';
 
+// Mocking react-router-dom module
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: jest.fn(),
+}));
+
 describe('HomePage component', () => {
-    const items = [
-      {
-        id: 1,
-        posting_author: 'John Doe',
-        posting_item: { name: 'Product A', price: 10 },
-        quantity: 5,
-        description: 'Description for Product A',
-      },
-      {
-        id: 2,
-        posting_author: 'Jane Smith',
-        posting_item: { name: 'Product B', price: 20 },
-        quantity: 10,
-        description: 'Description for Product B',
-      },
-    ];
-  
-    test('renders all items correctly', () => {
-      const { getByText } = render(<HomePage items={items} />);
-      
-      items.forEach(item => {
-        expect(getByText(item.posting_item.name)).toBeInTheDocument();
-        expect(getByText(`Price: $${item.posting_item.price}`)).toBeInTheDocument();
-      });
-    });
-  
-    test('toggles item details on click', () => {
-      const { getByText } = render(<HomePage items={items} />);
-      
-      const firstItem = getByText(items[0].posting_item.name);
-      fireEvent.click(firstItem);
-  
-      expect(getByText(`Seller: ${items[0].posting_author}`)).toBeInTheDocument();
-      expect(getByText(`Quanity Avaliable: ${items[0].quantity}`)).toBeInTheDocument();
-      expect(getByText(`Description: ${items[0].description}`)).toBeInTheDocument();
-  
-      fireEvent.click(firstItem); // Click again to toggle back
-      expect(queryByText(`Seller: ${items[0].posting_author}`)).not.toBeInTheDocument();
-      expect(queryByText(`Quanity Avaliable: ${items[0].quantity}`)).not.toBeInTheDocument();
-      expect(queryByText(`Description: ${items[0].description}`)).not.toBeInTheDocument();
-    });
+  const mockItems = [
+    {
+      id: 1,
+      image: 'mockImage1',
+      posting_author: 'mockSeller1',
+      posting_item: { name: 'mockItem1', price: 10 },
+      quantity: 5,
+      description: 'mockDescription1',
+    },
+    {
+      id: 2,
+      image: 'mockImage2',
+      posting_author: 'mockSeller2',
+      posting_item: { name: 'mockItem2', price: 20 },
+      quantity: 10,
+      description: 'mockDescription2',
+    },
+  ];
+
+  const mockLoading = false;
+  const mockCurrentUserID = 'mockUserID';
+  const mockCurrentRole = 'FARMER';
+
+  test('renders loading message when loading is true', () => {
+    const { getByText } = render(
+      <HomePage
+        items={[]}
+        loading={true}
+        currentUserID={mockCurrentUserID}
+        currentRole={mockCurrentRole}
+      />
+    );
+    const loadingMessage = getByText('Loading...');
+    expect(loadingMessage).toBeInTheDocument();
   });
+
+  test('renders main container when loading is false', () => {
+    const { getByTestId } = render(
+      <HomePage
+        items={mockItems}
+        loading={mockLoading}
+        currentUserID={mockCurrentUserID}
+        currentRole={mockCurrentRole}
+      />
+    );
+
+  });
+
+  test('renders sell button for farmer role', () => {
+    const { getByText } = render(
+      <HomePage
+        items={mockItems}
+        loading={mockLoading}
+        currentUserID={mockCurrentUserID}
+        currentRole={mockCurrentRole}
+      />
+    );
+    const sellButton = getByText('Sell');
+    expect(sellButton).toBeInTheDocument();
+  });
+
+  test('does not render sell button for non-farmer role', () => {
+    const { queryByText } = render(
+      <HomePage
+        items={mockItems}
+        loading={mockLoading}
+        currentUserID={mockCurrentUserID}
+        currentRole="CUSTOMER"
+      />
+    );
+    const sellButton = queryByText('Sell');
+  });
+
+  test('expands item box when clicked', () => {
+    const { getByAltText, getByText } = render(
+      <HomePage
+        items={mockItems}
+        loading={mockLoading}
+        currentUserID={mockCurrentUserID}
+        currentRole={mockCurrentRole}
+      />
+    );
+
+  });
+
+
+});

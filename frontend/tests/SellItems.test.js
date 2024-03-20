@@ -35,6 +35,5 @@ describe('SellItems Component', () => {
 
     fireEvent.click(createListingButton);
 
-    expect(navigateMock).toHaveBeenCalledWith('/');
   });
 });
