@@ -53,10 +53,11 @@ header {
   margin-left: 10px; /* Adjust spacing between buttons */
   font-size: 0.8rem; /* Adjust font size as needed */
   border: none;
-  background-color: #638889; /* Adjust button background color */
-  color: white; /* Adjust button text color */
+  background-color: #9DBC98; /* Adjust button background color */
+  color: black; /* Adjust button text color */
   border-radius: 2rem; /* Adjust button border radius */
   cursor: pointer;
+  border: 2px solid #000;
 }
 
 .navbar-button:hover {
