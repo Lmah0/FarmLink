@@ -30,6 +30,7 @@ form {
   border: 2px solid #000;
   display: inline-block;
   width: 86%;
+  height: 3rem;
 }
 
 #submit-login:hover {
