@@ -103,7 +103,7 @@ function Payment({currentUserID}) {
       let data = {
         userId: currentUserID
       };
-      let response = await fetch("http://127.0.0.1:5002/createOrder", {
+      let response = await fetch("https://maga-controller-820d8b68274a.herokuapp.com/createOrder", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

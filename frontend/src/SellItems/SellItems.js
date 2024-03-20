@@ -39,7 +39,7 @@ function SellItems({currentUserID, currentUserName}) {
         const formdata = new FormData();
         formdata.append("file", file);
         formdata.append("userdata", JSON.stringify(userData));
-        let response = await fetch("http://127.0.0.1:5007/addPosting", {
+        let response = await fetch("https://maga-inventory-catalog-184f236ac862.herokuapp.com/addPosting", {
           method: "POST",
           headers: {"Access-Control-Allow-Origin": "*"},
           body: formdata, // Convert userData to JSON string
