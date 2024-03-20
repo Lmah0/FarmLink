@@ -4,6 +4,10 @@ header {
   padding-top: 1rem;
 }
 
+p {
+
+}
+
 #HomePage-Main-Container {
   display: flex;
   flex-direction: column;
@@ -109,7 +113,7 @@ header {
 #Item-box > h3, h4, h5{
   padding: 2px;
   padding-bottom: 4px;
-  text-align: center;
+  text-align: center !important;
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -126,13 +130,28 @@ header {
   margin: 1rem;
 }
 
-
-#Item-box > h3 {
-  padding-top: 10px;
+#expanded-box-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 80%;
+  border: 2px solid black;
+  padding-bottom: 0rem;
+  margin-bottom: 0rem;
 }
 
-#Item-box > h4 {
+#add-item-to-cart {
+  background-color: #9DBC98;
+  border: none;
+  padding: 10px;
+  margin-top: 2rem;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 10px;
   font-size: 15px;
+  font-weight: bold;
+  border: 2px solid #000;
 }
 
 
@@ -156,6 +175,16 @@ header {
   backdrop-filter: blur(3px);
   z-index: 9999; 
   display: flex;
+}
+
+.expanded-item-box {
+  max-width: 40rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  text-align: center !important;
+  align-items: center !important;
+  padding-top: 2rem !important;
+  border: 2px solid #000 !important;
 }
 
 #Item-box.expanded-item-box {
@@ -197,20 +226,27 @@ header {
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
+  text-align: center !important;
 }
 
-/* .expanded-img-wrapper {
+.expanded-img-wrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+  /* justify-content: center; */
+  /* align-items: center; */
+  text-align: center;
   height: 100%;
-} */
+}
 
-/* .posting-detail {
-  padding-left: 6.2rem;
-} */
-
+.post-attribute {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  border: 2px solid #000;
+  border-radius: 10px;
+  margin: 0.2rem;
+  margin-left: 2.5rem;
+}
 /* For sizing the page */
 @media (max-width: 1000px) {
   #obituary-box {

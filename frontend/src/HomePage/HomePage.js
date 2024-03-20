@@ -93,7 +93,7 @@ function HomePage({ items, handleLogout, currentUserID, currentRole }) {
               id="Item-box"
               className={
                 expandedBoxes[index] ? "expanded-item-box" :
-                (yesExpandedBoxActive === true && expandedBoxIndex !== index ? "hidden-button" : "")
+                (yesExpandedBoxActive === true && expandedBoxIndex !== index ? "hidden-button" : "item-box-not-expanded")
               }
               key={item.id}
             >
@@ -102,25 +102,28 @@ function HomePage({ items, handleLogout, currentUserID, currentRole }) {
                 (yesExpandedBoxActive === true && expandedBoxIndex !== index ? "hidden-button" : "button-img-wrapper")
               }>
                 <img
-                  id="Item-box-img"
+                  id={
+                    expandedBoxes[index] ? "expanded-box-img" :
+                    (yesExpandedBoxActive === true && expandedBoxIndex !== index ? "hidden-button" : "Item-box-img")
+                  }
                   src={`data:image/jpeg;base64,${item.image}`}
                   alt="Product item"
                   onClick={() => handleBoxClick(index)}
                   />
               </div>
-              <h4 className={expandedBoxes[index] ? "" : "hidden-element"}>
-                Seller: {item.posting_author}
-              </h4>
-              <h3>{item.posting_item["name"]}</h3>
-              <h4>Price: ${item.posting_item["price"]}</h4>
-              <h4 className={expandedBoxes[index] ? "" : "hidden-element"}>
-                Quantity Available: {item.quantity}
-              </h4>
-              <h4 className={expandedBoxes[index] ? "hidden-element" : ""}>
-                Seller: {item.posting_author}
-              </h4>
-              <p className={expandedBoxes[index] ? "" : "hidden-element"}>
-                Description: {item.description}
+              <p className={expandedBoxes[index] ? "post-attribute" : "hidden-element"}>
+                <b>Seller:</b> {item.posting_author}
+              </p>
+              <p className="post-attribute"><b>Name:</b><span>&nbsp;</span>{item.posting_item["name"]}</p>
+              <p className="post-attribute"><b>Price:</b><span>&nbsp;</span>${item.posting_item["price"]}</p>
+              <p className={expandedBoxes[index] ? "post-attribute" : "hidden-element"}>
+                <b>Quantity Available:</b><span>&nbsp;</span>{item.quantity}
+              </p>
+              <p className={expandedBoxes[index] ? "hidden-element" : "post-attribute"}>
+                <b>Seller:</b><span>&nbsp;</span>{item.posting_author}
+              </p>
+              <p className={expandedBoxes[index] ? "post-attribute" : "hidden-element"}>
+                <b>Description:</b><span>&nbsp;</span>{item.description}
               </p>
               <button
                 id="add-item-to-cart"
