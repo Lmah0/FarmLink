@@ -97,23 +97,16 @@ function HomePage({ items, handleLogout, currentUserID, currentRole }) {
               }
               key={item.id}
             >
-              <div className="button-img-wrapper">
+              <div className={
+                expandedBoxes[index] ? "expanded-img-wrapper" :
+                (yesExpandedBoxActive === true && expandedBoxIndex !== index ? "hidden-button" : "button-img-wrapper")
+              }>
                 <img
                   id="Item-box-img"
                   src={`data:image/jpeg;base64,${item.image}`}
                   alt="Product item"
                   onClick={() => handleBoxClick(index)}
                   />
-                <button
-                  id="add-item-to-cart"
-                  className={expandedBoxes[index] ? "" : "hidden-element"}
-                  onClick={() => handleAddToCartClick(item.id)}
-                >
-                  <img
-                    src="https://static-00.iconduck.com/assets.00/sign-plus-icon-2048x2047-jdkmk1r1.png"
-                    alt="Plus-Icon"
-                  />
-                </button>
               </div>
               <h4 className={expandedBoxes[index] ? "" : "hidden-element"}>
                 Seller: {item.posting_author}
@@ -129,6 +122,13 @@ function HomePage({ items, handleLogout, currentUserID, currentRole }) {
               <p className={expandedBoxes[index] ? "" : "hidden-element"}>
                 Description: {item.description}
               </p>
+              <button
+                id="add-item-to-cart"
+                className={expandedBoxes[index] ? "" : "hidden-element"}
+                onClick={() => handleAddToCartClick(item.id)}
+              >
+              Add to Cart
+              </button>
             </div>
           ))}
         </div>

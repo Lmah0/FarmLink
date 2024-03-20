@@ -161,7 +161,7 @@ header {
 #Item-box.expanded-item-box {
   align-items: flex-start;
   position: fixed;
-  background-color: white;
+  background-color: #638889;
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -198,6 +198,18 @@ header {
   justify-content: center !important;
   align-items: center !important;
 }
+
+/* .expanded-img-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+} */
+
+/* .posting-detail {
+  padding-left: 6.2rem;
+} */
 
 /* For sizing the page */
 @media (max-width: 1000px) {
