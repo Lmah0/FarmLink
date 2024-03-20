@@ -114,8 +114,12 @@
 #Item-box-img{
   display: inline;
   cursor: pointer;
-  width: 100%;
+  max-width: 80%;
+  max-height: 80%;
+  border: 2px solid black;
+  margin: 1rem;
 }
+
 
 #Item-box > h3 {
   padding-top: 10px;
@@ -164,12 +168,6 @@
   padding: 15px;
 }
 
-#button-img-wrapper {
-  display: flex;
-  max-height: calc(100% - 50%);
-  /* width: 100%; */
-}
-
 #Item-box.expanded-item-box > div > img {
   flex: 1;
   /* width: 85%;
@@ -195,6 +193,11 @@
   height: 40px;
 }
 
+.button-img-wrapper {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
 
 /* For sizing the page */
 @media (max-width: 1000px) {

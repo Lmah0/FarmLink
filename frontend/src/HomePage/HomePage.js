@@ -97,7 +97,7 @@ function HomePage({ items, handleLogout, currentUserID, currentRole }) {
               }
               key={item.id}
             >
-              <div id="button-img-wrapper">
+              <div className="button-img-wrapper">
                 <img
                   id="Item-box-img"
                   src={`data:image/jpeg;base64,${item.image}`}

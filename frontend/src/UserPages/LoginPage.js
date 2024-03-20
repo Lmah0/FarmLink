@@ -36,7 +36,6 @@ const LoginPage = ({handleSetProfile}) => {
       if (response.ok) {
         // Handle successful login
         const data = await response.json();
-        alert(`Login successful! User ID: ${data.userId}`);
         setIsLoggedIn(true);
         setUserId(data.userId);
         // console.log('User ID:', data);
