@@ -49,6 +49,7 @@ function SellItems({currentUserID, currentUserName}) {
           let jsonRes = await response.json();
           console.log(jsonRes);
           alert('Listing created!');
+          goToHome();
           return jsonRes['postingId']
         } else {
           console.log("Failed to add posting:", response.status);
@@ -127,7 +128,7 @@ function SellItems({currentUserID, currentUserName}) {
           onChange={(e) => setDescription(e.target.value)}
           required
         />
-        <button className="create-listing-button" type="submit" onClick={goToHome}>Create Listing</button>
+        <button className="create-listing-button" type="submit">Create Listing</button>
       </form>
   </div>
   );

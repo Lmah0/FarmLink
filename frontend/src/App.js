@@ -60,6 +60,7 @@ function App() {
           setLoading(false);
           // console.log(jsonRes);
           setItems(jsonRes);
+          console.log("Items fetched!")
         } else {
           console.log("Failed to fetch data:", response.status);
         }
@@ -68,7 +69,7 @@ function App() {
       }
     };
     fetchData();
-  }, []);
+  },);
 
   return (
     <>
