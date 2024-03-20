@@ -1,10 +1,7 @@
 import pytest
 
-import pytest 
-from microservices.inventory_catalog_service import create_app as create_inventory_app, db as inventory_db
-from microservices.shopping_cart_service import create_app as create_shopping_cart_app, db as shopping_cart_db
-from microservices.checkout_service import create_app as create_checkout_app, db as checkout_db
-from controllers.controller import app 
+import pytest
+from controllers.controller import app
 
 
 # # Fixtures for inventory catalog

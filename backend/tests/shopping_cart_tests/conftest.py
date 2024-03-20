@@ -1,7 +1,5 @@
 import pytest
-
-import pytest 
-from microservices.shopping_cart_service import create_app, db
+from shopping_cart.shopping_cart_service import create_app, db
 
 @pytest.fixture()
 def app():

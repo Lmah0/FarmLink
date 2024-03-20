@@ -1,7 +1,5 @@
 import pytest
-
-import pytest 
-from microservices.inventory_catalog_service import create_app, db
+from inventory_catalog.inventory_catalog_service import create_app, db
 
 @pytest.fixture()
 def app():
