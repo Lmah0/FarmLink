@@ -1,8 +1,10 @@
 import "./SellItems.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SellItems({currentUserID, currentUserName}) {
   // Define state variables to hold form data
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -11,6 +13,10 @@ function SellItems({currentUserID, currentUserName}) {
   const [file, setFile] = useState(null);
   // const [imageSrc, setImageSrc] = useState("");
   // const [submitting, setSubmitting] = useState(false);
+
+  const goToHome = () => {
+    navigate("/");
+  };
  
   const onSubmitForm = async (e) => {
     e.preventDefault();
@@ -118,7 +124,7 @@ function SellItems({currentUserID, currentUserName}) {
           onChange={(e) => setDescription(e.target.value)}
           required
         />
-        <button className="create-listing-button" type="submit">Create Listing</button>
+        <button className="create-listing-button" type="submit" onClick={goToHome}>Create Listing</button>
       </form>
   </div>
   );
