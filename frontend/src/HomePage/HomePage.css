@@ -1,3 +1,13 @@
+header {
+  padding-bottom: 1rem;
+  margin-bottom: 0.5rem;
+  padding-top: 1rem;
+}
+
+p {
+
+}
+
 #HomePage-Main-Container {
   display: flex;
   flex-direction: column;
@@ -97,12 +107,13 @@
   box-sizing: border-box;
   max-width: 400px;
   max-height: 400px;
+  background-color: #F9EFDB;
 }
 
 #Item-box > h3, h4, h5{
   padding: 2px;
   padding-bottom: 4px;
-  text-align: center;
+  text-align: center !important;
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -113,15 +124,34 @@
 #Item-box-img{
   display: inline;
   cursor: pointer;
+  max-width: 70%;
+  max-height: 70%;
+  border: 2px solid black;
+  margin: 1rem;
+}
+
+#expanded-box-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 80%;
+  border: 2px solid black;
+  padding-bottom: 0rem;
+  margin-bottom: 0rem;
+}
+
+#add-item-to-cart {
+  background-color: #9DBC98;
+  border: none;
+  padding: 10px;
+  margin-top: 2rem;
+  cursor: pointer;
   width: 100%;
-}
-
-#Item-box > h3 {
-  padding-top: 10px;
-}
-
-#Item-box > h4 {
+  border-radius: 10px;
   font-size: 15px;
+  font-weight: bold;
+  border: 2px solid #000;
 }
 
 
@@ -147,10 +177,20 @@
   display: flex;
 }
 
+.expanded-item-box {
+  max-width: 40rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  text-align: center !important;
+  align-items: center !important;
+  padding-top: 2rem !important;
+  border: 2px solid #000 !important;
+}
+
 #Item-box.expanded-item-box {
   align-items: flex-start;
   position: fixed;
-  background-color: white;
+  background-color: #638889;
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -163,20 +203,8 @@
   padding: 15px;
 }
 
-#button-img-wrapper {
-  display: flex;
-  max-height: calc(100% - 50%);
-  /* width: 100%; */
-}
-
 #Item-box.expanded-item-box > div > img {
   flex: 1;
-  /* width: 85%;
-  max-width: 85%;
-  height: 100%;
-  max-height: 100%; */
-  /* object-fit: contain; */
-  /* padding-right: calc(100% - 33%); */
 }
 
 #Item-box.expanded-item-box > div > button {
@@ -194,7 +222,31 @@
   height: 40px;
 }
 
+.button-img-wrapper {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+}
 
+.expanded-img-wrapper {
+  display: flex;
+  /* justify-content: center; */
+  /* align-items: center; */
+  text-align: center;
+  height: 100%;
+}
+
+.post-attribute {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  border: 2px solid #000;
+  border-radius: 10px;
+  margin: 0.2rem;
+  margin-left: 2.5rem;
+}
 /* For sizing the page */
 @media (max-width: 1000px) {
   #obituary-box {

@@ -1,26 +1,69 @@
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+form {
+  background-color: #fff; /* White background color */
+  padding: 20px;
+  border-radius: 10px; /* Rounded corners */
+  width:30%;
+}
+
+#login-form {
+  background-color: #638889;
+  height: 75%;
+  border: 2px solid #000;
+  max-height: 30em;
+}
+
+#submit-login {
+  width: 50%;
+  text-align: center;
+  border: none;
+  background-color: #9DBC98; /* Button background color */
+  color: black; /* Text color */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 2px solid #000;
+  display: inline-block;
+  width: 86%;
+  height: 3rem;
+}
+
+#submit-login:hover {
+  background-color: #7FAF7F; /* Highlighted button background color */
+  color: white; /* Highlighted text color */
+}
+
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 90vh;
-    background-color: #3498db; /* Blue background color */
-  }
-  
-  form {
-    background-color: #fff; /* White background color */
-    padding: 20px;
-    border-radius: 10px; /* Rounded corners */
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  .login-container input{
-    width:75%;
-    align-self: center;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  background-color: #EBD9B4; /* Blue background color */
+}
+
+.form-group {
+  background-color: #9DBC98;
+  color: black;
+  border: 2px solid #000;
+  border-radius: 1rem;
+  padding: 1rem;
+  text-align: center;
+  max-height: 5em;
+  width: 80%;
+  margin-bottom: 15px;
+}
+
+.login-container input{
+  width:75%;
+  align-self: center;
+}
+
+.login-field {
+  border-radius: 1rem;
+  background-color: #EBD9B4;
+}

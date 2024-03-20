@@ -86,19 +86,6 @@ function Cart({currentUserID}) {
     // setObjects([...objects, newObject])
     setObjects(prevObjects => [...prevObjects, newObject]);
   }
-  
-
-  // const addObject = () => {
-  //   const newObject = { 
-  //     userId: 1,
-  //     itemId: objects.length + 1, 
-  //     itemName: `Object ${objects.length + 1}`,
-  //     description: `This is Object ${objects.length + 1}`,
-  //     postingAuthor: `The Owner is User1`,
-  //     itemPrice: 39.99
-  //     }
-  //   setObjects([...objects, newObject]);
-  // };
 
   const handleRemoveItemFromCart = (itemId) => {
     const removeFromCart = async (itemId) => { // This function will flush the cart when the user logs out
@@ -136,24 +123,22 @@ function Cart({currentUserID}) {
           <div>
             {objects.map((object, index) => (
               <div key={object.itemId} className="List-Object">
-                <div className="Object-Image"> Reserved Space</div>
                 <div className="Object-Text">
-                  <button className="name-button" style={{margin:"5px"}}>{object.name}</button>
-                  <div style={{display: "flex", justifyContent: "space-between"}}>
-                    <span style={{margin:"5px"}}>Posting ID: {object.posting_id}</span>
-                    <span style={{margin:"5px"}}>Item Type: {object.item_type}</span>
-                    <button style={{margin:"5px"}} onClick={() => handleRemoveItemFromCart(object.itemId)}>Remove from Cart</button> 
+                  <div className="item-info" style={{display: "flex", justifyContent: "space-between"}}>
+                    <div className="item-field" style={{margin:"5px"}}><b>Item:</b> {object.name}</div>
+                    <div className="item-field" style={{margin:"5px"}}><b>Posting ID:</b> {object.posting_id}</div>
                   </div>
-                  <span style={{margin:"5px", fontWeight:"bold"}}>Price: ${object.price}</span>
+                  <div style={{margin:"5px"}}><b>Type:</b> {object.item_type}</div>
+                  <div style={{margin:"5px", fontWeight:"bold"}}>Price: ${object.price}</div>
+                  <button className="remove-button" style={{margin:"5px"}} onClick={() => handleRemoveItemFromCart(object.itemId)}>Remove from Cart</button> 
                 </div>
               </div>
             ))}
           </div>
-          <div style={{display: "flex", justifyContent: "space-between"}}>
-            <span style={{marginLeft:"25px"}}>Price</span>
-            <span style={{marginRight:"25px"}}>Total Price: ${totPrice}</span>
+          <div className="checkout-details">
+            <div className="total-price">Total Price: ${totPrice}</div>
+            <button className="checkout-button" onClick={goToPayment}>Checkout Now</button>
           </div>
-          <button style={{marginLeft:"25px", background:"transparent"}} onClick={goToPayment}>Pay Price</button>
         </div>
       </div>
     </>

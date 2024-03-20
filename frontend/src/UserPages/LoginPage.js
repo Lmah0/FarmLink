@@ -36,7 +36,6 @@ const LoginPage = ({handleSetProfile}) => {
       if (response.ok) {
         // Handle successful login
         const data = await response.json();
-        alert(`Login successful! User ID: ${data.userId}`);
         setIsLoggedIn(true);
         setUserId(data.userId);
         // console.log('User ID:', data);
@@ -66,17 +65,17 @@ const LoginPage = ({handleSetProfile}) => {
 
   return (
     <div className="login-container">
-      <form onSubmit={handleLogin}>
-        <h2>Login Page</h2>
-        <div className="form-group"> 
-          <label>Email:</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <form id="login-form" onSubmit={handleLogin}>
+        <h2>Login</h2>
+        <div className="form-group email-input"> 
+          <label>Email</label>
+          <input className="login-field" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div className="form-group">
-          <label>Password:</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <label>Password</label>
+          <input className="login-field" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
-        <button type="submit">Login</button>
+        <button id="submit-login" type="submit">Login</button>
       </form>
     </div>
   );

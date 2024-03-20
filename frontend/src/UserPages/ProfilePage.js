@@ -17,13 +17,12 @@ const ProfilePage = () => {
       {userData ? (
         <div className="profile-details">
           <h2>Profile Page</h2>
-          <p><strong>Name:</strong> {userData.name}</p>
-          <p><strong>Email:</strong> {userData.email_address}</p>
-          <p><strong>Phone:</strong> {userData.phone_number}</p>
-          <p><strong>Role:</strong> {userData.role}</p>
-          <p><strong>PID:</strong> {userData.farmer_pid}</p>
-          <p><strong>Profile Bio:</strong> {userData.profile_bio}</p>
-
+          <p className="profile-entry"><strong>Name:</strong> {userData.name}</p>
+          <p className="profile-entry"><strong>Email:</strong> {userData.email_address}</p>
+          <p className="profile-entry"><strong>Phone:</strong> {userData.phone_number}</p>
+          <p className="profile-entry"><strong>Role:</strong> {userData.role}</p>
+          <p className="profile-entry"><strong>PID:</strong> {userData.farmer_pid}</p>
+          <p className="profile-entry"><strong>Profile Bio:</strong> {userData.profile_bio}</p>
         </div>
       ) : (
         <p>Loading...</p>

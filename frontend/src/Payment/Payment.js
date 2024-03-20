@@ -24,17 +24,18 @@ function Payment({currentUserID}) {
   const [selectedYear, setSelectedYear] = useState(currentYear);
 
   const [values, setValues] = useState({
-    textbox1: '',
-    textbox2: '',
-    textbox3: '',
-    textbox4: '',
-    textbox5: '',
-    textbox6: '',
-    textbox7: '',
-    textbox8: '',
-    textbox9: '',
-    textbox10: ''
+    cardNumberBox: '',
+    csvBox: '',
+    nameBox: '',
+    cityBox: '',
+    billingAddressBox: '',
+    billingAddress2Box: '',
+    stateBox: '',
+    phoneBox: '',
+    zipBox: '',
+    countryBox: ''
   });
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,33 +43,62 @@ function Payment({currentUserID}) {
       ...prevValues,
       [name]: value
     }));
-    console.log(values.textbox1);
   };
 
-  const saveText = async () => {
+  const submitPayment = async () => {
     Object.entries(values).forEach(([key, value]) => {
       console.log(`${key}: ${value}`);
     });
 
-    if (values.textbox1.length !== 16) {
-      alert("Card number must be 16 digits")
-      console.log("Card number must be 16 digits");
+    if (values.cardNumberBox.length !== 16) {
+      window.alert("Card number must be 16 digits");
       return;
     }
-    if (values.textbox2.length !== 3) {
-      alert("Security number must be 3 digits")
-      console.log("Security number must be 3 digits");
+    if (values.csvBox.length !== 3) {
+      window.alert("Security number must be 3 digits");
       return;
     }
-    const requiredFields = ['textbox1', 'textbox2', 'textbox3', 'textbox4', 'textbox5', 'textbox6', 'textbox8', 'textbox9', 'textbox10'];
+    const requiredFields = ['cardNumberBox', 'csvBox', 'nameBox', 'cityBox', 'billingAddressBox', 'stateBox', 'phoneBox', 'zipBox', 'countryBox'];
     for (const field of requiredFields) {
       if (!values[field]) {
-        alert(`${field} is required`)
-        console.log(`${field} is required`);
-        return;
+        if (field === 'cardNumberBox') {
+          window.alert("Card number is required");
+          return;
+        }
+        if (field === 'csvBox') {
+          window.alert("Security number is required");
+          return;
+        }
+        if (field === 'nameBox') {
+          window.alert("Name is required");
+          return;
+        }
+        if (field === 'cityBox') {
+          window.alert("City is required");
+          return;
+        }
+        if (field === 'billingAddressBox') {
+          window.alert("Billing address is required");
+          return;
+        }
+        if (field === 'stateBox') {
+          window.alert("State is required");
+          return;
+        }
+        if (field === 'phoneBox') {
+          window.alert("Phone number is required");
+          return;
+        }
+        if (field === 'zipBox') {
+          window.alert("Zip code is required");
+          return;
+        }
+        if (field === 'countryBox') {
+          window.alert("Country is required");
+          return;
+        }
       }
     }
-    console.log(totalPrice)
     try {
       let data = {
         userId: currentUserID
@@ -94,80 +124,144 @@ function Payment({currentUserID}) {
     }
   };
 
+  const [errors, setErrors] = useState({
+    cardNumberError: '',
+    csvError: '',
+    nameError: '',
+    cityError: '',
+    billingAddressError: '',
+    billingAddress2Error: '',
+    stateError: '',
+    phoneError: '',
+    zipError: '',
+    countryError: ''
+  });
+
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    let errorMessage = '';
+    // Extract field name without the "Box" suffix
+    const fieldName = name.replace("Box", "");
+    if (fieldName === 'cardNumber' && value.length !== 16) {
+        errorMessage = 'Card number must be 16 digits';
+    } 
+    if (fieldName === 'csv' && value.length !== 3) {
+        errorMessage = 'Security number must be 3 digits';
+    }
+    if (fieldName === "cardNumber" && value.length === 0) {
+        errorMessage = `Card Number is required`;
+    }
+    if (fieldName === "csv" && value.length === 0) {
+        errorMessage = `Security Number is required`;
+    }
+    if (fieldName === "name" && value.length === 0) {
+        errorMessage = `Name is required`;
+    }
+    if (fieldName === "city" && value.length === 0) {
+        errorMessage = `City is required`;
+    }
+    if (fieldName === "billingAddress" && value.length === 0) {
+        errorMessage = `Billing Address is required`;
+    }
+    if (fieldName === "state" && value.length === 0) {
+        errorMessage = `State is required`;
+    }
+    if (fieldName === "phone" && value.length === 0) {
+        errorMessage = `Phone Number is required`;
+    }
+    if (fieldName === "zip" && value.length === 0) {
+        errorMessage = `Zip Code is required`;
+    }
+    if (fieldName === "country" && value.length === 0) {
+        errorMessage = `Country is required`;
+    }
+    
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      [`${fieldName}Error`]: errorMessage,
+  }));
+};
+
 
   return (
-    <div>
       <div className="container">
-        <div className="row">
+        <div className="row-text" id="billingDiv">Billing Information</div>
+        <div className="row-text">
           <div className="text-box">
-            <label>Card Number</label>
-            <input type="text" name="textbox1" value={values.textbox1} onChange={handleChange}/>
-          </div>
-          <div className="select-text">
-            <div className="split-select">
-              <label>Expiration Date</label>
-              <div className="month-sec">
-                <select className="timeselect" value={selectedMonth} onChange={(e) => setSelectedMonth(parseInt(e.target.value))}>
-                  {generateNumbers(1, 12)}
-                </select>
-                <select className="timeselect" value={selectedYear} onChange={(e) => setSelectedYear(parseInt(e.target.value))}>
-                  {generateNumbers(currentYear, currentYear + 20)}
-                </select>
-              </div>
-            </div>
-            <div className="split-text">
+              <label>Card Number</label>
+              <input className="billing-input" type="text" id="cardNumberBox" name="cardNumberBox" value={values.cardNumberBox} onChange={handleChange} onBlur={handleBlur} />
+              {errors.cardNumberError && <div className="error-message">{errors.cardNumberError}</div>}
+          </div> 
+          <div className="text-box">
               <label>Security Number</label>
-              <input type="text" name="textbox2" value={values.textbox2} onChange={handleChange}/>
-            </div>
+              <input className="billing-input" type="text" id="csvBox" name="csvBox" value={values.csvBox} onChange={handleChange} onBlur={handleBlur}/>
+              {errors.csvError && <div className="error-message">{errors.csvError}</div>}
           </div>
         </div>
         <div className="row-text">
-          <div className="row-text">Billing Information</div>
-        </div>
-        <div className="row">
-        <div className="text-box">
-            <label>Name</label>
-            <input type="text" name="textbox3" value={values.textbox3} onChange={handleChange}/>
+          <div className="text-box">
+              <label>Name</label>
+              <input className="billing-input" type="text" id="nameBox" name="nameBox" value={values.nameBox} onChange={handleChange} onBlur={handleBlur}/>
+              {errors.nameError && <div className="error-message">{errors.nameError}</div>}
+
           </div>
           <div className="text-box">
-            <label>City</label>
-            <input type="text" name="textbox4" value={values.textbox4} onChange={handleChange}/>
+              <label>City</label>
+              <input className="billing-input" type="text" id="cityBox" name="cityBox" value={values.cityBox} onChange={handleChange} onBlur={handleBlur}/>
+              {errors.cityError && <div className="error-message">{errors.cityError}</div>}
           </div>
         </div>
-        <div className="row">
-        <div className="text-box">
-            <label>Billing Address</label>
-            <input type="text" name="textbox5" value={values.textbox5} onChange={handleChange}/>
+        <div className="row-text">
+          <div className="text-box">
+              <label>Billing Address</label>
+              <input className="billing-input" type="text" id="billingAddressBox" name="billingAddressBox" value={values.billingAddressBox} onChange={handleChange} onBlur={handleBlur}/>
+              {errors.billingAddressError && <div className="error-message">{errors.billingAddressError}</div>}
           </div>
           <div className="text-box">
-            <label>State/Province</label>
-            <input type="text" name="textbox6" value={values.textbox6} onChange={handleChange}/>
+              <label>State/Province</label>
+              <input className="billing-input" type="text" id="stateBox"  name="stateBox" value={values.stateBox} onChange={handleChange} onBlur={handleBlur}/>
+              {errors.stateError && <div className="error-message">{errors.stateError}</div>}
           </div>
         </div>
-        <div className="row">
-        <div className="text-box">
-            <label>Billing Address, line 2</label>
-            <input type="text" name="textbox7" value={values.textbox7} onChange={handleChange}/>
+        <div className="row-text">
+          <div className="text-box">
+            <label>Expiration Date (Month)</label>
+            <div className="month-sec">
+              <select className="timeselect select-input billing-input" id="timeSelectMonth" name="timeSelectMonth" value={selectedMonth} onChange={(e) => setSelectedMonth(parseInt(e.target.value))}>
+                {generateNumbers(1, 12)}
+              </select>
+            </div>
           </div>
+          <div className="text-box">
+            <label>Expiration Date (Year)</label>
+            <select className="timeselect select-input billing-input" id="timeSelectYear" name="timeSelectYear" value={selectedYear} onChange={(e) => setSelectedYear(parseInt(e.target.value))}>
+              {generateNumbers(currentYear, currentYear + 20)}
+            </select>
+          </div>
+        </div>
+        <div className="row-text">
           <div className="text-box">
             <label>Zip or Postal Code</label>
-            <input type="text" name="textbox8" value={values.textbox8} onChange={handleChange}/>
-          </div>
-        </div>
-        <div className="row">
-        <div className="text-box">
-            <label>Country</label>
-            <input type="text" name="textbox9" value={values.textbox9} onChange={handleChange}/>
+            <input className="billing-input" type="text" id="zipBox" name="zipBox" value={values.zipBox} onChange={handleChange} onBlur={handleBlur}/>
+            {errors.zipError && <div className="error-message">{errors.zipError}</div>}
           </div>
           <div className="text-box">
+            <label>Country</label>
+            <input className="billing-input" type="text" id="countryBox" name="countryBox" value={values.countryBox} onChange={handleChange} onBlur={handleBlur}/>
+            {errors.countryError && <div className="error-message">{errors.countryError}</div>}
+          </div>
+        </div>
+        <div className="row-text">
+          <div className="text-box">
             <label>Phone Number</label>
-            <input type="text" name="textbox10" value={values.textbox10} onChange={handleChange}/>
+            <input className="billing-input" type="text" id="phoneBox" name="phoneBox" value={values.phoneBox} onChange={handleChange} onBlur={handleBlur}/>
+            {errors.phoneError && <div className="error-message">{errors.phoneError}</div>}
           </div>
         </div>
         <div className="payment">
-          <button className="pay-button" onClick={saveText}>Pay</button>
+          <button className="pay-button" onClick={submitPayment} id="payButton">Pay</button>
         </div>
-      </div>
     </div>
   );
 }

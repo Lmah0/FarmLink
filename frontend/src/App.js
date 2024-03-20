@@ -1,6 +1,8 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 import Layout from "./Layout";
 import HomePageEmpty from "./HomePage/HomePageEmpty";
@@ -20,6 +22,7 @@ function App() {
   const [userProfile, setUserProfile] = useState(
     JSON.parse(localStorage.getItem("profile"))
   );
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   
   const handleSetProfile = (userData) => {
     localStorage.setItem("profile", userData);
@@ -29,10 +32,19 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    if (userProfile) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  });
+
   const handleLogout = () => {
     localStorage.removeItem("profile");
     setUserProfile(null);
   };
+
 
   useEffect(() => {
     // This useEffect gets all the postings every time an event occurs on the page and stores them in items array
@@ -59,7 +71,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route element={<Layout />}>
+          <Route element={<Layout handleLogout={handleLogout} isLoggedIn={isLoggedIn}/>}>
 
             { 
               userProfile ? (
