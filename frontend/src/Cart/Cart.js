@@ -139,7 +139,6 @@ function Cart({currentUserID}) {
             <div className="total-price">Total Price: ${totPrice}</div>
             <button className="checkout-button" onClick={goToPayment}>Checkout Now</button>
           </div>
-            
         </div>
       </div>
     </>
