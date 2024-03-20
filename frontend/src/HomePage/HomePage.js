@@ -3,7 +3,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 
-function HomePage({ items, loading, currentUserID, currentRole }) {
+function HomePage({ items, loading, currentUserID, currentRole, currentUserName }) {
+  console.log(items, "ITEMS")
+  console.log(currentUserID, "USER ID")
+
   const navigate = useNavigate();
   const [expandedBoxes, setExpandedBoxes] = useState(
     Array(items.length).fill(false)
@@ -90,9 +93,7 @@ function HomePage({ items, loading, currentUserID, currentRole }) {
               <div
                 id="Item-box"
                 className={
-                  currentUserID === item.user_id
-                    ? "hidden-element"
-                    : expandedBoxes[index]
+                  expandedBoxes[index]
                     ? "expanded-item-box"
                     : yesExpandedBoxActive === true &&
                       expandedBoxIndex !== index
@@ -170,7 +171,13 @@ function HomePage({ items, loading, currentUserID, currentRole }) {
                 </p>
                 <button
                   id="add-item-to-cart"
-                  className={expandedBoxes[index] ? "" : "hidden-element"}
+                  className={
+                    currentUserID === item.user_id && currentUserName === item.posting_author
+                      ? "hidden-element"
+                      : expandedBoxes[index]
+                      ? ""
+                      : "hidden-element"
+                  }
                   onClick={() => handleAddToCartClick(item.id)}
                 >
                   Add to Cart
