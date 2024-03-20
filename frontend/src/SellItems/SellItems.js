@@ -54,74 +54,73 @@ function SellItems({currentUserID, currentUserName}) {
   };
 
   return (
-    <>
-      <div id="sell-items-main-div">
+    <div id="sell-page">
+      <form className="sell-form" onSubmit={onSubmitForm}>
         <h2>Create a Listing</h2>
-        <form onSubmit={onSubmitForm}>
-          <div id="image-upload-container">
-            <label htmlFor="file-upload" id="image-upload-label" className={file ? "image-added" : ""}>
-              <img
-                src="https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png"
-                alt="Photo Icon"
-              />
-              <h3>Add Photo</h3>
-            </label>
-            <input
-              id="file-upload"
-              type="file"
-              accept=".jpg, .jpeg, .png"
-              onChange={(e) => setFile(e.target.files[0])}
-              // onChange={handleFileChange}
-              // required
+        <div id="image-upload-container">
+          <label htmlFor="file-upload" id="image-upload-label" className={file ? "image-added" : ""}>
+            <img
+              src="https://icons.veryicon.com/png/o/application/designe-editing/add-image-1.png"
+              alt="Photo Icon"
             />
-          </div>
-          {/* <h2>Required</h2> */}
-          {/* <h3>Be as Descriptive as Possbile</h3>  */}
+            <h3>Add Photo</h3>
+          </label>
           <input
-            type="text"
-            placeholder="Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
+            id="file-upload"
+            type="file"
+            accept=".jpg, .jpeg, .png"
+            onChange={(e) => setFile(e.target.files[0])}
           />
-          <input
-            placeholder="Price"
-            type="number"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            required
-          />
-          <input
-            placeholder="Quantity"
-            type="number"
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
-            required
-          />
+        </div>
+        <input
+          className="sell-input"
+          type="text"
+          placeholder="Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+        <input
+          className="sell-input"
+          placeholder="Price"
+          type="number"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          required
+        />
+        <input
+          className="sell-input"
+          placeholder="Quantity"
+          type="number"
+          value={quantity}
+          onChange={(e) => setQuantity(e.target.value)}
+          required
+        />
 
-          <select
-            value={itemType}
-            onChange={(e) => setItemType(e.target.value)}
-            required
-          >
-            <option value="">Select Item Type</option>
-            <option value="MACHINERY">MACHINERY</option>
-            <option value="TOOLS">TOOLS</option>
-            <option value="LIVESTOCK">LIVESTOCK</option>
-            <option value="PRODUCE">PRODUCE</option>
-          </select>
+        <select
+          className="sell-input"
+          value={itemType}
+          onChange={(e) => setItemType(e.target.value)}
+          required
+        >
+          <option value="">Select Item Type</option>
+          <option value="MACHINERY">MACHINERY</option>
+          <option value="TOOLS">TOOLS</option>
+          <option value="LIVESTOCK">LIVESTOCK</option>
+          <option value="PRODUCE">PRODUCE</option>
+        </select>
 
-          <input
-            type="text"
-            placeholder="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-          <button type="submit">Create Listing</button>
-        </form>
-      </div>
-    </>
+        <input
+          className="sell-input"
+          type="text"
+          placeholder="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+        />
+        <button className="create-listing-button" type="submit">Create Listing</button>
+      </form>
+  </div>
   );
 }
 

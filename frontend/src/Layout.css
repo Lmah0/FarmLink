@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   height: 100vh; /* Make the container take the full height of the viewport */
+  background-color: #EBD9B4;
 }
 
 #Main-Container > header, footer {
@@ -10,6 +11,7 @@
   align-items: center;
   justify-content: center;
   font-weight: bold;
+  background-color: #9DBC98;
 }
 
 #Main-Container > header {
@@ -24,3 +26,51 @@ div {
   overflow-y: auto;
 }
 
+footer {
+  border-top: 2px solid #000;
+}
+
+header {
+  border-bottom: 2px solid #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+}
+
+.title {
+  font-size: 1.5rem; /* Adjust font size as needed */
+  font-weight: bold; /* Optionally bold */
+}
+
+.navbar {
+  display: flex;
+  align-items: center; /* Align navbar items vertically */
+}
+
+.navbar-button {
+  padding: 1rem 2rem; /* Adjust padding as needed */
+  margin-left: 10px; /* Adjust spacing between buttons */
+  font-size: 0.8rem; /* Adjust font size as needed */
+  border: none;
+  background-color: #9DBC98; /* Adjust button background color */
+  color: black; /* Adjust button text color */
+  border-radius: 2rem; /* Adjust button border radius */
+  cursor: pointer;
+  border: 2px solid #000;
+}
+
+.navbar-button:hover {
+  background-color: black; /* Highlighted button background color */
+  color: white; /* Highlighted text color */
+}
+
+.logo {
+  height: 4rem;
+  padding-right: 1rem;
+}
+
+.hidden-button {
+  visibility: hidden; /* Makes the element invisible */
+  pointer-events: none; /* Makes the element unclickable */
+}

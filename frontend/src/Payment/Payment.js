@@ -185,94 +185,83 @@ function Payment({currentUserID}) {
 
 
   return (
-    <div>
       <div className="container">
-      <div className="row-text">
-          <div className="row-text" id="billingDiv">Billing Information</div>
-      </div>
-        <div className="row">
+        <div className="row-text" id="billingDiv">Billing Information</div>
+        <div className="row-text">
           <div className="text-box">
-            <label>Card Number</label>
-            <input type="text" id="cardNumberBox" name="cardNumberBox" value={values.cardNumberBox} onChange={handleChange} onBlur={handleBlur} />
-            {errors.cardNumberError && <div className="error-message">{errors.cardNumberError}</div>}
-
-          </div>
-          <div className="select-text">
-            <div className="split-select">
-              <label>Expiration Date</label>
-              <div className="month-sec">
-                <select className="timeselect" id="timeSelectMonth" name="timeSelectMonth" value={selectedMonth} onChange={(e) => setSelectedMonth(parseInt(e.target.value))}>
-                  {generateNumbers(1, 12)}
-                </select>
-                <select className="timeselect" id="timeSelectYear" name="timeSelectYear" value={selectedYear} onChange={(e) => setSelectedYear(parseInt(e.target.value))}>
-                  {generateNumbers(currentYear, currentYear + 20)}
-                </select>
-              </div>
-            </div>
-            <div className="split-text">
+              <label>Card Number</label>
+              <input className="billing-input" type="text" id="cardNumberBox" name="cardNumberBox" value={values.cardNumberBox} onChange={handleChange} onBlur={handleBlur} />
+              {errors.cardNumberError && <div className="error-message">{errors.cardNumberError}</div>}
+          </div> 
+          <div className="text-box">
               <label>Security Number</label>
-              <input type="text" id="csvBox" name="csvBox" value={values.csvBox} onChange={handleChange} onBlur={handleBlur}/>
+              <input className="billing-input" type="text" id="csvBox" name="csvBox" value={values.csvBox} onChange={handleChange} onBlur={handleBlur}/>
               {errors.csvError && <div className="error-message">{errors.csvError}</div>}
+          </div>
+        </div>
+        <div className="row-text">
+          <div className="text-box">
+              <label>Name</label>
+              <input className="billing-input" type="text" id="nameBox" name="nameBox" value={values.nameBox} onChange={handleChange} onBlur={handleBlur}/>
+              {errors.nameError && <div className="error-message">{errors.nameError}</div>}
 
+          </div>
+          <div className="text-box">
+              <label>City</label>
+              <input className="billing-input" type="text" id="cityBox" name="cityBox" value={values.cityBox} onChange={handleChange} onBlur={handleBlur}/>
+              {errors.cityError && <div className="error-message">{errors.cityError}</div>}
+          </div>
+        </div>
+        <div className="row-text">
+          <div className="text-box">
+              <label>Billing Address</label>
+              <input className="billing-input" type="text" id="billingAddressBox" name="billingAddressBox" value={values.billingAddressBox} onChange={handleChange} onBlur={handleBlur}/>
+              {errors.billingAddressError && <div className="error-message">{errors.billingAddressError}</div>}
+          </div>
+          <div className="text-box">
+              <label>State/Province</label>
+              <input className="billing-input" type="text" id="stateBox"  name="stateBox" value={values.stateBox} onChange={handleChange} onBlur={handleBlur}/>
+              {errors.stateError && <div className="error-message">{errors.stateError}</div>}
+          </div>
+        </div>
+        <div className="row-text">
+          <div className="text-box">
+            <label>Expiration Date (Month)</label>
+            <div className="month-sec">
+              <select className="timeselect select-input billing-input" id="timeSelectMonth" name="timeSelectMonth" value={selectedMonth} onChange={(e) => setSelectedMonth(parseInt(e.target.value))}>
+                {generateNumbers(1, 12)}
+              </select>
             </div>
           </div>
-        </div>
-        <div className="row">
-        <div className="text-box">
-            <label>Name</label>
-            <input type="text" id="nameBox" name="nameBox" value={values.nameBox} onChange={handleChange} onBlur={handleBlur}/>
-            {errors.nameError && <div className="error-message">{errors.nameError}</div>}
-
-          </div>
           <div className="text-box">
-            <label>City</label>
-            <input type="text" id="cityBox" name="cityBox" value={values.cityBox} onChange={handleChange} onBlur={handleBlur}/>
-            {errors.cityError && <div className="error-message">{errors.cityError}</div>}
-
+            <label>Expiration Date (Year)</label>
+            <select className="timeselect select-input billing-input" id="timeSelectYear" name="timeSelectYear" value={selectedYear} onChange={(e) => setSelectedYear(parseInt(e.target.value))}>
+              {generateNumbers(currentYear, currentYear + 20)}
+            </select>
           </div>
         </div>
-        <div className="row">
-        <div className="text-box">
-            <label>Billing Address</label>
-            <input type="text" id="billingAddressBox" name="billingAddressBox" value={values.billingAddressBox} onChange={handleChange} onBlur={handleBlur}/>
-            {errors.billingAddressError && <div className="error-message">{errors.billingAddressError}</div>}
-
-          </div>
-          <div className="text-box">
-            <label>State/Province</label>
-            <input type="text" id="stateBox"  name="stateBox" value={values.stateBox} onChange={handleChange} onBlur={handleBlur}/>
-            {errors.stateError && <div className="error-message">{errors.stateError}</div>}
-          </div>
-        </div>
-        <div className="row">
-        <div className="text-box">
-            <label>Billing Address, line 2</label>
-            <input type="text" id="billingAddress2Box"  name="billingAddress2Box" value={values.billingAddress2Box} onChange={handleChange} onBlur={handleBlur}/>
-            {errors.billingAddress2Error && <div className="error-message">{errors.billingAddress2Error}</div>}
-          </div>
+        <div className="row-text">
           <div className="text-box">
             <label>Zip or Postal Code</label>
-            <input type="text" id="zipBox" name="zipBox" value={values.zipBox} onChange={handleChange} onBlur={handleBlur}/>
+            <input className="billing-input" type="text" id="zipBox" name="zipBox" value={values.zipBox} onChange={handleChange} onBlur={handleBlur}/>
             {errors.zipError && <div className="error-message">{errors.zipError}</div>}
           </div>
-        </div>
-        <div className="row">
-        <div className="text-box">
+          <div className="text-box">
             <label>Country</label>
-            <input type="text" id="countryBox" name="countryBox" value={values.countryBox} onChange={handleChange} onBlur={handleBlur}/>
+            <input className="billing-input" type="text" id="countryBox" name="countryBox" value={values.countryBox} onChange={handleChange} onBlur={handleBlur}/>
             {errors.countryError && <div className="error-message">{errors.countryError}</div>}
-
           </div>
+        </div>
+        <div className="row-text">
           <div className="text-box">
             <label>Phone Number</label>
-            <input type="text" id="phoneBox" name="phoneBox" value={values.phoneBox} onChange={handleChange} onBlur={handleBlur}/>
+            <input className="billing-input" type="text" id="phoneBox" name="phoneBox" value={values.phoneBox} onChange={handleChange} onBlur={handleBlur}/>
             {errors.phoneError && <div className="error-message">{errors.phoneError}</div>}
           </div>
         </div>
         <div className="payment">
           <button className="pay-button" onClick={submitPayment} id="payButton">Pay</button>
         </div>
-      </div>
     </div>
   );
 }

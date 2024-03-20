@@ -1,7 +1,16 @@
+#billingDiv {
+  padding-bottom: 5rem;
+  font-size: 2rem;
+}
+
 .container {
     display: flex;
     flex-direction: column;
     margin: 40px;
+    background-color: #638889;
+    border-radius: 2rem;
+    padding: 2rem;
+    border: 2px solid black;
   }
   
   .row {
@@ -14,12 +23,15 @@
   .payment {
     justify-content: center;
     display: flex;
+    width: 100%;
   }
 
   .pay-button {
     justify-content: center;
     display: flex;
     padding: 10px 20px;
+    width: 8rem;
+    height: 2.5rem;
   }
   
   input {
@@ -32,6 +44,12 @@
   .text-box{
     margin-left: calc(10%);
     display: grid;
+    margin-bottom: 2rem;
+  }
+
+  .billing-input {
+    background-color: #EBD9B4 !important;
+    color: black;
   }
 
   .row-text{
@@ -63,6 +81,12 @@
   .select-text{
     margin-left: calc(10%);
     display: flex;
+  }
+
+  .pay-button {
+    background-color: #9DBC98;
+    border-radius: 2rem;
+    border: 2px solid black;
   }
 
   
