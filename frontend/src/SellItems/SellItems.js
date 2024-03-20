@@ -1,7 +1,7 @@
 import "./SellItems.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import React from "react";
 function SellItems({currentUserID, currentUserName}) {
   // Define state variables to hold form data
   const navigate = useNavigate();
