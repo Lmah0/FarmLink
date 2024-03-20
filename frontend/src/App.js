@@ -1,6 +1,8 @@
 
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 import Layout from "./Layout";
 import HomePageEmpty from "./HomePage/HomePageEmpty";
@@ -14,13 +16,13 @@ import ProfilePage from "./UserPages/ProfilePage";
 
 function App() {
   /* This is the main app component basically the "view controller" this will just pass information along to different pages from API */
-  
 
   const [items, setItems] = useState([]);
 
   const [userProfile, setUserProfile] = useState(
     JSON.parse(localStorage.getItem("profile"))
   );
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   
   const handleSetProfile = (userData) => {
     localStorage.setItem("profile", userData);
@@ -30,10 +32,19 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    if (userProfile) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  });
+
   const handleLogout = () => {
     localStorage.removeItem("profile");
     setUserProfile(null);
   };
+
 
   useEffect(() => {
     // This useEffect gets all the postings every time an event occurs on the page and stores them in items array
@@ -55,18 +66,20 @@ function App() {
     };
     fetchData();
   }, []);
+
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route element={<Layout />}>
+          <Route element={<Layout handleLogout={handleLogout} isLoggedIn={isLoggedIn}/>}>
 
-            {
+            { 
               userProfile ? (
                 <>
                   <Route path="/" element={<HomePage items={items} handleLogout={handleLogout} currentUserID={userProfile.id} currentRole={userProfile.role}  /> } />
                   <Route path="/cart" element={<Cart currentUserID={userProfile.id} />} />
                   <Route path="/Payment" element={<Payment currentUserID={userProfile.id}/>} />
+                  <Route path="/SellItems" element={<SellItems currentUserID={userProfile.id} currentUserName={userProfile.name}/>} />
                 </>
               ) : (
                 <Route path="/" element={<HomePageEmpty />} /> 
@@ -76,7 +89,6 @@ function App() {
             <Route path="/login" element={<LoginPage handleSetProfile={handleSetProfile}/>} /> 
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/profile" element={<ProfilePage/>} />
-            <Route path="/SellItems" element={<SellItems />} />
 
           </Route>
         </Routes>
