@@ -53,23 +53,23 @@ const SignUpPage = () => {
       <form onSubmit={handleSignUp}>
         <h2>Sign Up Page</h2>
         <div className='form-group'>
-          <label>Name:</label>
+          <label>Name</label>
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
         </div>
         <div className='form-group'>
-          <label>Phone Number:</label>
+          <label>Phone Number</label>
           <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
         </div>
         <div className='form-group'>
-          <label>Email:</label>
+          <label>Email</label>
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div className='form-group'>
-          <label>Password:</label>
+          <label>Password</label>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
         <div className='form-group'>
-          <label>Role:</label>
+          <label>Role</label>
           <select value={role} onChange={(e) => setRole(e.target.value)}>
             <option value="">Select Role</option>
             <option value="FARMER">Farmer</option>
@@ -78,12 +78,12 @@ const SignUpPage = () => {
         </div>
         {role === 'FARMER' && (
           <div className='form-group'>
-            <label>Farmer PID:</label>
+            <label>Farmer PID</label>
             <input type="text" value={farmerPid} onChange={(e) => setFarmerPid(e.target.value)} />
           </div>
         )}
         <div className='form-group'>
-          <label>Profile Bio:</label>
+          <label>Profile Bio</label>
           <input type="text" value={profileBio} onChange={(e) => setProfileBio(e.target.value)} />
         </div>
         <button type="submit">Sign Up</button>
