@@ -20,3 +20,4 @@ python-dotenv~=1.0.1
 psycopg2==2.9.9
 pytest==8.1.1
 flask_swagger_ui==4.11.1
+responses==0.25.0
