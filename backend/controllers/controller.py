@@ -80,7 +80,7 @@ def createOrder():
     for item in cart:
        # Get the item from the database using the item ID
         itemId = item['itemId']
-        print(itemId)
+        print(f"The ItemID is: {itemId}")
         data = {"itemId": itemId}
         response = requests.get(f"http://127.0.0.1:5007/getItem?itemId={itemId}")
         retrievedItem = response.json()
@@ -100,6 +100,7 @@ def createOrder():
             return jsonify({'message': 'Not enough stock available.'}), 420 # 420 is a custom error code        
         else:
         #remove the quantity from the stock
+            data = {"postingId": postingID, "quantity": item['quantity']}
             response = requests.post("http://127.0.0.1:5007/removeStock", json=data)
             print("The response is", response)
         # Flushing Cart
