@@ -68,6 +68,10 @@ p {
   border: 2px solid gray;
   border-radius: 100%; /* This will make the border circular */
 }
+#HomePage-Header-SELL:hover {
+  background-color: black;
+  color: white;
+}
 
 #HomePage-Header > div> button > img {
   padding-top: 5px;
@@ -152,6 +156,28 @@ p {
   font-size: 15px;
   font-weight: bold;
   border: 2px solid #000;
+}
+
+#add-item-to-cart:hover {
+  background-color: #638889;
+}
+
+
+#close-posting {
+  background-color: #9DBC98;
+  border: none;
+  padding: 10px;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  border: 2px solid #000;
+}
+
+#close-posting:hover {
+  background-color: #638889;
 }
 
 
@@ -245,7 +271,7 @@ p {
   border: 2px solid #000;
   border-radius: 10px;
   margin: 0.2rem;
-  margin-left: 2.5rem;
+  /* margin-left: 2.5rem; */
 }
 /* For sizing the page */
 @media (max-width: 1000px) {
@@ -257,4 +283,17 @@ p {
   #obituary-box {
     flex: 0 0 calc(100% - 40px);
   }
+}
+
+/* For Loading */
+#loading-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70%;
+  width: 100%;
+  position: fixed;
+  z-index: 9999;
+  font-weight: bolder;
+  font-size: x-large;
 }
