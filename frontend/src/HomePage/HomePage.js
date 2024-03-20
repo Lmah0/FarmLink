@@ -2,6 +2,7 @@ import "./HomePage.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import React from "react";
+
 function HomePage({ items, handleLogout, currentUserID, currentRole }) {
   const navigate = useNavigate();
   const [expandedBoxes, setExpandedBoxes] = useState(

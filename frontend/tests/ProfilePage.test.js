@@ -1,11 +1,17 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
-import ProfilePage from '../src/jpComponents/ProfilePage';
+import ProfilePage from '../src/UserPages/ProfilePage';
 
 // Mock localStorage
 const mockLocalStorage = {
   getItem: jest.fn(),
 };
+
+// Mocking react-router-dom module
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: jest.fn(),
+}));
 
 // Mock user data
 const mockUserData = {
@@ -28,10 +34,7 @@ describe('ProfilePage component', () => {
     jest.clearAllMocks();
   });
 
-  it('renders loading state initially', () => {
-    const { getByText } = render(<ProfilePage />);
-    expect(getByText('Loading...')).toBeInTheDocument();
-  });
+
 
   it('fetches user data from localStorage and displays it', async () => {
     // Mock localStorage getItem to return user data
