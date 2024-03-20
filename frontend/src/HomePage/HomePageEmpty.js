@@ -18,7 +18,7 @@ function HomePageEmpty() {
   
   React.useEffect(() => {
       const typed = new Typed(el.current, {
-          strings: ["Branching the agricultural market starts here."],
+          strings: ["Branching agriculture starts here."],
           typeSpeed: 50,
       });
       
