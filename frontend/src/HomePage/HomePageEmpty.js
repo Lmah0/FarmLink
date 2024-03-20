@@ -1,6 +1,6 @@
 import "./HomePageEmpty.css";
 import { useNavigate } from "react-router-dom";
-
+import React from "react";
 function HomePageEmpty() {
   const navigate = useNavigate();
 

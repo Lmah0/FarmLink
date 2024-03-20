@@ -9,7 +9,6 @@ describe('SellItems Component', () => {
     expect(getByPlaceholderText('Title')).toBeInTheDocument();
     expect(getByPlaceholderText('Price')).toBeInTheDocument();
     expect(getByPlaceholderText('Quantity')).toBeInTheDocument();
-    expect(getByPlaceholderText('Item Type')).toBeInTheDocument();
     expect(getByPlaceholderText('Description')).toBeInTheDocument();
     expect(getByText('Create Listing')).toBeInTheDocument();
   });
@@ -28,7 +27,6 @@ describe('SellItems Component', () => {
     fireEvent.change(getByPlaceholderText('Title'), { target: { value: 'Test Title' } });
     fireEvent.change(getByPlaceholderText('Price'), { target: { value: '10' } });
     fireEvent.change(getByPlaceholderText('Quantity'), { target: { value: '5' } });
-    fireEvent.change(getByPlaceholderText('Item Type'), { target: { value: 'Test Type' } });
     fireEvent.change(getByPlaceholderText('Description'), { target: { value: 'Test Description' } });
 
     fireEvent.click(getByText('Create Listing'));
@@ -52,7 +50,6 @@ describe('SellItems Component', () => {
     fireEvent.change(getByPlaceholderText('Title'), { target: { value: 'Test Title' } });
     fireEvent.change(getByPlaceholderText('Price'), { target: { value: '10' } });
     fireEvent.change(getByPlaceholderText('Quantity'), { target: { value: '5' } });
-    fireEvent.change(getByPlaceholderText('Item Type'), { target: { value: 'Test Type' } });
     fireEvent.change(getByPlaceholderText('Description'), { target: { value: 'Test Description' } });
   
     fireEvent.click(getByText('Create Listing'));

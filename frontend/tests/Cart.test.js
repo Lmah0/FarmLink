@@ -14,7 +14,6 @@ describe('Cart Component', () => {
 
   test('displays added objects correctly', async () => {
     const { getByText } = render(<Cart />);
-    fireEvent.click(getByText('Here is where the Entries will be')); // Click to add an object
     await waitFor(() => {
       expect(getByText('Object 1')).toBeInTheDocument(); // Check if added object is displayed
     });
@@ -31,7 +30,6 @@ describe('Cart Component', () => {
 
   test('navigates to payment page when pay button is clicked', async () => {
     const { getByText } = render(<Cart />);
-    fireEvent.click(getByText('Here is where the Entries will be')); // Add an object
     fireEvent.click(getByText('Pay Price')); // Click on pay button
     await waitFor(() => {
       expect(window.location.href).toContain('/Payment'); // Check if navigation occurred
