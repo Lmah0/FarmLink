@@ -1,3 +1,22 @@
+#signup-button {
+  width: 50%;
+  text-align: center;
+  border: none;
+  background-color: #9DBC98; /* Button background color */
+  color: black; /* Text color */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 2px solid #000;
+  display: inline-block;
+  margin-top: 2.5rem;
+  width: 20%;
+}
+
+#signup-button:hover {
+  background-color: #7FAF7F; /* Highlighted button background color */
+  color: white; /* Highlighted text color */
+}
 
 .input-form {
   background-color: #EBD9B4;
@@ -37,7 +56,6 @@
   border-radius: 1rem;
 }
 
-
 .signup-container input{
   width:100%;
   align-self: center;
@@ -50,4 +68,6 @@
   height: 90vh;
   background-color: #EBD9B4; /* Blue background color */
 }
+
+
 

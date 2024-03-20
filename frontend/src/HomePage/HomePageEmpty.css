@@ -3,11 +3,6 @@
   flex-direction: column;
 }
 
-/* #login-page {
-  background-image: url('./../Images/pexels-photo-96715.jpeg');
-  width: 100%;
-} */
-
 #main-ItemBox-container.empty-holder {
   position: fixed;
   top: 0;
@@ -63,6 +58,7 @@
 
 .auth-button:hover {
   background-color: hsl(210, 94%, 6%); /* Darker button background color on hover */
+  color: white;
 }
 
 .motto {

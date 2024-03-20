@@ -59,6 +59,11 @@ header {
   cursor: pointer;
 }
 
+.navbar-button:hover {
+  background-color: black; /* Highlighted button background color */
+  color: white; /* Highlighted text color */
+}
+
 .logo {
   height: 4rem;
   padding-right: 1rem;

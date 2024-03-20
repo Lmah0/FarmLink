@@ -86,7 +86,7 @@ const SignUpPage = () => {
           <label className="signup-label">Profile Bio</label>
           <input className="input-form" type="text" value={profileBio} onChange={(e) => setProfileBio(e.target.value)} />
         </div>
-        <button type="submit">Sign Up</button>
+        <button id="signup-button" type="submit">Sign Up</button>
       </form>
     </div>
   );
