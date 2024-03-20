@@ -61,3 +61,8 @@ form {
   width:75%;
   align-self: center;
 }
+
+.login-field {
+  border-radius: 1rem;
+  background-color: #EBD9B4;
+}
