@@ -120,8 +120,8 @@ header {
 #Item-box-img{
   display: inline;
   cursor: pointer;
-  max-width: 75%;
-  max-height: 75%;
+  max-width: 70%;
+  max-height: 70%;
   border: 2px solid black;
   margin: 1rem;
 }
@@ -176,12 +176,6 @@ header {
 
 #Item-box.expanded-item-box > div > img {
   flex: 1;
-  /* width: 85%;
-  max-width: 85%;
-  height: 100%;
-  max-height: 100%; */
-  /* object-fit: contain; */
-  /* padding-right: calc(100% - 33%); */
 }
 
 #Item-box.expanded-item-box > div > button {

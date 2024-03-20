@@ -1,3 +1,7 @@
+button {
+  cursor: pointer;
+}
+
 .Header-Bar {
   font-size: 20px;
 }
@@ -28,6 +32,80 @@
   border: none;
 }
 
-button {
-  cursor: pointer;
+.List-Object {
+  background-color: #9DBC98;
+  border: 2px solid black;
+  padding: 1rem;
 }
+
+.Object-Text {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-field {
+  height: 1rem;
+  text-align: left;
+  border: 0px;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  padding: 0rem;
+  background-color: #9DBC98;
+  margin: 0rem;
+  border-radius: 1rem;
+  max-height: 5em;
+  text-align: left;
+  width: 50%;
+}
+
+.remove-button {
+  background-color: #638889;
+  color: white;
+  border-radius: 2rem;
+  width: 20%;
+  height: 2.5rem;
+  border: 2px solid black;
+}
+
+.checkout-details {
+  margin-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.total-price {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.remove-button:hover {
+  background-color: black; /* Highlighted button background color */
+  color: white; /* Highlighted text color */
+}
+
+.checkout-button {
+  background-color: #638889;
+  color: white;
+  border: 2px solid black;
+  padding: 1rem;
+  width: 30%;
+  border-radius: 2rem;
+  font-size: 1rem;
+}
+
+.checkout-button:hover {
+  background-color: black; /* Highlighted button background color */
+  color: white; /* Highlighted text color */
+}
+
+.cart {
+  padding-left: 0.3rem;
+  padding-top: 0.4rem;
+}
+
