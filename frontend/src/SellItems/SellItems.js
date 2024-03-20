@@ -48,12 +48,15 @@ function SellItems({currentUserID, currentUserName}) {
         if (response.ok) {
           let jsonRes = await response.json();
           console.log(jsonRes);
+          alert('Listing created!');
           return jsonRes['postingId']
         } else {
           console.log("Failed to add posting:", response.status);
+          alert('Failed to create listing. Please try again later.');
         }
       } catch (error) {
         console.error("Error adding post:", error);
+        alert('Failed to create listing. Please try again later.');
       }
     };
     addPosting();
