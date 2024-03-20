@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Cart.css';
-import React from "react";
 
 function Cart({currentUserID}) {
 

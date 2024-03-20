@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import './LoginPage.css'; // Import the CSS file for styling
-import React from "react";
 
 const LoginPage = ({handleSetProfile}) => {
   const navigate = useNavigate();
