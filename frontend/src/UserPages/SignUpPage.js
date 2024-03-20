@@ -50,26 +50,26 @@ const SignUpPage = () => {
 
   return (
     <div className='signup-container'>
-      <form onSubmit={handleSignUp}>
-        <h2>Sign Up Page</h2>
-        <div className='form-group'>
-          <label>Name:</label>
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+      <form className="signup-form" onSubmit={handleSignUp}>
+        <h2 className="signup-title">Sign Up</h2>
+        <div className='signup-form-group'>
+          <label className="signup-label">Name</label>
+          <input className="input-form" type="text" value={name} onChange={(e) => setName(e.target.value)} />
         </div>
-        <div className='form-group'>
-          <label>Phone Number:</label>
-          <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+        <div className='signup-form-group'>
+          <label className="signup-label">Phone Number</label>
+          <input className="input-form" type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
         </div>
-        <div className='form-group'>
-          <label>Email:</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <div className='signup-form-group'>
+          <label className="signup-label">Email</label>
+          <input className="input-form" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
-        <div className='form-group'>
-          <label>Password:</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <div className='signup-form-group'>
+          <label className="signup-label">Password</label>
+          <input className="input-form" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
-        <div className='form-group'>
-          <label>Role:</label>
+        <div className='signup-form-group'>
+          <label className="signup-label">Role</label>
           <select value={role} onChange={(e) => setRole(e.target.value)}>
             <option value="">Select Role</option>
             <option value="FARMER">Farmer</option>
@@ -77,14 +77,14 @@ const SignUpPage = () => {
           </select>
         </div>
         {role === 'FARMER' && (
-          <div className='form-group'>
-            <label>Farmer PID:</label>
+          <div className='signup-form-group'>
+            <label className="signup-label">Farmer PID</label>
             <input type="text" value={farmerPid} onChange={(e) => setFarmerPid(e.target.value)} />
           </div>
         )}
-        <div className='form-group'>
-          <label>Profile Bio:</label>
-          <input type="text" value={profileBio} onChange={(e) => setProfileBio(e.target.value)} />
+        <div className='signup-form-group'>
+          <label className="signup-label">Profile Bio</label>
+          <input className="input-form" type="text" value={profileBio} onChange={(e) => setProfileBio(e.target.value)} />
         </div>
         <button type="submit">Sign Up</button>
       </form>
