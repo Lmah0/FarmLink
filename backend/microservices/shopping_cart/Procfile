@@ -1,0 +1,1 @@
+web: cd backend/microservices/shopping_cart && gunicorn wsgi:app

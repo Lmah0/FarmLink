@@ -45,14 +45,16 @@ def create_app(ENVIRONMENT='development'):
 
     app.register_blueprint(ShoppingCartService.main)
 
-    # TODO: Remove method before deploying
     @app.route('/db_reset', methods=['GET'])
     def db_create():
+        if ENVIRONMENT == 'production':
+            return jsonify({'message': 'Request denied.'}), 403
+
         db.session.execute(text("DROP TABLE IF EXISTS shopping_cart;"))
         db.session.commit()
         with app.app_context():
             db.create_all()
 
-        return 'Tables Reset!'
+        return jsonify({'message': 'Tables reset!'}), 200
 
     return app

@@ -1,5 +1,5 @@
-from microservices.inventory_catalog_service.models import Item, Posting, ItemType
-from microservices.inventory_catalog_service import db
+from inventory_catalog.inventory_catalog_service import Item, Posting
+from inventory_catalog.inventory_catalog_service import db
 import json
 # Tests for addPosting
 def test_add_posting_with_invalid_item_type(client, app): # use client to send simulated requests to service

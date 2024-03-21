@@ -1,7 +1,7 @@
-backend/microservices/checkout_service/__pycache__
-backend/microservices/inventory_catalog_service/__pycache__
-backend/microservices/shopping_cart_service/__pycache__
-backend/microservices/user_management_service/__pycache__
+backend/microservices/checkout/checkout_service/__pycache__
+backend/microservices/inventory_catalog/inventory_catalog_service/__pycache__
+backend/microservices/shopping_cart/shopping_cart_service/__pycache__
+backend/microservices/user_management/user_management_service/__pycache__
 backend/microservices/maga-db/
 /venv
 

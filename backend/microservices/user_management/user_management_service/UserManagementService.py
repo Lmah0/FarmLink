@@ -1,5 +1,4 @@
 from flask import jsonify, request
-from flask_cors import CORS
 from flask import Blueprint
 from . import IUserManagementService, models
 
@@ -9,11 +8,15 @@ main = Blueprint('main', __name__)
 class UserManagementService(IUserManagementService.IUserManagementService):
     def register(self):
         data = request.json
-        name = data['name']
-        phoneNumber =  data['phone_number']
-        emailAddress = data['email_address']
-        password = data['password']
-        role = data['role']
+        try:
+            name = data['name']
+            phoneNumber =  data['phone_number']
+            emailAddress = data['email_address']
+            password = data['password']
+            role = data['role']
+            profileBio = data['profile_bio']
+        except KeyError:
+            return jsonify({'message': 'name, phone number, email address, password and role are required.'}), 400
         try:
             farmerPid = data['farmer_pid']
         except KeyError:
@@ -21,8 +24,6 @@ class UserManagementService(IUserManagementService.IUserManagementService):
         
         if farmerPid == 0:
             role = "NONFARMER"
-
-        profileBio = data['profile_bio']
 
         if not name or not phoneNumber or not emailAddress or not password or role == None:
             return jsonify({'message': 'name, phone number, email address, password and role are required.'}), 400
@@ -60,6 +61,10 @@ class UserManagementService(IUserManagementService.IUserManagementService):
     
     def returnProfile(self):
         userId = request.args.get('userId', "")
+
+        if not userId:
+            return jsonify({'message': 'User ID is required.'}), 400
+
         user = models.User.query.filter_by(id=userId).first()
         
         if user is None:

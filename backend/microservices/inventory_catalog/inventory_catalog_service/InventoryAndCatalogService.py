@@ -1,5 +1,4 @@
 from flask import jsonify, request
-from flask_cors import CORS
 import json
 from flask import Blueprint
 from . import IInventoryAndCatalogService, models
@@ -106,6 +105,9 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
             return jsonify({'message': 'itemId must be greater than 0.'}), 400
         
         item = models.Item.query.filter_by(id=itemId).first()
+
+        if item is None:
+            return jsonify({'message': 'itemId does not exist.'}), 404
         
         return jsonify(item.serialize()), 200
     
