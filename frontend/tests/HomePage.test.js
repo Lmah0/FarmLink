@@ -32,7 +32,7 @@ describe('HomePage component', () => {
   const mockCurrentUserID = 'mockUserID';
   const mockCurrentRole = 'FARMER';
 
-  test('renders loading message when loading is true', () => {
+  test('renderLoadingMessage', () => {
     const { getByText } = render(
       <HomePage
         items={[]}
@@ -45,7 +45,7 @@ describe('HomePage component', () => {
     expect(loadingMessage).toBeInTheDocument();
   });
 
-  test('renders main container when loading is false', () => {
+  test('rendersMainContainer', () => {
     const { getByTestId } = render(
       <HomePage
         items={mockItems}
@@ -57,7 +57,7 @@ describe('HomePage component', () => {
 
   });
 
-  test('renders sell button for farmer role', () => {
+  test('sellButtonRenderedForSellers', () => {
     const { getByText } = render(
       <HomePage
         items={mockItems}
@@ -70,7 +70,7 @@ describe('HomePage component', () => {
     expect(sellButton).toBeInTheDocument();
   });
 
-  test('does not render sell button for non-farmer role', () => {
+  test('noSellButtonRenderedForBuyer', () => {
     const { queryByText } = render(
       <HomePage
         items={mockItems}

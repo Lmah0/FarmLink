@@ -10,11 +10,11 @@ jest.mock('react-router-dom', () => ({
 console.error = jest.fn();
 
 describe('<SignUpPage />', () => {
-  it('renders the component without crashing', () => {
-    render(<SignUpPage />);
+  it('renderSignUp', () => {
+    render(<SignUpPage />)
   });
 
-  it('submits the form without crashing', () => {
+  it('submitSignUpFormButton', () => {
     const { getByRole } = render(<SignUpPage />);
     fireEvent.submit(getByRole('button', { name: /sign up/i }));
   });
