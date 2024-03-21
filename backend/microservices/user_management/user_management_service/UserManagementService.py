@@ -59,6 +59,10 @@ class UserManagementService(IUserManagementService.IUserManagementService):
     
     def returnProfile(self):
         userId = request.args.get('userId', "")
+
+        if not userId:
+            return jsonify({'message': 'User ID is required.'}), 400
+
         user = models.User.query.filter_by(id=userId).first()
         
         if user is None:
