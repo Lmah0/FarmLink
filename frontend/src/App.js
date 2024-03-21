@@ -60,6 +60,7 @@ function App() {
           setLoading(false);
           // console.log(jsonRes);
           setItems(jsonRes);
+          console.log("Items fetched!")
         } else {
           console.log("Failed to fetch data:", response.status);
         }
@@ -68,7 +69,7 @@ function App() {
       }
     };
     fetchData();
-  }, []);
+  },);
 
   return (
     <>
@@ -79,7 +80,7 @@ function App() {
             { 
               userProfile ? (
                 <>
-                  <Route path="/" element={<HomePage items={items} loading={loading} currentUserID={userProfile.id} currentRole={userProfile.role}  /> } />
+                  <Route path="/" element={<HomePage items={items} loading={loading} currentUserID={userProfile.id} currentRole={userProfile.role} currentUserName={userProfile.name} /> } />
                   <Route path="/cart" element={<Cart currentUserID={userProfile.id} />} />
                   <Route path="/Payment" element={<Payment currentUserID={userProfile.id}/>} />
                   <Route path="/SellItems" element={<SellItems currentUserID={userProfile.id} currentUserName={userProfile.name}/>} />
