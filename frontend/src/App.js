@@ -69,6 +69,7 @@ function App() {
       }
     };
     fetchData();
+    // console.log("test")
   },);
 
   return (
