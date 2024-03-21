@@ -1,6 +1,7 @@
-from microservices.shopping_cart_service.models import ShoppingCart
-from microservices.shopping_cart_service import db
-import json
+from shopping_cart.shopping_cart_service import ShoppingCart
+from shopping_cart.shopping_cart_service import db
+
+
 # Tests for addToCart
 def test_add_to_cart_with_invalid_user_id(client, app): # use client to send simulated requests to service
     data = {

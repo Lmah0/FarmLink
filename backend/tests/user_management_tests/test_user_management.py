@@ -1,5 +1,5 @@
-from microservices.user_management_service.models import User, Role
-from microservices.user_management_service import db
+from user_management.user_management_service.models import User, Role
+from user_management.user_management_service import db
 
 # Tests for register
 def test_register_with_invalid_role(client, app): # use client to send simulated requests to service

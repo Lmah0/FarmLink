@@ -1,7 +1,7 @@
 import "./SellItems.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import React from "react";
 function SellItems({currentUserID, currentUserName}) {
   // Define state variables to hold form data
   const navigate = useNavigate();
@@ -48,12 +48,16 @@ function SellItems({currentUserID, currentUserName}) {
         if (response.ok) {
           let jsonRes = await response.json();
           console.log(jsonRes);
+          alert('Listing created!');
+          goToHome();
           return jsonRes['postingId']
         } else {
           console.log("Failed to add posting:", response.status);
+          alert('Failed to create listing. Please try again later.');
         }
       } catch (error) {
         console.error("Error adding post:", error);
+        alert('Failed to create listing. Please try again later.');
       }
     };
     addPosting();
@@ -124,7 +128,7 @@ function SellItems({currentUserID, currentUserName}) {
           onChange={(e) => setDescription(e.target.value)}
           required
         />
-        <button className="create-listing-button" type="submit" onClick={goToHome}>Create Listing</button>
+        <button className="create-listing-button" type="submit">Create Listing</button>
       </form>
   </div>
   );

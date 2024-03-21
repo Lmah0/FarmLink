@@ -1,9 +1,8 @@
 from flask import jsonify, request
-from flask_cors import CORS
 from flask import Blueprint
 from . import ICheckoutService, models
 from datetime import datetime
-import time
+
 main = Blueprint('main', __name__)
 
 class CheckoutService(ICheckoutService.ICheckoutService):

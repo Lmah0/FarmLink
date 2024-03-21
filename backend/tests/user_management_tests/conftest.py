@@ -1,7 +1,5 @@
 import pytest
-
-import pytest 
-from microservices.user_management_service import create_app, db
+from user_management.user_management_service import create_app, db
 
 @pytest.fixture()
 def app():

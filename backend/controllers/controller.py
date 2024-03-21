@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import requests, json
@@ -18,6 +20,12 @@ swaggerui_blueprint = get_swaggerui_blueprint(
     }
 )
 app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
+
+USR_URL = os.environ.get('USR_URL', 'http://127.0.0.1:5006')
+INV_URL = os.environ.get('INV_URL', 'http://127.0.0.1:5007')
+SHP_URL = os.environ.get('SHP_URL', 'http://127.0.0.1:5008')
+CHK_URL = os.environ.get('CHK_URL', 'http://127.0.0.1:5009')
+
 
 @app.route('/swagger.json')
 def swagger():
@@ -40,7 +48,7 @@ def checkStock():
         return jsonify({'message': 'Quantity must be greater than 0.'}), 400
     
     data = {"postingId": postingID}
-    response = requests.get("http://127.0.0.1:5007/getPosting", json=data)   
+    response = requests.get(INV_URL + "/getPosting", json=data)
     if response.status_code != 200:
         return jsonify({'message': 'Error in retrieving posting.'}), 400
     
@@ -52,7 +60,7 @@ def checkStock():
     else:
         # Process item (e.g., add it to the cart)
         data = {"userId": userID, "itemId": itemID, "quantity": quantity}
-        requests.post("http://127.0.0.1:5008/addToCart", json=data)   
+        requests.post(SHP_URL + "/addToCart", json=data)
         return jsonify({'message': 'Sufficient stock'}), 200
 
 @app.route('/createOrder', methods=['GET', "POST"])
@@ -67,7 +75,7 @@ def createOrder():
 
     # Get the cart
     data = {"userId": userID}
-    response = requests.get(f"http://127.0.0.1:5008/returnCart?userId={userID}")
+    response = requests.get(f"{SHP_URL}/returnCart?userId={userID}")
     if response.status_code != 200:
         return jsonify({'message': 'Error in retrieving cart.'}), 400
     cart = response.json()
@@ -80,9 +88,9 @@ def createOrder():
     for item in cart:
        # Get the item from the database using the item ID
         itemId = item['itemId']
-        print(itemId)
+        print(f"The ItemID is: {itemId}")
         data = {"itemId": itemId}
-        response = requests.get(f"http://127.0.0.1:5007/getItem?itemId={itemId}")
+        response = requests.get(f"{INV_URL}/getItem?itemId={itemId}")
         retrievedItem = response.json()
         print(f'The retrieved item is {retrievedItem}')
         totalCost += retrievedItem['price'] * item['quantity']
@@ -91,7 +99,7 @@ def createOrder():
         # Get the posting ID
         postingID = retrievedItem['posting_id']
         data = {"postingId": postingID}
-        response = requests.get("http://127.0.0.1:5007/getPosting", json=data)
+        response = requests.get(INV_URL + "/getPosting", json=data)
         retrievedPosting = response.json()
         print(f'The retrieved posting is {retrievedPosting}')
         # Check if the quantity in the cart is available
@@ -100,16 +108,17 @@ def createOrder():
             return jsonify({'message': 'Not enough stock available.'}), 420 # 420 is a custom error code        
         else:
         #remove the quantity from the stock
-            response = requests.post("http://127.0.0.1:5007/removeStock", json=data)
+            data = {"postingId": postingID, "quantity": item['quantity']}
+            response = requests.post(INV_URL + "/removeStock", json=data)
             print("The response is", response)
         # Flushing Cart
             data = {"userId": userID}
-            response = requests.delete("http://127.0.0.1:5008/flushCart", json=data)
+            response = requests.delete(SHP_URL + "/flushCart", json=data)
             print("The response is", response)    
 
     # Create the order on the database using the cart
     data = {"userId": userID, "totalCost": totalCost}
-    response = requests.post("http://127.0.0.1:5009/addOrder", json=data)
+    response = requests.post(CHK_URL + "/addOrder", json=data)
 
 
                 
