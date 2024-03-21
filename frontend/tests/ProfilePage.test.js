@@ -36,7 +36,7 @@ describe('ProfilePage component', () => {
 
 
 
-  it('fetches user data from localStorage and displays it', async () => {
+  it('fetchUserData', async () => {
     // Mock localStorage getItem to return user data
     mockLocalStorage.getItem.mockReturnValueOnce(JSON.stringify(mockUserData));
 
@@ -54,7 +54,7 @@ describe('ProfilePage component', () => {
     });
   });
 
-  it('displays "Loading..." when user data is not available', async () => {
+  it('displaysLoading', async () => {
     // Mock localStorage getItem to return null (no user data)
     mockLocalStorage.getItem.mockReturnValueOnce(null);
 

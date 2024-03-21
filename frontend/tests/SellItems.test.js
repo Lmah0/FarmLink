@@ -14,12 +14,12 @@ jest.mock('react-router-dom', () => ({
   useNavigate: jest.fn(),
 }));
 
-describe('SellItems Component', () => {
+describe('renderSellItems', () => {
   it('renders without crashing', () => {
     render(<SellItems />);
   });
 
-  it('submits form with correct data', () => {
+  it('formSubmitted', () => {
     const navigateMock = jest.fn();
     useNavigate.mockReturnValue(navigateMock);
 
