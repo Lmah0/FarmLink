@@ -1,5 +1,14 @@
 # SENG401Project
 
+### Backend Deployment URLs
+| service | URL |
+|---------|-----|
+| controller | https://maga-controller-820d8b68274a.herokuapp.com |
+| user management | https://maga-user-management-7c1e7511f413.herokuapp.com |
+| checkout | https://maga-checkout-6a70c9b6586c.herokuapp.com |
+| inventory catalog | https://maga-inventory-catalog-184f236ac862.herokuapp.com |
+| shopping cart | https://maga-shopping-cart-99f9049cebbc.herokuapp.com |
+
 # How to start Frontend
 npm install react-scripts --save
 npm install react-router-dom
