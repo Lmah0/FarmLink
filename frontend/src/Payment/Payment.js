@@ -114,7 +114,7 @@ function Payment({currentUserID}) {
       if (response.ok) {
         let jsonRes = await response.json();
         console.log(jsonRes, "JSON RES");
-        console.log('Successfully Created Order');
+        alert('Successfully created order. Order will be received in 2-3 days.');
         navigate('/');
       } else {
         console.log("Failed to create order", response.status);
