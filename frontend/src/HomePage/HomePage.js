@@ -36,7 +36,8 @@ function HomePage({ items, loading, currentUserID, currentRole, currentUserName 
     const addToCart = async (itemId) => {
       // This function will flush the cart when the user logs out
       try {
-        let response = await fetch("http://127.0.0.1:5008/addToCart", {
+        // let response = await fetch("http://127.0.0.1:5008/addToCart", {
+          let response = await fetch("https://maga-shopping-cart-99f9049cebbc.herokuapp.com/addToCart", {
           method: "POST",
           body: JSON.stringify({
             userId: currentUserID,
