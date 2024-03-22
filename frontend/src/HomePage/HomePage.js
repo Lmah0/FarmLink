@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 
 function HomePage({ items, loading, currentUserID, currentRole, currentUserName }) {
-  console.log(items, "ITEMS")
-  console.log(currentUserID, "USER ID")
+  // console.log(items, "ITEMS")
+  // console.log(currentUserID, "USER ID")
 
   const navigate = useNavigate();
   const [expandedBoxes, setExpandedBoxes] = useState(

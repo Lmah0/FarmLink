@@ -4,7 +4,7 @@ import './Cart.css';
 
 function Cart({currentUserID}) {
 
-  console.log(currentUserID, "Current User ID CART")
+  // console.log(currentUserID, "Current User ID CART")
 
   const navigate = useNavigate();
 

@@ -47,12 +47,12 @@ function SellItems({currentUserID, currentUserName}) {
         });
         if (response.ok) {
           let jsonRes = await response.json();
-          console.log(jsonRes);
+          // console.log(jsonRes);
           alert('Listing created!');
           goToHome();
           return jsonRes['postingId']
         } else {
-          console.log("Failed to add posting:", response.status);
+          // console.log("Failed to add posting:", response.status);
           alert('Failed to create listing. Please try again later.');
         }
       } catch (error) {
