@@ -44,6 +44,20 @@ def test_register_with_farmer_and_no_pid(client, app):
     assert response.status_code == 400
     assert b'Farmer PID is required for farmers.' in response.data
 
+def test_register_with_valid_values(client, app):
+    data = {
+        "name": "John Doe",
+        "phone_number": "1234567890",
+        "email_address": "test@gmail.com",
+        "password": "password",
+        "role": "FARMER",
+        "farmer_pid": "1234567890",
+        "profile_bio": "I am a farmer"
+    }
+    response = client.post('/register', json=data)
+    assert response.status_code == 200
+    assert b'New user created!' in response.data
+
 # Tests for login
 def test_login_with_invalid_email(client, app):
     data = {
@@ -106,4 +120,26 @@ def test_login_with_incorrect_password(client, app):
     assert b'Invalid email address or password.' in response.data
 
         
+def test_login_with_valid_values(client, app):
+    with app.app_context():
+        test_user = User(
+            name="John Doe",
+            phoneNumber="1234567890",
+            emailAddress="test@gmail.com",
+            password="password",
+            role=Role.FARMER,
+            farmer_pid="1234567890",
+            profileBio="I am a farmer"
+        )
+        db.session.add(test_user)
+        db.session.commit()
+    data = {
+        "email_address": "test@gmail.com",
+        "password": "password"
+    }
+    response = client.post('/login', json=data)
+    assert response.status_code == 200
+
+        
+
 

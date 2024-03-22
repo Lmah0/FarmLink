@@ -97,7 +97,6 @@ def test_remove_from_cart_with_item_not_in_cart(client, app):
     data = {
         "userId": 2,
         "itemId": 2,
-        "quantity": 2
     }
     response = client.delete('/removeFromCart', json=data)
     assert response.status_code == 400
@@ -114,7 +113,6 @@ def test_remove_from_cart_with_valid_values(client, app):
     data = {
         "userId": 1,
         "itemId": 1,
-        "quantity": 1
     }
     response = client.delete('/removeFromCart', json=data)
     assert response.status_code == 200
