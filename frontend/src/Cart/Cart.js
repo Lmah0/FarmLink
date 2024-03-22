@@ -17,7 +17,8 @@ function Cart({currentUserID}) {
 
   const fetchDataForID = async (itemID) => {
     try {
-      const response = await fetch(`http://127.0.0.1:5007/getItem?itemId=${itemID}`);
+      // const response = await fetch(`http://127.0.0.1:5007/getItem?itemId=${itemID}`);
+      const response = await fetch(`https://maga-inventory-catalog-184f236ac862.herokuapp.com/getItem?itemId=${itemID}`);
       if (response.ok) {
         const data = await response.json();
         console.log(data, "JSON RES");
@@ -41,7 +42,8 @@ function Cart({currentUserID}) {
   useEffect(() => {
     const fetchCartData = async (userId) => {
       try {
-        const response = await fetch(`http://127.0.0.1:5008/returnCart?userId=${userId}`);
+        // const response = await fetch(`http://127.0.0.1:5008/returnCart?userId=${userId}`);
+        const response = await fetch(`https://maga-shopping-cart-99f9049cebbc.herokuapp.com/returnCart?userId=${userId}`);
         if (response.ok) {
           const data = await response.json();
           console.log(data, "JSON RES");
@@ -90,7 +92,8 @@ function Cart({currentUserID}) {
   const handleRemoveItemFromCart = (itemId) => {
     const removeFromCart = async (itemId) => { // This function will flush the cart when the user logs out
       try {
-        let response = await fetch("http://127.0.0.1:5008/removeFromCart", {
+        // let response = await fetch("http://127.0.0.1:5008/removeFromCart", {
+        let response = await fetch("https://maga-shopping-cart-99f9049cebbc.herokuapp.com/removeFromCart", {
           method: "DELETE",
           body: JSON.stringify({
             userId :  currentUserID , 
