@@ -29,6 +29,11 @@ describe('ProfilePage component', () => {
     Object.defineProperty(window, 'localStorage', { value: mockLocalStorage });
   });
 
+  beforeEach(() => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+  });
+  
+
   afterEach(() => {
     // Clear mocks after each test
     jest.clearAllMocks();

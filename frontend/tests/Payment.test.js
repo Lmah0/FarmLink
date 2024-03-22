@@ -17,6 +17,11 @@ jest.mock('react-router-dom', () => ({
 console.error = jest.fn();
 
 describe('renderPayment', () => {
+
+  beforeEach(() => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+  });
+  
   test('Renders Payment component without crashing', () => {
     render(<Payment />);
   });

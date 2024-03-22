@@ -15,6 +15,10 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('renderSellItems', () => {
+  beforeEach(() => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+  });
+  
   it('renders without crashing', () => {
     render(<SellItems />);
   });

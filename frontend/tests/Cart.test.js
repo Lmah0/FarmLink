@@ -12,6 +12,11 @@ console.error = jest.fn();
 
 
 describe('renderCart', () => {
+
+  beforeEach(() => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+  });
+  
   test('renders without crashing', () => {
     render(<Cart />);
   });

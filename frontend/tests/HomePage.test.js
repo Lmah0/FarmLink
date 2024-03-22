@@ -9,6 +9,11 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('HomePage component', () => {
+
+  beforeEach(() => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+  });
+  
   const mockItems = [
     {
       id: 1,

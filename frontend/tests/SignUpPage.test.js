@@ -10,6 +10,11 @@ jest.mock('react-router-dom', () => ({
 console.error = jest.fn();
 
 describe('<SignUpPage />', () => {
+
+  beforeEach(() => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+  });
+  
   it('renderSignUp', () => {
     render(<SignUpPage />)
   });
