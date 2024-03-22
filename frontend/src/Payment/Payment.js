@@ -113,7 +113,7 @@ function Payment({currentUserID}) {
       if (response.ok) {
         let jsonRes = await response.json();
         console.log(jsonRes, "JSON RES");
-        console.log('Successfully Created Order');
+        alert('Successfully Created Order');
         navigate('/');
       } else {
         console.log("Failed to create order", response.status);
