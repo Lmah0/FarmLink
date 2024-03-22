@@ -7,22 +7,31 @@ jest.mock('react-router-dom', () => ({
   useNavigate: jest.fn(),
 }));
 
-describe('Cart Component', () => {
+// Mocking console.error to prevent it from outputting during the test
+console.error = jest.fn();
+
+
+describe('renderCart', () => {
+
+  beforeEach(() => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+  });
+  
   test('renders without crashing', () => {
     render(<Cart />);
   });
 
-  test('displays cart items', () => {
+  test('displayCart', () => {
     const { getByText } = render(<Cart />);
     expect(getByText('Items in Cart')).toBeInTheDocument();
   });
 
-  test('displays total price', () => {
+  test('displayTotalPrice', () => {
     const { getByText } = render(<Cart />);
     expect(getByText('Total Price: $0')).toBeInTheDocument();
   });
 
-  test('displays checkout button', () => {
+  test('displayCheckoutButton', () => {
     const { getByText } = render(<Cart />);
     expect(getByText('Checkout Now')).toBeInTheDocument();
   });

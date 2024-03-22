@@ -8,14 +8,14 @@ jest.mock('react-router-dom', () => ({
   useNavigate: jest.fn(),
 }));
 
-describe('HomePageEmpty component', () => {
+describe('renderHomePageSignUp', () => {
   test('renders "Sign Up" button', () => {
     const { getByText } = render(<HomePageEmpty />);
     const signUpButton = getByText('Sign Up');
     expect(signUpButton).toBeInTheDocument();
   });
 
-  test('renders "Login" button', () => {
+  test('renderLoginButton', () => {
     const { getByText } = render(<HomePageEmpty />);
     const loginButton = getByText('Login');
     expect(loginButton).toBeInTheDocument();

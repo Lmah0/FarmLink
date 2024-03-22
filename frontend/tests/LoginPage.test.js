@@ -7,8 +7,13 @@ jest.mock('react-router-dom', () => ({
   useNavigate: jest.fn(),
 }));
 
+
 // test that the login form is rendered
 describe('LoginPage Component', () => {
+  beforeEach(() => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+  });
+  
   it('renders without crashing', () => {
     render(<LoginPage />);
   });
