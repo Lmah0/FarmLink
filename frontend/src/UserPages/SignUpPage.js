@@ -73,6 +73,7 @@ const SignUpPage = () => {
           <div className='signup-form-group'>
             <label className="signup-label">Are you a farmer?</label>
             <select className="input-form" value={role} onChange={(e) => setRole(e.target.value)}>
+              <option value="">Select a choice...</option>
               <option value="FARMER">Yes</option>
               <option value="NONFARMER">No</option>
             </select>

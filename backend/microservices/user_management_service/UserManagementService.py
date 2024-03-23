@@ -23,9 +23,10 @@ class UserManagementService(IUserManagementService.IUserManagementService):
             role = "NONFARMER"
 
         profileBio = data['profile_bio']
-
-        if not name or not phoneNumber or not emailAddress or not password or role == None:
+        
+        if not name or not phoneNumber or not emailAddress or not password or role == "":
             return jsonify({'message': 'name, phone number, email address, password and role are required.'}), 400
+        
         try: # check that role is in ROLE enum
             role = models.Role[role]
         except KeyError:
