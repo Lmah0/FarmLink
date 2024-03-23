@@ -33,18 +33,9 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
                 return jsonify({'message': 'Invalid values for userId or quantity.'}), 400
             elif quantity <= 0:
                 return jsonify({'message': 'quantity must be greater than 0.'}), 400
-            try:
-                newPosting = models.Posting(userId, postingAuthor, quantity, imageFile, description) # Add to posting table
-                
-                models.db.session.add(newPosting)
-                models.db.session.commit()
-            except Exception as e:
-                print(e)
-
-            postingId = newPosting.id
+            
             itemName = data['itemName']
             itemPrice = data['itemPrice']
-
             itemType = data['itemType']
         
             if 'itemName' not in data or 'itemPrice' not in data:
@@ -59,8 +50,16 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
             except KeyError:
                     return jsonify({'message': 'Invalid item type.'}), 400
 
-            newItem = models.Item(itemName, itemPrice, itemType, postingId) # add to item table
+            try:
+                newPosting = models.Posting(userId, postingAuthor, quantity, imageFile, description) # Add to posting table
                 
+                models.db.session.add(newPosting)
+                models.db.session.commit()
+            except Exception as e:
+                print(e)
+
+            postingId = newPosting.id
+            newItem = models.Item(itemName, itemPrice, itemType, postingId) # add to item table
             models.db.session.add(newItem)
             models.db.session.commit()
 
@@ -69,9 +68,6 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
 
         except Exception as e:
             return jsonify({'error': str(e)}), 500
-
-        
-        return jsonify({'message': 'File uploaded successfully'}), 200
 
     def getPostings(self):
         postings = models.Posting.query.all()
