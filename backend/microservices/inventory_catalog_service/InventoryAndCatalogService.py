@@ -36,7 +36,6 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
             
             itemName = data['itemName']
             itemPrice = data['itemPrice']
-
             itemType = data['itemType']
         
             if 'itemName' not in data or 'itemPrice' not in data:
@@ -69,9 +68,6 @@ class InventoryAndCatalogService(IInventoryAndCatalogService.IInventoryAndCatalo
 
         except Exception as e:
             return jsonify({'error': str(e)}), 500
-
-        
-        return jsonify({'message': 'File uploaded successfully'}), 200
 
     def getPostings(self):
         postings = models.Posting.query.all()
