@@ -54,11 +54,11 @@ function SellItems({currentUserID, currentUserName}) {
           return jsonRes['postingId']
         } else {
           console.log("Failed to add posting:", response.status);
-          alert('Failed to create listing. Please try again later.');
+          alert('Failed to create listing. Please ensure selling data is valid.');
         }
       } catch (error) {
         console.error("Error adding post:", error);
-        alert('Failed to create listing. Please try again later.');
+        alert('Failed to create listing. Please ensure selling data is valid.');
       }
     };
     addPosting();
