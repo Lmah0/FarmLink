@@ -71,11 +71,11 @@ const SignUpPage = () => {
             <input className="input-form" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
           <div className='signup-form-group'>
-            <label className="signup-label">Role</label>
+            <label className="signup-label">Are you a farmer?</label>
             <select className="input-form" value={role} onChange={(e) => setRole(e.target.value)}>
-              <option value="">Select Role</option>
-              <option value="FARMER">Farmer</option>
-              <option value="NONFARMER">Not a Farmer</option>
+              <option value="">Select a choice...</option>
+              <option value="FARMER">Yes</option>
+              <option value="NONFARMER">No</option>
             </select>
           </div>
           {role === 'FARMER' && (
