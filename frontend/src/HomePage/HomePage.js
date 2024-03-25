@@ -94,8 +94,8 @@ function HomePage({ items, loading, currentUserID, currentRole, currentUserName 
               <div
                 id="Item-box"
                 className={
-                  // currentUserID === item.user_id
-                  //   ? "hidden-element" :
+                    item.quantity === 0
+                    ? "hidden-element" :
                     expandedBoxes[index]
                     ? "expanded-item-box"
                     : yesExpandedBoxActive === true &&
