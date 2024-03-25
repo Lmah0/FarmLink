@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 
 function HomePage({ items, loading, currentUserID, currentRole, currentUserName }) {
-  console.log(items, "ITEMS")
-  console.log(currentUserID, "USER ID")
+  // console.log(items, "ITEMS")
+  // console.log(currentUserID, "USER ID")
 
   const navigate = useNavigate();
   const [expandedBoxes, setExpandedBoxes] = useState(
@@ -94,8 +94,8 @@ function HomePage({ items, loading, currentUserID, currentRole, currentUserName 
               <div
                 id="Item-box"
                 className={
-                  // currentUserID === item.user_id
-                  //   ? "hidden-element" :
+                    item.quantity === 0
+                    ? "hidden-element" :
                     expandedBoxes[index]
                     ? "expanded-item-box"
                     : yesExpandedBoxActive === true &&
